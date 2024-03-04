@@ -2,16 +2,16 @@
 
 ### I. Git
 
-![git flow](./exec/gitFlowImg/gitFlow.png)
+![gitFlow](https://github.com/Yeonwoo27/Algorithm_study/assets/161433883/e7076ccf-874c-4f9d-89c0-8b9c40028d9a)
 
-![git work flow](./exec/gitFlowImg/gitWorkFlow.png)
+![gitWorkFlow](https://github.com/Yeonwoo27/Algorithm_study/assets/161433883/078dac4d-a58b-445b-a26b-4f40d25ad221)
 
-![git convention](./exec/gitFlowImg/branchNameAndCommitMessage.png)
+![branchNameAndCommitMessage](https://github.com/Yeonwoo27/Algorithm_study/assets/161433883/9ffe8eae-1120-43ba-8067-fce77e9861da)
 
 <br />
 
 ### II. Notion
 
-<a href="https://magical-sweatshirt-a0d.notion.site/93d9ef3bac7f448089c1096c304fad54" target="_blank">Link</a>
+
 
 <br />
