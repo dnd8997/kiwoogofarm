@@ -39,6 +39,55 @@
 
 <br/>
 
+## 🛠️ 기술 스택
+
+#### Front
+
+ <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=Tailwind%20CSS&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
+
+#### Back
+
+<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=#007396" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <br/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><img src="https://img.shields.io/badge/GCP SDK-BBBBBB?style=for-the-badge&logo=GCPSDK&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/OAuth2-2496ED?style=for-the-badge&logo=OAuth2&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/GCP-2496ED?style=for-the-badge&logo=Ubuntu&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
+
+#### CI/CD
+
+<img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=NGINX&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
+
+#### 기타
+
+
+#### 협업 툴
+
+<img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/GitLab-FC6D26?style=for-the-badge&logo=GitLab&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Mattermost-0058CC?style=for-the-badge&logo=Mattermost&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
+
+<details><summary> <b> 상세 기술스택 및 버전</b> </summary>
+
+| 구분     | 기술스택           | 상세내용                  | 버전              |
+| -------- | ------------------ | ------------------------- | ----------------- |
+| 공통     | Gitlab             | 형상관리                  | \-                |
+|          | Jira               | 이슈관리                  | \-                |
+|          | Mattermost, Notion | 커뮤니케이션              | \-                |
+| BackEnd  | MySQL              | DBMS                      | 8.0.36           |
+|          | Java               | OpenJDK                   |\-         |
+|          | Spring Boot        | Java Server Framework     | \-             |
+|          | Spring Security    |                           | \-                |
+|          | JPA                |                           | \-                |
+|          | IntelliJ           | IDE                       | \-                |
+|          | OAuth2             |                           |\-            |
+|          | Gradle             | Build                     | 7.6.1             |
+| FrontEnd | Vue.js           | 프론트 프레임워크         | \-           |
+|          | Tailwind           | CSS 라이브러리            |\-           |
+|          | axios              | API 통신 라이브러리       | \-             |
+|          | IDE                | Visual Studio Code        | \-          |
+| Server   | AWS EC2            | Server                    | \-                |
+|          | Nginx              |                           |\-       |
+|          | Docker             |                           |\-            |
+
+</details>
+
+<br />
+
+
 
 ## 👥 협업 관리
 
