@@ -47,7 +47,7 @@
 
 #### Back
 
-<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=#007396" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <br/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><img src="https://img.shields.io/badge/GCP SDK-BBBBBB?style=for-the-badge&logo=GCPSDK&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/OAuth2-2496ED?style=for-the-badge&logo=OAuth2&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/GCP-2496ED?style=for-the-badge&logo=Ubuntu&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
+<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=#007396" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <br/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/OAuth2-2496ED?style=for-the-badge&logo=OAuth2&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
 
 #### CI/CD
 
@@ -68,19 +68,19 @@
 |          | Jira               | 이슈관리                  | \-                |
 |          | Mattermost, Notion | 커뮤니케이션              | \-                |
 | BackEnd  | MySQL              | DBMS                      | 8.0.36           |
-|          | Java               | OpenJDK                   |\-         |
-|          | Spring Boot        | Java Server Framework     | \-             |
-|          | Spring Security    |                           | \-                |
+|          | Java               | OpenJDK                   |17         |
+|          | Spring Boot        | Java Server Framework     | 3.2.3            |
 |          | JPA                |                           | \-                |
 |          | IntelliJ           | IDE                       | \-                |
+|          | Django           |                        | \-                |
 |          | OAuth2             |                           |\-            |
 |          | Gradle             | Build                     | 7.6.1             |
-| FrontEnd | Vue.js           | 프론트 프레임워크         | \-           |
-|          | Tailwind           | CSS 라이브러리            |\-           |
-|          | axios              | API 통신 라이브러리       | \-             |
+| FrontEnd | Vue.js           | 프론트 프레임워크         | 3.4.21           |
+|          | Tailwind           | CSS 라이브러리            |3.4.1           |
+|          | axios              | API 통신 라이브러리       | 1.6.7             |
 |          | IDE                | Visual Studio Code        | \-          |
 | Server   | AWS EC2            | Server                    | \-                |
-|          | Nginx              |                           |\-       |
+|          | Nginx              |                           |1.24.0       |
 |          | Docker             |                           |\-            |
 
 </details>
@@ -91,7 +91,7 @@
 
 ## 👥 협업 관리
 
-### I. Git
+### 🏞Git Flow
 
 ![gitFlow](https://github.com/Yeonwoo27/Algorithm_study/assets/161433883/e7076ccf-874c-4f9d-89c0-8b9c40028d9a)
 
@@ -101,8 +101,34 @@
 
 <br />
 
-### II. Notion
+### 📋 Jira
 
+매주 월요일 오전 회의에서 차주에 진행되어야 할 이슈를 백로그에 등록했습니다. 금주에 완료하지 못한 이슈나, 앞으로 진행할 이슈들을 추가합니다.
+
+- 에픽은 가장 큰 단위 기준으로 구성하였습니다.
+
+- 스토리는 실제 유저 플로우를 고려하여 `홈페이지에서 로그인 창을 통해 로그인 한다` 와 같이 작성하였으며,
+
+- 이슈는 스토리를 완료하기 위한 작은 업무 단위로 생성했습니다.
+- 에픽링크 태그를 사용하여 이슈를 구별하기 쉽게 했습니다.
+- 무엇보다 담당자와 스토리 포인트 설정, 현재 작업중인 내용 지라에 실시간으로 반영하는 것을 가장 중요하게 생각했습니다.
+
+<br/>
+
+
+### 📝Notion
+
+모두가 공유해야할 자료 및 링크는 노션에 정리했습니다. 특히 `userflow`와 같이 여러번 다시 봐야하고 중요한 정보들은 특히 노션에 공유하여 불필요한 커뮤니케이션 리소스를 줄이기 위해 노력했습니다.
+
+프로젝트 컨벤션, 문서, 참고자료, 산출물, 데일리 스크럼 등을 설정했습니다.
+
+![데일리스크럼](./exec/assets/notion_daily_scrum.PNG)
+
+<br/>
+
+![노션프로젝트파일](./exec/assets/notion_project_files.PNG)
+
+<br/>
 
 
 <br />
