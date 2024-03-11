@@ -93,7 +93,7 @@
 
 ### 🏞Git Flow
 
-![gitFlow](https://github.com/Yeonwoo27/Algorithm_study/assets/161433883/e7076ccf-874c-4f9d-89c0-8b9c40028d9a)
+![제목 없음](https://github.com/Yeonwoo27/Algorithm_study/assets/161433883/8204fa6e-3353-46f6-a014-66e749befa8c)
 
 ![gitWorkFlow](https://github.com/Yeonwoo27/Algorithm_study/assets/161433883/078dac4d-a58b-445b-a26b-4f40d25ad221)
 
