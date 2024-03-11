@@ -96,7 +96,9 @@
 git flow 사용을 위해 `우아한 형제들`의 [git flow 사용](https://techblog.woowahan.com/2553/)을 참고했습니다. 각자 맡은 기능에 맞게 `feature` 브랜치를 생성하고, 완료된 기능은 `develop`에 merge하여 사용했습니다. 충돌 상황을 최소화하고자 매일 오전 스크럼에 `develop` 최신 버전을 `pull`받고 시작할 것을 강조했습니다.
 
 또한 `commit message` 는 `[Prefix]type:Message ` 와 같이 통일하여 작성했습니다.
+
 Prefix : FE, BE
+
 Type:
 ```update : 기존의 기능 수정
 - add : 새로운 기능 추가
@@ -110,6 +112,7 @@ Type:
 - ci : CI관련 설정 style : 코드 의미에 영향을 주지 않는 변경사항 (포맷, 세미콜론 누락, 공백 등)
 - refactor : 성능 개선
 ```
+
 Message: 제목 작성
 
 ex) [FE]feat:메인 페이지 로고수정
