@@ -8,7 +8,7 @@
 
 <table> <tr> <td height="140px" align="center"> <a href="https://github.com/dolpongg"> <br><br> 👑 정연우 <br>(Full-Stack) </a> <br></td> <td height="140px" align="center"> <a href="https://github.com/xswaqz">  <br><br> 😆 한지원 <br>(Full-Stack) </a> <br></td> <td height="140px" align="center"> <a href="https://github.com/mickeyshoes"> <br><br> 😶 권수지 <br>(Full-Stack) </a> <br></td> <td height="140px" align="center"> <a href="https://github.com/YongjaeKwon"><br><br> 🙄 윤건웅 <br>(Full-Stack) </a> <br></td> <td height="140px" align="center"> <a href="https://github.com/moxnox63">  <br><br> 😁 박하윤 <br>(Full-Stack) </a> <br></td> <td height="140px" align="center"> <a href="https://github.com/HanKyeon"> <br><br> 🙂 조성주 <br>(Full-Stack) </a> <br></td> </tr> 
 <tr> 
-<td align="center">CI/CD</td>
+<td align="center">CI/CD<br>Figma 목업 작성</td>
 <td align="center"></td> 
 <td align="center"></td>
 <td align="center"></td>
