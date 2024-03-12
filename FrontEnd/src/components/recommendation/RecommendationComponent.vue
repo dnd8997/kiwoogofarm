@@ -1,16 +1,12 @@
 <template>
-  <div class="section">
-    <p class="text-3xl">RecommendationComponent</p>
-    <p>RecommendationComponent</p>
+  <div class="flex justify-center items-center flex-col">
+    <h2 class="text-3xl mt-40 font-Notosans font-bold">나에게 맞는 농작물은 무엇일까?</h2>
+    <img class="w-72 h-72 mt-5" alt="" src="@/assets/cropsrec_main_img.png">
+    <div class="text-xl mt-6 text-center font-Notosans font-medium">당신의 기호와 환경에 맞는<br>
+      농작물을 추천해드려요</div>
+    <div class="rounded-full bg-[#00B564] px-24 py-3 mt-6  text-lg font-Notosans font-bold text-white">시작하기</div>
   </div>
-  <p>RecommendationComponent</p>
 </template>
 
 <script setup>
 </script>
-
-<style scoped>
-.section {
-  /* 추가적인 스타일은 직접 여기에 추가 가능 */
-}
-</style>
