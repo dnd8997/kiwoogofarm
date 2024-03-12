@@ -1,5 +1,4 @@
 {
-  
   "name": "ddd",
   "version": "0.0.0",
   "private": true,
@@ -19,7 +18,6 @@
     "@vitejs/plugin-vue": "^5.0.3",
     "vite": "^5.0.11"
   }
-
 }
 
 
