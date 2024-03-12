@@ -1,5 +1,5 @@
 {
-  "name": "ddd",
+  "name": "grow-farm",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,15 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.6.7",
+    "aos": "^2.3.4",
+    "install": "^0.13.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.15",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuetify": "^3.5.8"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
     "vite": "^5.0.11"
   }
 }
-
-
