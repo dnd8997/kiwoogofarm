@@ -25,6 +25,11 @@ const router = createRouter({
       component: () => import('../views/RecommendationView.vue')
     },
     {
+      path: '/recommendsurvey',
+      name: 'recommendsurvey',
+      component: () => import('../views/RecommendationSurveyView.vue')
+    },
+    {
       path: '/recipe',
       name: 'recipe',
       component: () => import('../views/RecipeView.vue')
