@@ -11,7 +11,7 @@
 <style scoped>
 .logo__img {
     margin-top: 20px;
-    height: 120px;
+    height: 90px;
     -ms-user-select: none;
     -moz-user-select: -moz-none;
     -webkit-user-select: none;

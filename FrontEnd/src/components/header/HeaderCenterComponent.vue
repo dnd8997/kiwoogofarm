@@ -35,11 +35,11 @@ const items = (['농작물 정보', '농작물 추천', '요리 추천', '내 �
 <style scoped>
 .v-text {
     transition: opacity .25s ease-in-out;
-    width: 60%;
+    width: 55%;
     text-align: center;
     font-family: Noto Sans KR, sans-serif;
     font-weight: 700;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 52px;
     cursor: pointer;
     -ms-user-select: none;
