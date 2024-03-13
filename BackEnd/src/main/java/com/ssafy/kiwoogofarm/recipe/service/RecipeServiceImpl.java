@@ -27,6 +27,12 @@ public class RecipeServiceImpl implements RecipeService {
 ////        recipe = Recipe.builder().recipeDetailList(recipeDetailList).build();
 ////        recipe = recipe.toBuilder().recipeDetailList(recipeDetailList).build();
 //        return recipe;
-        return recipeRepository.findById(id).orElse(null).toBuilder().recipeDetailList(recipeDetailRepository.findAllByRecipeId(id)).build();
+        return recipeRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<RecipeDetail> getRecipieDetailList(Long recipeId) {
+        return recipeDetailRepository.findAllByRecipeId(recipeId);
+    }
+
 }

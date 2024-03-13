@@ -52,7 +52,6 @@ public class RecipeController {
     @GetMapping("/{id}")
     public ResponseEntity<RecipeDto> getRecipe(@PathVariable Long id) {
         Recipe recipe = recipeService.getRecipe(id);
-//        List<RecipeDetail> recipeDetailList = recipeService;
         RecipeDto recipeDto = RecipeDto.builder()
                 .id(recipe.getId())
                 .serialNum(recipe.getSerialNum())
@@ -63,7 +62,7 @@ public class RecipeController {
                 .image(recipe.getImage())
                 .difficulty(recipe.getDifficulty())
                 .likes(recipe.getLikes())
-                .recipeDetailList(recipe.getRecipeDetailList())
+                .recipeDetailList(recipeService.getRecipieDetailList(recipe.getId()))
                 .build();
         log.info("레시피 상세 정보: {}", recipeDto);
         return ResponseEntity.ok().body(recipeDto);
