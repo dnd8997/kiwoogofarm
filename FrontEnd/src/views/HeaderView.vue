@@ -6,7 +6,7 @@ import HeaderEndComponent from '@/components/header/HeaderEndComponent.vue';
 </script>
 
 <template>
-  <v-app-bar elevation="0" class="header__appbar" :height="140">
+  <v-app-bar elevation="0" class="header__appbar" :height="110">
     <!-- start section -->
     <div class="app-bar-section start">
       <HeaderStartComponent />
@@ -34,7 +34,7 @@ import HeaderEndComponent from '@/components/header/HeaderEndComponent.vue';
     position: fixed;
     width: 100%;
     height: auto !important;
-    min-height: 140px;
+    /* min-height: 140px; */
     border-block: 1px solid rgba(0,0,0,0.1);
   }
 
