@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-48 flex flex-row justify-center items-center">
+  <div class="mt-40 flex flex-row justify-center items-center">
     <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-96">&lt; </button>
 
     <!--    첫번째 질문-->
     <div  v-if="currentPage === 1" class="flex flex-col justify-center items-center">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(1/7)</span>
-      <span class="mt-5 font-bold font-Notosans text-4xl text-center">농작물을 키울 곳은<br>어디인가요?</span>
+      <span class="mt-5 font-bold font-Notosans text-4xl text-center">실외공간...</span>
       <img alt="Survey1" class="w-80 h-80 mt-3" src="@/assets/cropsSurvey1.jpg">
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
