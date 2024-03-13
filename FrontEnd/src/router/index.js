@@ -40,6 +40,11 @@ const router = createRouter({
       component: () => import('../views/OutsideRecommendSurveyView.vue')
     },
     {
+      path: '/recommendresult',
+      name: 'recommendresult',
+      component: () => import('../views/RecommendResultView.vue')
+    },
+    {
       path: '/recipe',
       name: 'recipe',
       component: () => import('../views/RecipeView.vue')

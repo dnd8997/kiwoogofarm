@@ -1,5 +1,6 @@
 <template>
   <div class="mt-40 flex flex-row justify-center items-center">
+<!--왼쪽 이동 버튼-->
     <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-96">&lt; </button>
 
     <!--    첫번째 질문-->
@@ -149,14 +150,20 @@
       <div class="py-10"></div>
     </div>
 
+<!--    오른쪽 이동버튼-->
     <button @click="nextPage" v-if="currentPage < 7" class="absolute w-40 h-40 right-96"> &gt;</button>
-    <div v-if="currentPage === 7" class="font-Notosans font-bold text-xl  absolute w-40 h-40 right-96 cursor-pointer flex items-center justify-center" >
-    추천 받기
-      <v-icon
-          icon="mdi-arrow-right"
-          start
-      ></v-icon>
-    </div>
+
+<!--    추천 받기 버튼-->
+    <router-link to="/recommendresult">
+      <div v-if="currentPage === 7"
+           class="font-Notosans font-bold text-xl  absolute w-40 h-40 right-80 cursor-pointer flex items-center justify-center">
+      추천 받기
+        <v-icon
+            icon="mdi-arrow-right"
+            start
+        ></v-icon>
+      </div>
+    </router-link>
 
   </div>
 </template>
