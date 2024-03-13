@@ -1,5 +1,6 @@
 package com.ssafy.kiwoogofarm.recipe.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,8 +27,10 @@ public class Recipe {
     private String difficulty;
     private int likes;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @Column(name = "recipe_id")
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @Column(name = "recipe_id")
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+    @JsonManagedReference
     @OrderBy("recipe_order")
     private List<RecipeDetail> recipeDetailList = new ArrayList<>();
 
