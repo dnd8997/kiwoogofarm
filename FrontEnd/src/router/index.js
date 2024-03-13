@@ -25,6 +25,21 @@ const router = createRouter({
       component: () => import('../views/RecommendationView.vue')
     },
     {
+      path: '/recommendselect',
+      name: 'recommendselect',
+      component: () => import('../views/RecommendationSelectSurveyView.vue')
+    },
+    {
+      path: '/recommendsurvey/1',
+      name: 'insiderecommendsurvey',
+      component: () => import('../views/InsideRecommedSurveyView.vue')
+    },
+    {
+      path: '/recommendsurvey/2',
+      name: 'outsiderecommendsurvey',
+      component: () => import('../views/OutsideRecommendSurveyView.vue')
+    },
+    {
       path: '/recipe',
       name: 'recipe',
       component: () => import('../views/RecipeView.vue')
