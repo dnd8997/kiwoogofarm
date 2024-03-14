@@ -13,7 +13,7 @@ spring:
       # 프로젝트 시작때마다 생성이므로 데이터 다 초기화 됨
       ddl-auto: create
   datasource:
-    url: jdbc:mysql://localhost:3306/member?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://j10b303.p.ssafy.io:3306/member?serverTimezone=Asia/Seoul
     username: root
     password: ssafy
     driver-class-name: com.mysql.cj.jdbc.Driver
