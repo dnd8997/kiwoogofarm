@@ -52,7 +52,7 @@ spring:
           clientId: 20dc23e573cbebb6e44b57c46021b332
           clientAuthenticationMethod: client_secret_post
           authorizationGrantType: authorization_code
-          redirectUri: "http://j10b303.p.ssafy.io/{action}/oauth2/code/{registrationId}"
+          redirectUri: "http://j10b303.p.ssafy.io/oauth2/code/kakao"
           scope:
             - profile_nickname
             - profile_image
