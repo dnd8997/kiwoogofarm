@@ -9,6 +9,7 @@ public interface RecipeService {
 
     List<Recipe> getAllRecipes();
     Recipe getRecipe(Long id);
-    List<RecipeDetail> getRecipieDetailList(Long recipeId);
+    List<RecipeDetail> getRecipeDetailList(Long recipeId);
+    List<Recipe> getRecipeListByKeyword(String keyword);
 
 }

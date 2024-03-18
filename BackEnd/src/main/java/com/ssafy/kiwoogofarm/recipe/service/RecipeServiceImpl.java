@@ -31,8 +31,12 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<RecipeDetail> getRecipieDetailList(Long recipeId) {
+    public List<RecipeDetail> getRecipeDetailList(Long recipeId) {
         return recipeDetailRepository.findAllByRecipeId(recipeId);
+    }
+
+    public List<Recipe> getRecipeListByKeyword(String keyword) {
+        return recipeRepository.findAllByNameContaining(keyword);
     }
 
 }
