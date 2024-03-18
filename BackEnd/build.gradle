@@ -1,54 +1,47 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.2'
+	id 'org.springframework.boot' version '3.2.1'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
-group = 'com.ssafy'
-version = '0.0.1-SNAPSHOT'
+group = 'b303'
+version = '0.0.1-SNAPSHOT' // 프로젝트 버전
 
 java {
 	sourceCompatibility = '17'
 }
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor // 컴파일 시에만 사용되는 종속성 설정
+	}
+}
+
 repositories {
-	mavenCentral()
+	mavenCentral() // Maven 중앙 저장소를 사용하여 의존성을 해결합니다.
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	// jwt
-	implementation 'com.auth0:java-jwt:4.4.0'
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	// oauth2
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	// jpa
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-	// mybatis
-	// implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	implementation 'org.springframework.boot:spring-boot-starter-web' // Spring Web
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Spring Data JPA
+	implementation 'mysql:mysql-connector-java:8.0.33'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 테스트를 위한 스프링 부트 스타터
 
-	// lombok
-	annotationProcessor 'org.projectlombok:lombok'
-	compileOnly 'org.projectlombok:lombok'
+	// Amazon S3
+//	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' // Amazon Web Services (AWS)를 위한 Spring Cloud
 
-	// jwt
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
+//	runtimeOnly 'com.mysql:mysql-connector-j' // MySQL JDBC 드라이버
+	implementation 'org.projectlombok:lombok' //롬복
+	annotationProcessor 'org.projectlombok:lombok' // 롬복 어노테이션 프로세서
+	testImplementation 'org.springframework.security:spring-security-test' // Spring Security 테스트를 위한 라이브러리
+	implementation 'com.google.code.gson:gson' // JSON 데이터를 직렬화 및 역직렬화하기 위한 Google Gson 라이브러리
 
-	// sql
-	runtimeOnly "com.mysql:mysql-connector-j"
 
-	// aop
-	// implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.2'
-
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	testImplementation 'io.rest-assured:rest-assured:5.3.0'
+//	implementation 'org.springframework.boot:spring-boot-starter-webflux' // Reactive 웹 애플리케이션을 위한 Spring Boot 스타터
+//	implementation 'org.json:json:20210307' // JSON 데이터를 처리하기 위한 라이브러리
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+	useJUnitPlatform() // JUnit 테스트 플랫폼을 사용하여 테스트를 실행
 }

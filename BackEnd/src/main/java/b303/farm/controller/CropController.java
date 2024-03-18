@@ -1,0 +1,40 @@
+package b303.farm.controller;
+
+import b303.farm.entity.Crop;
+import b303.farm.service.CropService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/crop")
+public class CropController {
+
+    @Autowired
+    private CropService cropService;
+
+    // 농작물 전체 조회
+    @GetMapping("/all")
+    public List<Crop> getAllCrops() {
+        return cropService.getAllCrops();
+    }
+
+    // 농작물 상세 조회
+    @GetMapping("/{id}")
+    public Crop getCropDetails(@PathVariable Long id) {
+        return cropService.getCropDetails(id);
+    }
+
+//    // 농작물 추천
+//    @PostMapping("/recommend")
+//    public List<Crop> recommendCrops(@RequestBody RecommendationRequest request) {
+//        return cropService.recommendCrops(request);
+//    }
+//
+//    // 농작물 찜 변경
+//    @PostMapping("/like")
+//    public String likeCrop(@RequestBody LikeRequest request) {
+//        return cropService.likeCrop(request);
+//    }
+}
