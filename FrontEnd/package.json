@@ -12,7 +12,9 @@
     "aos": "^2.3.4",
     "install": "^0.13.0",
     "pinia": "^2.1.7",
+    "swiper": "^8.4.7",
     "vue": "^3.4.15",
+    "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.3.0",
     "vuetify": "^3.5.8"
   },
