@@ -6,20 +6,20 @@
     <!--    첫번째 질문-->
     <div  v-if="currentPage === 1" class="flex flex-col justify-center items-center">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(1/7)</span>
-      <span class="mt-5 font-bold font-Notosans text-4xl text-center">실내공간..</span>
-      <img alt="Survey1" class="w-80 h-80 mt-3" src="@/assets/cropsSurvey1.jpg">
+      <span class="mt-5 font-bold font-Notosans text-4xl text-center">농작물을 키워본<br>경험이 있나요?</span>
+      <img alt="Survey1" class="w-80 h-80 mt-3 mb-3" src="@/assets/inside_image1.jpg">
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[1].value === 1 }"
-           @click="handleClick(1,1)" >실내공간</div>
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base !important"
+           :class="isSelected[1].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick(1,1)" >아니요, 처음입니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[1].value === 2 }"
-           @click="handleClick(1,2)" >베란다</div>
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[1].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick(1,2)" >많이는 아니지만, 소소하게 키워봤습니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[1].value === 3 }"
-           @click="handleClick(1,3)">실외공간(마당,테라스)</div>
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[1].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick(1,3)">꽤 많이 키워봤습니다.</div>
 
       <div class="py-10"></div>
     </div>
@@ -30,16 +30,16 @@
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">농작물을 키워본<br>경험이 있나요?</span>
       <img alt="Survey2" class="w-80 h-80 mt-3" src="@/assets/cropsSurvey2.jpg">
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[2].value === 1 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 font-Notosans font-medium text-base"
+           :class="isSelected[2].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(2,1)" >아니요, 처음입니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[2].value === 2 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[2].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(2,2)" >많이는 아니지만, 소소하게 키워봤습니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[2].value === 3 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[2].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(2,3)">꽤 많이 키워봤습니다.</div>
 
       <div class="py-10"></div>
@@ -51,16 +51,16 @@
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">농작물을 키워본<br>경험이 있나요?</span>
       <img alt="Survey3" class="w-80 h-80 mt-3" src="@/assets/cropsSurvey2.jpg">
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[3].value === 1 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[3].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(3,1)" >아니요, 처음입니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[3].value === 2 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[3].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(3,2)" >많이는 아니지만, 소소하게 키워봤습니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[3].value === 3 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 font-Notosans font-medium text-base"
+           :class="isSelected[3].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(3,3)">꽤 많이 키워봤습니다.</div>
 
       <div class="py-10"></div>
@@ -72,16 +72,16 @@
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">농작물을 키워본<br>경험이 있나요?</span>
       <img alt="Survey4" class="w-80 h-80 mt-3" src="@/assets/cropsSurvey2.jpg">
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[4].value === 1 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[4].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(4,1)" >아니요, 처음입니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[4].value === 2 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[4].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(4,2)" >많이는 아니지만, 소소하게 키워봤습니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[4].value === 3 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[4].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(4,3)">꽤 많이 키워봤습니다.</div>
 
       <div class="py-10"></div>
@@ -93,16 +93,16 @@
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">농작물을 키워본<br>경험이 있나요?</span>
       <img alt="Survey5" class="w-80 h-80 mt-3" src="@/assets/cropsSurvey2.jpg">
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[5].value === 1 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[5].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(5,1)" >아니요, 처음입니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[5].value === 2 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[5].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(5,2)" >많이는 아니지만, 소소하게 키워봤습니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[5].value === 3 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[5].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(5,3)">꽤 많이 키워봤습니다.</div>
 
       <div class="py-10"></div>
@@ -114,16 +114,16 @@
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">농작물을 키워본<br>경험이 있나요?</span>
       <img alt="Survey6" class="w-80 h-80 mt-3" src="@/assets/cropsSurvey2.jpg">
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[6].value === 1 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 font-Notosans font-medium text-base"
+           :class="isSelected[6].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(6,1)" >아니요, 처음입니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[6].value === 2 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[6].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(6,2)" >많이는 아니지만, 소소하게 키워봤습니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[6].value === 3 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[6].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(6,3)">꽤 많이 키워봤습니다.</div>
 
       <div class="py-10"></div>
@@ -135,16 +135,16 @@
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">농작물을 키워본<br>경험이 있나요?</span>
       <img alt="Survey7" class="w-80 h-80 mt-3" src="@/assets/cropsSurvey2.jpg">
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[7].value === 1 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[7].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(7,1)" >아니요, 처음입니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[7].value === 2 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[7].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(7,2)" >많이는 아니지만, 소소하게 키워봤습니다.</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 bg-[#F6F6F3] text-[#444444] font-Notosans font-medium text-base"
-           :class="{ 'bg-[#00B562] text-white': isSelected[7].value === 3 }"
+      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
+           :class="isSelected[7].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick(7,3)">꽤 많이 키워봤습니다.</div>
 
       <div class="py-10"></div>
