@@ -8,7 +8,9 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
-
+ build: {
+    outDir: 'dist', // 빌드 결과물이 생성될 경로
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
