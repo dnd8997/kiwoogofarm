@@ -9,5 +9,3 @@ RUN npm install
 COPY . .
 
 RUN npm run build
-
-CMD ["node", "server.js"]  # 예시: 서버 파일의 이름이 server.js인 경우
