@@ -10,8 +10,4 @@ COPY . .
 
 RUN npm run build
 
-
-EXPOSE 5173
-
-CMD ["npm", "run", "start"]
-
+CMD ["node", "server.js"]  # 예시: 서버 파일의 이름이 server.js인 경우
