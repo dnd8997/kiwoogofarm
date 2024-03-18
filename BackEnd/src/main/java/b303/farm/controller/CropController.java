@@ -22,9 +22,10 @@ public class CropController {
 
     // 농작물 상세 조회
     @GetMapping("/{id}")
-    public Crop getCropDetails(@PathVariable Long id) {
+    public Crop getCropDetails(@PathVariable("id") Long id) {
         return cropService.getCropDetails(id);
     }
+
 
 //    // 농작물 추천
 //    @PostMapping("/recommend")
