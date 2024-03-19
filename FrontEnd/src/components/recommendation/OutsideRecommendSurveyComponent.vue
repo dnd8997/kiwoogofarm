@@ -10,15 +10,15 @@
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[1].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(1,1)" >아니요, 처음입니다.</div>
+           @click="handleClick(1,1)" >아니요, 처음입니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[1].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(1,2)" >많이는 아니지만, 소소하게 키워봤습니다.</div>
+           @click="handleClick(1,2)" >많이는 아니지만, 소소하게 키워봤습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[1].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(1,3)">꽤 많이 키워봤습니다.</div>
+           @click="handleClick(1,3)">꽤 많이 키워봤습니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -77,15 +77,15 @@
 
       <div class="cursor-pointer mt-8 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[4].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(4,1)" >6시간 이상 직접적인 햇빛을 받습니다.</div>
+           @click="handleClick(4,1)" >6시간 이상 직접적인 햇빛을 받습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[4].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(4,2)" >4~6시간 정도 햇빛을 받습니다.</div>
+           @click="handleClick(4,2)" >4~6시간 정도 햇빛을 받습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[4].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(4,3)">4시간 미만의 햇빛을 받습니다.</div>
+           @click="handleClick(4,3)">4시간 미만의 햇빛을 받습니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -98,15 +98,15 @@
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[5].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(5,1)" >매일 줄 수 있습니다.</div>
+           @click="handleClick(5,1)" >매일 줄 수 있습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[5].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(5,2)" >2~3일에 한 번 줄 수 있습니다.</div>
+           @click="handleClick(5,2)" >2~3일에 한 번 줄 수 있습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[5].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(5,3)">주 1회정도만 가능합니다.</div>
+           @click="handleClick(5,3)">주 1회정도만 가능합니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -119,19 +119,19 @@
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[6].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(6,1)" >물빠짐이 빠릅니다.</div>
+           @click="handleClick(6,1)" >물빠짐이 빠릅니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[6].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(6,2)" >보통의 물빠짐을 가집니다.</div>
+           @click="handleClick(6,2)" >보통의 물빠짐을 가집니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[6].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(6,3)">물빠짐이 느립니다.</div>
+           @click="handleClick(6,3)">물빠짐이 느립니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[6].value === 4 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(6,4)">잘 모르겠습니다.</div>
+           @click="handleClick(6,4)">잘 모르겠습니다</div>
 
 
       <div class="py-10"></div>
@@ -140,20 +140,20 @@
     <!--    일곱번째 질문-->
     <div v-if="currentPage === 7" class="flex flex-col justify-center items-center">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(7/7)</span>
-      <span class="mt-5 font-bold font-Notosans text-4xl text-center">농작물을 키워본<br>경험이 있나요?</span>
-      <img alt="Survey7" class="w-80 h-80 mt-3" src="@/assets/cropsSurvey2.jpg">
+      <span class="mt-5 font-bold font-Notosans text-4xl text-center">수경재배를 활용하여<br>키우실 생각이신가요?</span>
+      <img alt="Survey7" class="w-72 h-72 mt-6" src="@/assets/outsideImage7.jpg">
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
+      <div class="cursor-pointer mt-6 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[7].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(7,1)" >아니요, 처음입니다.</div>
+           @click="handleClick(7,1)" >네</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[7].value === 2 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(7,2)" >많이는 아니지만, 소소하게 키워봤습니다.</div>
+           @click="handleClick(7,2)" >아니요</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
            :class="isSelected[7].value === 3 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(7,3)">꽤 많이 키워봤습니다.</div>
+           @click="handleClick(7,3)">잘 모르겠습니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -223,11 +223,9 @@ const isAllSelected = () => {
   return Object.values(isSelected).every(item => item.value !== 0);
 };
 
-
 const handleClick = (index, value) => {
   isSelected[index].value =  value ;
   console.log(isSelected[index].value);
-  console.log(isAllSelected());
 };
 </script>
 
