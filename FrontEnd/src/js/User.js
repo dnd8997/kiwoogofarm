@@ -1,4 +1,4 @@
-const { localaxios } = require("./BaseAxios");
+import { localaxios } from "./BaseAxios";
 
 const local = localaxios();
 
