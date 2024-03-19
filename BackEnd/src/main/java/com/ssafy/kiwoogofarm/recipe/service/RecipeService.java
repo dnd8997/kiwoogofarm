@@ -9,4 +9,5 @@ public interface RecipeService {
     List<Recipe> getAllRecipes();
     Recipe getRecipe(Long id);
 
+    String favoriteRecipe(Long id);
 }

@@ -16,6 +16,7 @@ public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="recipe_id")
     private Long id;
 
     private Long serialNum;
@@ -27,12 +28,11 @@ public class Recipe {
     private String difficulty;
     private int likes;
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @Column(name = "recipe_id")
-    @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "recipe")
     @JsonManagedReference
     @OrderBy("recipe_order")
     private List<RecipeDetail> recipeDetailList = new ArrayList<>();
+
 
     @Builder(toBuilder = true)
     public Recipe(Long id, Long serialNum, String name, String info, String ingredients, String cook, String image, String difficulty, int likes, List<RecipeDetail> recipeDetailList) {

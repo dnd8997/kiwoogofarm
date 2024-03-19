@@ -13,6 +13,7 @@ public class RecipeDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="recipedetail_id")
     private Long id;
 
     private int recipe_order;
