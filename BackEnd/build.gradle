@@ -16,37 +16,42 @@ repositories {
 }
 
 dependencies {
+	// Spring Boot Starters
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	// jwt
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+	// JWT
 	implementation 'com.auth0:java-jwt:4.4.0'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	// oauth2
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	// jpa
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-	// mybatis
-	// implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-
-	// lombok
-	annotationProcessor 'org.projectlombok:lombok'
-	compileOnly 'org.projectlombok:lombok'
-
-	// jwt
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	// sql
+	// SQL Driver
 	runtimeOnly "com.mysql:mysql-connector-j"
 
-	// aop
-	// implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.2'
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 
+	// Testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'io.rest-assured:rest-assured:5.3.0'
+
+	// Optional: Uncomment if using MyBatis
+	// implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+	// Optional: Uncomment if using AOP
+	// implementation 'org.springframework.boot:spring-boot-starter-aop'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
 }
 
 tasks.named('test') {
