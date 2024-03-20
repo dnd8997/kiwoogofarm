@@ -10,4 +10,6 @@ public interface RecipeService {
     Recipe getRecipe(Long id);
 
     String favoriteRecipe(Long id);
+
+    List<Recipe> getMyFavoriteRecipes();
 }

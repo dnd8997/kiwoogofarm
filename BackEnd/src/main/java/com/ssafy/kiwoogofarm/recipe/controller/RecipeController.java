@@ -67,12 +67,39 @@ public class RecipeController {
         return ResponseEntity.ok().body(recipeDto);
     }
 
+    //즐겨찾기 설정/해제
     @PostMapping("/{id}/favorites")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> favoriteRecipe(@PathVariable final Long id) {
         String responseMessage = recipeService.favoriteRecipe(id);
         return ResponseEntity.ok(responseMessage);
     }
+
+    //내가 찜한 레시피 조회
+    @GetMapping("/my/favorites")
+    public ResponseEntity<List<RecipeDto>> getMyRecipeFavorites(){
+        List<RecipeDto> recipeDtoList = new ArrayList<>();
+        List<Recipe> myFavoriteRecipes = recipeService.getMyFavoriteRecipes();
+
+        log.info("유저가 즐겨찾기한 레시피 정보");
+        for(Recipe r : myFavoriteRecipes) {
+            RecipeDto recipeDto = RecipeDto.builder()
+                    .id(r.getId())
+                    .serialNum(r.getSerialNum())
+                    .name(r.getName())
+                    .info(r.getInfo())
+                    .ingredients(r.getIngredients())
+                    .cook(r.getCook())
+                    .image(r.getImage())
+                    .difficulty(r.getDifficulty())
+                    .likes(r.getLikes())
+                    .build();
+            log.info("즐겨찾기한 레시피 정보: {}", recipeDto);
+            recipeDtoList.add(recipeDto);
+        }
+        return ResponseEntity.ok().body(recipeDtoList);
+    }
+
 
 
 }

@@ -15,4 +15,8 @@ public interface FavoriteRecipeRepository extends JpaRepository<RecipeFavorites,
     List<RecipeFavorites> findAllByUser(User user);
 
 
+    // 3/21에 해봅시다!!
+    List<RecipeFavorites> findAllByUserIdAndRecipeIdAndStatus(Long userId, Long recipeId, boolean status);
+
+
 }

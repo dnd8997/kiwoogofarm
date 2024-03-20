@@ -31,7 +31,7 @@ public class RecipeFavorites {
     //생성 메서드
     public static RecipeFavorites createRecipeFavorites(Recipe recipe, User user){
         RecipeFavorites recipeFavorites = new RecipeFavorites();
-        recipeFavorites.setRecipe(recipe);  //단방향이라서 이렇게만 설정해줘도 됨?
+        recipeFavorites.setRecipe(recipe);
         recipeFavorites.setStatus(true);
         user.addRecipeFavorite(recipeFavorites);
         recipe.addLike();
@@ -42,15 +42,17 @@ public class RecipeFavorites {
         //favoriteRecipe의 status를 변경하고
         setStatus(false);
         //User와 RecipeFavorite연관관계끊어버리고(단방향으로)
-        getUser().removeRecipeFavorite(this);
+        getUser().removeRecipeFavorite(this);  //여기가 문제
         //Recipe에 있는 likes++
         getRecipe().removeLike();
     }
 
-    //re를 따로 만들어줘야하나??
+
     public void reFavoriteRecipe(){
         //여기는 연관관계생성하면 안됨(즐겨찾기 재설정하는데 새로운 필드가 생겨서)
         setStatus(true);
+        //==============설정해줘야 되나??????===============
+        getUser().addRecipeFavorite(this);
         getRecipe().addLike();
     }
 }
