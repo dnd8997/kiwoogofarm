@@ -11,6 +11,7 @@ import com.ssafy.kiwoogofarm.social.domain.User;
 import com.ssafy.kiwoogofarm.social.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -38,20 +39,32 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    @Transactional  //class단위로 넣어야 되는지?
     public String favoriteRecipe(Long id){
         Recipe recipe = recipeRepository.findById(id).orElseThrow(RecipeNotFoundException::new);
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
         User user = userRepository.findByNickname("sooji"); //임의-> 수정
-        if(favoriteRecipeRepository.findByRecipeAndUser(recipe,user)==null){
-            RecipeFavorites recipeFavorites = new RecipeFavorites(recipe,user); //생성->true설정
+
+        //db에서 recipe,user가 둘다 같은 데이터가 있는지 조회한다(true,false불문)
+        RecipeFavorites recipeFavorites = favoriteRecipeRepository.findByRecipeAndUser(recipe, user);
+        //만약 없다면, 생성하고 저장한다.
+        if(recipeFavorites == null){
+            recipeFavorites = RecipeFavorites.createRecipeFavorites(recipe, user);
             favoriteRecipeRepository.save(recipeFavorites);
-            return "즐겨찾기 처리 완료";
+            return "즐겨찾기 신규설정";  //다른 값?
         } else {
-            RecipeFavorites recipeFavorites = favoriteRecipeRepository.findByRecipe(recipe);
-            recipeFavorites.unFavoriteRecipe(user);
-            favoriteRecipeRepository.delete(recipeFavorites);  //status만 바꾸고 지우면 안되는건가??
-            return "즐겨찾기 취소";
+            //만약 존재한다면
+            //그리고 status값이 true라면, status를 false로 바꾸고
+            if (recipeFavorites.isStatus()){
+                recipeFavorites.unFavoriteRecipe();
+                return "즐겨찾기 취소";
+            } else {
+                //status값이 false라면,status를 true로 바꾼다.
+                recipeFavorites.reFavoriteRecipe();
+                return "즐겨찾기 재설정";
+            }
+//            favoriteRecipeRepository.delete(recipeFavorites);  //status만 바꾸고 지우면 안되는건가??
         }
     }
 }

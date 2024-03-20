@@ -24,6 +24,7 @@ public class User {
     private Long id;
     private String email;   // 이메일
     private String password;    // 비밀번호
+    //닉네임 unique설정해주기
     private String nickname;    // 닉네임
     private String imageUrl;    // 프로필 이미지
     private int age;
@@ -42,6 +43,15 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<RecipeFavorites> recipeFavoritesList= new ArrayList<>();
 
+    //==비즈니스로직 및 (User,RecipeFavorites)연관관계편의 메서드==//
+    public void addRecipeFavorite(RecipeFavorites recipeFavorites) {
+        recipeFavoritesList.add(recipeFavorites);
+        recipeFavorites.setUser(this);
+    }
+    public void removeRecipeFavorite(RecipeFavorites recipeFavorites) {
+        recipeFavoritesList.remove(recipeFavorites);
+        //이 부분에 setUser(null)추가하면 안됨.findByRecipeAndUser이 부분에서 조회가 안됨.
+    }
     //추가한 부분 end
 
     // 유저 권한 설정 메서드
