@@ -2,14 +2,14 @@ jwt:
   secretKey: jfdashlghiopewrgjweirquyptih4554dfkjhertiuyasdf
   access:
     header: Access
-    expiration: 3600
+    expiration: 1800000000
   refresh:
     header: Refresh
     expiration: 604800
 
 spring:
   datasource:
-    url: jdbc:mysql://j10b303.p.ssafy.io:3306/member?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/member?serverTimezone=Asia/Seoul
     username: root
     password: ssafy
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -28,7 +28,7 @@ spring:
     properties:
       hibernate:
         format_sql: true # SQL 포맷을 보기 좋게 출력
-        ddl-auto: create # 프로젝트 시작때마다 테이블 생성, 서비스 단계에서는 'none'으로 변경 권장
+        ddl-auto: none # 프로젝트 시작때마다 테이블 생성, 서비스 단계에서는 'none'으로 변경 권장
         open-in-view: false # Open-Session-In-View 패턴을 비활성화 (성능 및 관리 측면에서 권장)
 
 
@@ -54,10 +54,10 @@ spring:
               - profile_image
             clientName: Naver
           kakao:
-            clientId: 20dc23e573cbebb6e44b57c46021b332
+            clientId: c0d83299c2e8b952a8be065bee8d62c9
             clientAuthenticationMethod: client_secret_post
             authorizationGrantType: authorization_code
-            redirectUri: "http://j10b303.p.ssafy.io:8080/{action}/oauth2/code/{registrationId}"
+            redirectUri: "http://192.168.31.57:8080/{action}/oauth2/code/{registrationId}"
             scope:
               - profile_nickname
               - profile_image
