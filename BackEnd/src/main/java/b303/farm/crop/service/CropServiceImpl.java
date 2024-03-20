@@ -23,6 +23,12 @@ public class CropServiceImpl implements CropService {
         return cropRepository.findById(id).orElse(null);
     }
 
+    //검색
+    @Override
+    public List<Crop> searchCrops(String name) {
+        return cropRepository.findByNameContaining(name);
+    }
+
 //    @Override
 //    public List<Crop> recommendCrops(RecommendationRequest request) {
 //        // 추천 로직 구현
