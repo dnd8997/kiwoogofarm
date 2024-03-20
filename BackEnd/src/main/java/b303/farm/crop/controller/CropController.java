@@ -3,10 +3,7 @@ package b303.farm.crop.controller;
 import b303.farm.crop.entity.Crop;
 import b303.farm.crop.service.CropService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +24,12 @@ public class CropController {
     @GetMapping("/{id}")
     public Crop getCropDetails(@PathVariable("id") Long id) {
         return cropService.getCropDetails(id);
+    }
+
+    //검색
+    @GetMapping("/search")
+    public List<Crop> searchCrops(@RequestParam(name = "name") String name) {
+        return cropService.searchCrops(name);
     }
 
 
