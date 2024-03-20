@@ -7,10 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "vite" 
+    "start": "vite"
   },
   "dependencies": {
     "aos": "^2.3.4",
+    "axios": "^1.6.8",
     "install": "^0.13.0",
     "pinia": "^2.1.7",
     "swiper": "^8.4.7",
