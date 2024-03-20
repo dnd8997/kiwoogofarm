@@ -57,4 +57,21 @@ const router = createRouter({
   ]
 })
 
+
+router.beforeEach((to, from, next) => {
+  const { accessToken, refreshToken } = to.query
+  if ( accessToken !== undefined && refreshToken !== undefined) {
+    localStorage.setItem('accessToken', accessToken)
+    localStorage.setItem('refreshToken', refreshToken)
+    console.log('accessToken = ', accessToken)
+    console.log('refreshToken = ', refreshToken)
+
+    next('/')
+  } else {
+    next()
+  }
+
+})
+
+
 export default router
