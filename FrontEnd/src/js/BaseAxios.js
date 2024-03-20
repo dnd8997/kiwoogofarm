@@ -2,12 +2,12 @@ import axios from 'axios';
 const token = localStorage.getItem('accessToken');
 function localaxios () {
     const instance = axios.create({
-        baseURL: "http://192.168.31.57:8080",
+        baseURL: "http://j10b303.p.ssafy.io:8080",
 
         headers:{
             "Content-Type": "application/json;charset=utf-8",
         },
-        "Access-Control-Allow-Origin": "http://192.168.31.57:8080",
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials":true,
         withCredentials:true
     })

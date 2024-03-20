@@ -57,7 +57,7 @@ onMounted(() => {
 
 const loginWithKakao = () => {
 
-    window.location.href = "http://192.168.31.57:8080/oauth2/authorization/kakao"
+    window.location.href = "http://j10b303.p.ssafy.io:8080/oauth2/authorization/kakao"
 }
 
 
