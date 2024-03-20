@@ -1,6 +1,9 @@
 -- CREATE DATABASE ssafy;
 -- SELECT VERSION();
-use ssafy;
+use member;
+select * from user;
+select * from users;
+drop table users;
 
 drop table if exists CropFavorites;
 drop table if exists GardenFavorites;

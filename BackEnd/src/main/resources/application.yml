@@ -54,10 +54,10 @@ spring:
               - profile_image
             clientName: Naver
           kakao:
-            clientId: c0d83299c2e8b952a8be065bee8d62c9
+            clientId: 20dc23e573cbebb6e44b57c46021b332
             clientAuthenticationMethod: client_secret_post
             authorizationGrantType: authorization_code
-            redirectUri: "http://192.168.31.57:8080/{action}/oauth2/code/{registrationId}"
+            redirectUri: "http://j10b303.p.ssafy.io:8080/{action}/oauth2/code/{registrationId}"
             scope:
               - profile_nickname
               - profile_image
