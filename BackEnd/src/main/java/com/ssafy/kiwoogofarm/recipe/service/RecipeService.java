@@ -11,5 +11,7 @@ public interface RecipeService {
     Recipe getRecipe(Long id);
     List<RecipeDetail> getRecipeDetailList(Long recipeId);
     List<Recipe> getRecipeListByKeyword(String keyword);
+//    List<Recipe> getRecipeListByOption(String ingredient, String cook, String difficulty);
+List<Recipe> getRecipeListByOption(List<String> ingredient, String cook, String difficulty);
 
 }

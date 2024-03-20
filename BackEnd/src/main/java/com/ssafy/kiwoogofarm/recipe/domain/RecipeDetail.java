@@ -1,5 +1,6 @@
 package com.ssafy.kiwoogofarm.recipe.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +13,7 @@ public class RecipeDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="recipedetail_id")
     private Long id;
 
     private int recipe_order;
@@ -20,6 +22,7 @@ public class RecipeDetail {
 
     @ManyToOne
     @JoinColumn(name = "recipe_id")
+    @JsonBackReference
     private Recipe recipe;
 
     @Builder
@@ -31,3 +34,4 @@ public class RecipeDetail {
         this.recipe = recipe;
     }
 }
+

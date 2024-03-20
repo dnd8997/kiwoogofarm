@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +70,30 @@ public class RecipeController {
         List<Recipe> recipeList = recipeService.getRecipeListByKeyword(keyword);
         List<RecipeDto> recipeDtoList = new ArrayList<>();
 
-        log.info("전체 레시피 정보");
+        log.info("해당 제목을 포함한 레시피 정보");
+        for(Recipe r : recipeList) {
+            RecipeDto recipeDto = RecipeDto.builder()
+                    .id(r.getId())
+                    .serialNum(r.getSerialNum())
+                    .name(r.getName())
+                    .info(r.getInfo())
+                    .ingredients(r.getIngredients())
+                    .cook(r.getCook())
+                    .image(r.getImage())
+                    .difficulty(r.getDifficulty())
+                    .likes(r.getLikes())
+                    .build();
+            log.info("레시피 정보: {}", recipeDto);
+            recipeDtoList.add(recipeDto);
+        }
+        return ResponseEntity.ok().body(recipeDtoList);
+    }
+
+    @GetMapping("/search/option")
+    public ResponseEntity<List<RecipeDto>> getRecipeByIngredients(@RequestParam(value = "ingredients") List<String> ingredients, @RequestParam(value = "cook") String cook, @RequestParam(value = "difficulty") String difficulty) {
+        List<Recipe> recipeList = recipeService.getRecipeListByOption(ingredients, cook, difficulty);
+        List<RecipeDto> recipeDtoList = new ArrayList<>();
+        log.info("해당 옵션을 포함한 레시피 정보");
         for(Recipe r : recipeList) {
             RecipeDto recipeDto = RecipeDto.builder()
                     .id(r.getId())

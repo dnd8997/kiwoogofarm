@@ -1,10 +1,8 @@
 package com.ssafy.kiwoogofarm.recipe.service;
 
-import com.ssafy.kiwoogofarm.recipe.domain.Recipe;
-import com.ssafy.kiwoogofarm.recipe.domain.RecipeDetail;
-import com.ssafy.kiwoogofarm.recipe.domain.RecipeDetailRepository;
-import com.ssafy.kiwoogofarm.recipe.domain.RecipeRepository;
+import com.ssafy.kiwoogofarm.recipe.domain.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,6 +35,20 @@ public class RecipeServiceImpl implements RecipeService {
 
     public List<Recipe> getRecipeListByKeyword(String keyword) {
         return recipeRepository.findAllByNameContaining(keyword);
+    }
+
+    public List<Recipe> getRecipeListByOption(List<String> ingredients, String cook, String difficulty) {
+//        Specification<Recipe> spec = Specification.where(RecipeSpecification.containingIngredients(ingredients));
+//        if(cook!=null) spec = spec.and(RecipeSpecification.containingCook(cook));
+//        if(difficulty!=null) spec = spec.and(RecipeSpecification.containingDifficulty(difficulty));
+//        return recipeRepository.findAll(spec);
+        Specification<Recipe> spec = Specification.where(RecipeSpecification.containingIngredients(ingredients.get(0)));
+        for(String ingredient : ingredients) {
+            spec = spec.and(RecipeSpecification.containingIngredients(ingredient));
+        }
+        if(cook!=null) spec = spec.and(RecipeSpecification.containingCook(cook));
+        if(difficulty!=null) spec = spec.and(RecipeSpecification.containingDifficulty(difficulty));
+        return recipeRepository.findAll(spec);
     }
 
 }
