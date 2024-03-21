@@ -1,4 +1,4 @@
-package com.ssafy.kiwoogofarm;
+package b303.farm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.ssafy.kiwoogofarm.recipe.domain;
+package b303.farm.recipe.domain;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

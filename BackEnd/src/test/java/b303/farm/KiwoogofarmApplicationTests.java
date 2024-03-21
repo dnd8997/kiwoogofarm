@@ -1,4 +1,4 @@
-package com.ssafy.kiwoogofarm;
+package b303.farm;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
