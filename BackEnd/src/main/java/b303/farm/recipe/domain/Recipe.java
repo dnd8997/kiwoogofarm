@@ -17,15 +17,15 @@ public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="recipe_id")
+//    @Column(name="recipe_id")
     private Long id;
 
-    private Long serialNum;
+    private Long serialnum;
     private String name;
     private String info;
     private String ingredients;
     private String cook;
-    private String image;
+    private String image_url;
     private String difficulty;
     private int likes;   //찜_만개의 레시피(default)+우리사이트즐겨찾기
 
@@ -48,14 +48,14 @@ public class Recipe {
     }
 
     @Builder(toBuilder = true)
-    public Recipe(Long id, Long serialNum, String name, String info, String ingredients, String cook, String image, String difficulty, int likes, List<RecipeDetail> recipeDetailList) {
+    public Recipe(Long id, Long serialnum, String name, String info, String ingredients, String cook, String image_url, String difficulty, int likes, List<RecipeDetail> recipeDetailList) {
         this.id = id;
-        this.serialNum = serialNum;
+        this.serialnum = serialnum;
         this.name = name;
         this.info = info;
         this.ingredients = ingredients;
         this.cook = cook;
-        this.image = image;
+        this.image_url = image_url;
         this.difficulty = difficulty;
         this.likes = likes;
         this.recipeDetailList = recipeDetailList;

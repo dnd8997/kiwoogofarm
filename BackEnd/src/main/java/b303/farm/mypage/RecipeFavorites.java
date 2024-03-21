@@ -13,9 +13,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "recipefavorites")
 public class RecipeFavorites {
-    @Id @GeneratedValue
-    @Column(name="recipe_favorite_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="recipe_favorite_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,7 +27,7 @@ public class RecipeFavorites {
     @JoinColumn(name="user_id")
     private User user;
 
-    @Column(nullable = false)
+    @Column(name = "is_liked", nullable = false)
     private boolean status ; //erd랑 변수명 다름에 주의. true= 즐겨찾기, false= 즐겨찾기 취소
 
     //생성 메서드
