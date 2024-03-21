@@ -9,8 +9,10 @@ jwt:
 
 spring:
   datasource:
-    url: jdbc:mysql://j10b303.p.ssafy.io:3306/member?serverTimezone=Asia/Seoul
-    username: root
+#    url: jdbc:mysql://j10b303.p.ssafy.io:3306/member?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/kiwoogofarm
+#    username: root
+    username: ssafy
     password: ssafy
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -25,10 +27,12 @@ spring:
 
   jpa:
     show-sql: true # JPA가 생성하는 SQL을 콘솔에 출력
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
+#        ddl-auto: create # 프로젝트 시작때마다 테이블 생성, 서비스 단계에서는 'none'으로 변경 권장
         format_sql: true # SQL 포맷을 보기 좋게 출력
-        ddl-auto: none # 프로젝트 시작때마다 테이블 생성, 서비스 단계에서는 'none'으로 변경 권장
         open-in-view: false # Open-Session-In-View 패턴을 비활성화 (성능 및 관리 측면에서 권장)
 
 
