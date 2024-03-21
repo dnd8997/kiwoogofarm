@@ -9,16 +9,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "recipedetail")
 public class RecipeDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="recipedetail_id")
+//    @Column(name="recipedetail_id")
     private Long id;
 
     private int recipe_order;
     private String info;
-    private String image;
+    private String image_url;
 
     @ManyToOne
     @JoinColumn(name = "recipe_id")
@@ -26,11 +27,11 @@ public class RecipeDetail {
     private Recipe recipe;
 
     @Builder
-    public RecipeDetail(Long id, int recipe_order, String info, String image, Recipe recipe) {
+    public RecipeDetail(Long id, int recipe_order, String info, String image_url, Recipe recipe) {
         this.id = id;
         this.recipe_order = recipe_order;
         this.info = info;
-        this.image = image;
+        this.image_url = image_url;
         this.recipe = recipe;
     }
 }
