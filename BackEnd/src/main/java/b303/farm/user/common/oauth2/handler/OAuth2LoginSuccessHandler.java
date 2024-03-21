@@ -73,7 +73,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         response.addHeader(jwtService.getRefreshHeader(),"Bearer " + refreshToken);
 
         //
-        response.sendRedirect(UriComponentsBuilder.fromUriString("http://j10b303.p.ssafy.io:5173")
+        response.sendRedirect(UriComponentsBuilder.fromUriString("http://j10b303.p.ssafy.io:5173/success")
                 .queryParam("accessToken", accessToken)
                 .queryParam("refreshToken", refreshToken)
                 .build()
