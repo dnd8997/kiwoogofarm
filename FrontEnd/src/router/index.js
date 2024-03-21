@@ -54,13 +54,19 @@ const router = createRouter({
       name: 'garden',
       component: () => import('../views/GardenView.vue')
     },
+    {
+      path: '/success',
+      name: 'success',
+      component: () => import('../views/SuccessView.vue')
+    },
   ]
 })
 
 
 router.beforeEach((to, from, next) => {
+  console.log('to = ', to)
   const { accessToken, refreshToken } = to.query
-  if ( accessToken !== undefined && refreshToken !== undefined) {
+  if ( to.name === 'success' && accessToken && refreshToken ) {
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
     console.log('accessToken = ', accessToken)
