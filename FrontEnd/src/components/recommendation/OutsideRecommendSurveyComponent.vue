@@ -9,16 +9,16 @@
       <img alt="Survey1" class="w-96 h-80 mt-3 ml-6" src="../../assets/outsideImage1.jpg">
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[1].value === '쉬움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(1,'쉬움')" >아니요, 처음입니다</div>
+           :class="isSelected['difficulty'].value === '쉬움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('difficulty','쉬움')" >아니요, 처음입니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[1].value === '보통' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(1,'보통')" >많이는 아니지만, 소소하게 키워봤습니다</div>
+           :class="isSelected['difficulty'].value === '보통' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('difficulty','보통')" >많이는 아니지만, 소소하게 키워봤습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[1].value === '어려움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(1,'어려움')">꽤 많이 키워봤습니다</div>
+           :class="isSelected['difficulty'].value === '어려움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('difficulty','어려움')">꽤 많이 키워봤습니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -30,20 +30,20 @@
       <img alt="Survey2" class="w-96 h-80 mt-5 mb-3" src="@/assets/outsideImage2.jpg">
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[2].value === '봄' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(2,'봄')" >봄</div>
+           :class="isSelected['grow_start'].value === '봄' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('grow_start','봄')" >봄</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[2].value === '여름' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(2,'여름')" >여름</div>
+           :class="isSelected['grow_start'].value === '여름' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('grow_start','여름')" >여름</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[2].value === '가을' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(2,'가을')">가을</div>
+           :class="isSelected['grow_start'].value === '가을' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('grow_start','가을')">가을</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[2].value === '겨울' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(2,'겨울')">겨울</div>
+           :class="isSelected['grow_start'].value === '겨울' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('grow_start','겨울')">겨울</div>
 
       <div class="py-10"></div>
     </div>
@@ -55,16 +55,16 @@
       <img alt="Survey3" class="w-96 h-72 mt-5" src="@/assets/outsideImage3.jpg">
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[3].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(3,'하')" >단기 재배(1~3개월)</div>
+           :class="isSelected['grow_time'].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('grow_time','하')" >단기 재배(1~3개월)</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[3].value === '중' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(3,'중')" >중기 재배(3~6개월)</div>
+           :class="isSelected['grow_time'].value === '중' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('grow_time','중')" >중기 재배(3~6개월)</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[3].value === '상' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(3,'상')">장기 재배(6개월 이상)</div>
+           :class="isSelected['grow_time'].value === '상' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('grow_time','상')">장기 재배(6개월 이상)</div>
 
       <div class="py-10"></div>
     </div>
@@ -76,16 +76,16 @@
       <img alt="Survey4" class="w-80 h-72 mt-8" src="@/assets/outsideImage4.jpg">
 
       <div class="cursor-pointer mt-8 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[4].value === '상' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(4,'상')" >6시간 이상 직접적인 햇빛을 받습니다</div>
+           :class="isSelected['sunshine'].value === '상' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('sunshine','상')" >6시간 이상 직접적인 햇빛을 받습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[4].value === '중' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(4,'중')" >4~6시간 정도 햇빛을 받습니다</div>
+           :class="isSelected['sunshine'].value === '중' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('sunshine','중')" >4~6시간 정도 햇빛을 받습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[4].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(4,'하')">4시간 미만의 햇빛을 받습니다</div>
+           :class="isSelected['sunshine'].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('sunshine','하')">4시간 미만의 햇빛을 받습니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -97,16 +97,16 @@
       <img alt="Survey5" class="w-80 h-80 mt-3" src="../../assets/outsideImage5.jpg">
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[5].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(5,'하')" >매일 줄 수 있습니다</div>
+           :class="isSelected['water_period'].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('water_period','하')" >매일 줄 수 있습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[5].value === '중' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(5,'중')" >2~3일에 한 번 줄 수 있습니다</div>
+           :class="isSelected['water_period'].value === '중' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('water_period','중')" >2~3일에 한 번 줄 수 있습니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[5].value === '상' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(5,'상')">주 1회정도만 가능합니다</div>
+           :class="isSelected['water_period'].value === '상' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('water_period','상')">주 1회정도만 가능합니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -118,20 +118,20 @@
       <img alt="Survey6" class="w-80 h-72 mt-6" src="@/assets/outsideImage6.jpg">
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[6].value === '상' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(6,'상')" >물빠짐이 빠릅니다</div>
+           :class="isSelected['water_exit'].value === '상' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('water_exit','상')" >물빠짐이 빠릅니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[6].value === '중' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(6,'중')" >보통의 물빠짐을 가집니다</div>
+           :class="isSelected['water_exit'].value === '중' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('water_exit','중')" >보통의 물빠짐을 가집니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[6].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(6,'하')">물빠짐이 느립니다</div>
+           :class="isSelected['water_exit'].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('water_exit','하')">물빠짐이 느립니다</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[6].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(6,'?')">잘 모르겠습니다</div>
+           :class="isSelected['water_exit'].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('water_exit','?')">잘 모르겠습니다</div>
 
 
       <div class="py-10"></div>
@@ -144,16 +144,16 @@
       <img alt="Survey7" class="w-72 h-72 mt-6" src="@/assets/outsideImage7.jpg">
 
       <div class="cursor-pointer mt-6 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[7].value === 'TRUE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(7,'TRUE')" >네</div>
+           :class="isSelected['is_hydroponics'].value === 'TRUE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('is_hydroponics','TRUE')" >네</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[7].value === 'FALSE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(7,'FALSE')" >아니요</div>
+           :class="isSelected['is_hydroponics'].value === 'FALSE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('is_hydroponics','FALSE')" >아니요</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected[7].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick(7,'?')">잘 모르겠습니다</div>
+           :class="isSelected['is_hydroponics'].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('is_hydroponics','?')">잘 모르겠습니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -202,23 +202,23 @@ import { ref  } from 'vue';
 import axios from "axios";
 
 const isSelected = {
-  1: ref({ value: 0 }),
-  2: ref({ value: 0 }),
-  3: ref({ value: 0 }),
-  4: ref({ value: 0 }),
-  5: ref({ value: 0 }),
-  6: ref({ value: 0 }),
-  7: ref({ value: 0 }),
+  'difficulty': ref({ value: '0' }),
+  'grow_start': ref({ value: '0' }),
+  'grow_time': ref({ value: '0' }),
+  'sunshine': ref({ value: '0' }),
+  'water_period': ref({ value: '0' }),
+  'water_exit': ref({ value: '0' }),
+  'is_hydroponics': ref({ value: '0' }),
 };
 
 // 모든 질문지에 대한 대답이 완료되었는지 체크하는 함수
 const isAllSelected = () => {
   for (let key in isSelected) {
-    if (isSelected[key].value.value === 0) {
+    if (isSelected[key].value.value === '0') {
       return false;
     }
   }
-  return Object.values(isSelected).every(item => item.value !== 0);
+  return Object.values(isSelected).every(item => item.value.value !== '0');
 };
 
 const handleClick = (index, value) => {
