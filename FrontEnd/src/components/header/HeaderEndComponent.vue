@@ -1,11 +1,11 @@
 <template>
     <div class="header-login">
-        <p style="margin-right: 10px;">연우</p>
-        <v-avatar image=""></v-avatar>
+        <LoginButton />
     </div>
 </template>
 
 <script setup>
+import LoginButton from '@/components/buttons/LoginButton.vue'
 
 </script>
 
