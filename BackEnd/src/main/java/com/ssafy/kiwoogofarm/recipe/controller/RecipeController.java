@@ -76,7 +76,7 @@ public class RecipeController {
     }
 
     //내가 찜한 레시피 조회
-    @GetMapping("/my/favorites")
+    @GetMapping("/myFavorites")
     public ResponseEntity<List<RecipeDto>> getMyRecipeFavorites(){
         List<RecipeDto> recipeDtoList = new ArrayList<>();
         List<Recipe> myFavoriteRecipes = recipeService.getMyFavoriteRecipes();

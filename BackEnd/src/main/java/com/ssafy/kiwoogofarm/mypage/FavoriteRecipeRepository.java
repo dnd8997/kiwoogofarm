@@ -11,12 +11,9 @@ import java.util.Optional;
 public interface FavoriteRecipeRepository extends JpaRepository<RecipeFavorites,Long> {
     RecipeFavorites findByRecipeAndUser(Recipe recipe, User user);
 
-    RecipeFavorites findByRecipe(Recipe recipe);
+//    RecipeFavorites findByRecipe(Recipe recipe);
     List<RecipeFavorites> findAllByUser(User user);
 
-
-    // 3/21에 해봅시다!!
-    List<RecipeFavorites> findAllByUserIdAndRecipeIdAndStatus(Long userId, Long recipeId, boolean status);
-
+    List<RecipeFavorites> findAllByUserAndStatus(User user, boolean status);
 
 }

@@ -86,7 +86,8 @@ public class RecipeServiceImpl implements RecipeService {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
         User user = userRepository.findByNickname("sooji"); //임의-> 수정
-        List<RecipeFavorites> myFavoriteRecipeList = user.getRecipeFavoritesList();
+//        List<RecipeFavorites> myFavoriteRecipeList = user.getRecipeFavoritesList();
+        List<RecipeFavorites> myFavoriteRecipeList = favoriteRecipeRepository.findAllByUserAndStatus(user, true);
         log.info("즐겨찾기리스트 확인" + user.getRecipeFavoritesList());//.get(0).getId()
         List<Recipe> myFavoriteRecipes = new ArrayList<>();
         for (RecipeFavorites recipeFavorites : myFavoriteRecipeList) {
