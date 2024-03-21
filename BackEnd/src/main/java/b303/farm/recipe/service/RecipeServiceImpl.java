@@ -55,9 +55,8 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe recipe = recipeRepository.findById(id).orElseThrow(RecipeNotFoundException::new);
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        User user = userRepository.findByNickname(authentication.getName()).orElseThrow(() -> new EntityNotFoundException("User not found"));
-////        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
-        User user = userRepository.findByNickname("" +
-                "sooji").orElseThrow(() -> new EntityNotFoundException("User not found"));
+//        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+        User user = userRepository.findByNickname("sooji").orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         //db에서 recipe,user가 둘다 같은 데이터가 있는지 조회한다(true,false불문)
         RecipeFavorites recipeFavorites = favoriteRecipeRepository.findByRecipeAndUser(recipe, user);
