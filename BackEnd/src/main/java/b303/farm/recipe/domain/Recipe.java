@@ -61,3 +61,4 @@ public class Recipe {
         this.recipeDetailList = recipeDetailList;
     }
 }
+

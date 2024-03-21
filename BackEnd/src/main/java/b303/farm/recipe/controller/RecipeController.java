@@ -49,7 +49,6 @@ public class RecipeController {
     @GetMapping("/{id}")
     public ResponseEntity<RecipeDto> getRecipe(@PathVariable Long id) {
         Recipe recipe = recipeService.getRecipe(id);
-//        List<RecipeDetail> recipeDetailList = recipeService;
         RecipeDto recipeDto = RecipeDto.builder()
                 .id(recipe.getId())
                 .serialNum(recipe.getSerialNum())
@@ -60,7 +59,8 @@ public class RecipeController {
                 .image(recipe.getImage())
                 .difficulty(recipe.getDifficulty())
                 .likes(recipe.getLikes())
-                .recipeDetailList(recipe.getRecipeDetailList())
+//                .recipeDetailList(recipe.getRecipeDetailList())
+                .recipeDetailList(recipeService.getRecipeDetailList(recipe.getId()))
                 .build();
         log.info("레시피 상세 정보: {}", recipeDto);
         return ResponseEntity.ok().body(recipeDto);
@@ -76,12 +76,12 @@ public class RecipeController {
 
     //내가 찜한 레시피 조회
     @GetMapping("/myFavorites")
-    public ResponseEntity<List<RecipeDto>> getMyRecipeFavorites(){
+    public ResponseEntity<List<RecipeDto>> getMyRecipeFavorites() {
         List<RecipeDto> recipeDtoList = new ArrayList<>();
         List<Recipe> myFavoriteRecipes = recipeService.getMyFavoriteRecipes();
 
         log.info("유저가 즐겨찾기한 레시피 정보");
-        for(Recipe r : myFavoriteRecipes) {
+        for (Recipe r : myFavoriteRecipes) {
             RecipeDto recipeDto = RecipeDto.builder()
                     .id(r.getId())
                     .serialNum(r.getSerialNum())
@@ -99,6 +99,51 @@ public class RecipeController {
         return ResponseEntity.ok().body(recipeDtoList);
     }
 
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<RecipeDto>> getRecipeByKeyword(@PathVariable String keyword) {
+        List<Recipe> recipeList = recipeService.getRecipeListByKeyword(keyword);
+        List<RecipeDto> recipeDtoList = new ArrayList<>();
 
+        log.info("해당 제목을 포함한 레시피 정보");
+        for(Recipe r : recipeList) {
+            RecipeDto recipeDto = RecipeDto.builder()
+                    .id(r.getId())
+                    .serialNum(r.getSerialNum())
+                    .name(r.getName())
+                    .info(r.getInfo())
+                    .ingredients(r.getIngredients())
+                    .cook(r.getCook())
+                    .image(r.getImage())
+                    .difficulty(r.getDifficulty())
+                    .likes(r.getLikes())
+                    .build();
+            log.info("레시피 정보: {}", recipeDto);
+            recipeDtoList.add(recipeDto);
+        }
+        return ResponseEntity.ok().body(recipeDtoList);
+    }
+
+    @GetMapping("/search/option")
+    public ResponseEntity<List<RecipeDto>> getRecipeByIngredients(@RequestParam(value = "ingredients") List<String> ingredients, @RequestParam(value = "cook") String cook, @RequestParam(value = "difficulty") String difficulty) {
+        List<Recipe> recipeList = recipeService.getRecipeListByOption(ingredients, cook, difficulty);
+        List<RecipeDto> recipeDtoList = new ArrayList<>();
+        log.info("해당 옵션을 포함한 레시피 정보");
+        for(Recipe r : recipeList) {
+            RecipeDto recipeDto = RecipeDto.builder()
+                    .id(r.getId())
+                    .serialNum(r.getSerialNum())
+                    .name(r.getName())
+                    .info(r.getInfo())
+                    .ingredients(r.getIngredients())
+                    .cook(r.getCook())
+                    .image(r.getImage())
+                    .difficulty(r.getDifficulty())
+                    .likes(r.getLikes())
+                    .build();
+            log.info("레시피 정보: {}", recipeDto);
+            recipeDtoList.add(recipeDto);
+        }
+        return ResponseEntity.ok().body(recipeDtoList);
+    }
 
 }

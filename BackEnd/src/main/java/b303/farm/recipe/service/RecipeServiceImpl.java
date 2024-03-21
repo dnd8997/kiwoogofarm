@@ -21,7 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-
+import b303.farm.recipe.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 @Transactional
 @Service
 @RequiredArgsConstructor
@@ -33,7 +34,6 @@ public class RecipeServiceImpl implements RecipeService {
     private final FavoriteRecipeRepository favoriteRecipeRepository;
 
     private Logger log = LoggerFactory.getLogger(RecipeController.class);
-
     @Override
     public List<Recipe> getAllRecipes() {
         return recipeRepository.findAll();
@@ -99,4 +99,24 @@ public class RecipeServiceImpl implements RecipeService {
         }
         return myFavoriteRecipes;
     }
+
+    @Override
+    public List<RecipeDetail> getRecipeDetailList(Long recipeId) {
+        return recipeDetailRepository.findAllByRecipeId(recipeId);
+    }
+
+    public List<Recipe> getRecipeListByKeyword(String keyword) {
+        return recipeRepository.findAllByNameContaining(keyword);
+    }
+
+    public List<Recipe> getRecipeListByOption(List<String> ingredients, String cook, String difficulty) {
+        Specification<Recipe> spec = (root, query, criteriaBuilder) -> null;
+        for(String ingredient : ingredients) {
+            spec = spec.and(RecipeSpecification.containingIngredients(ingredient));
+        }
+        if(cook!=null) spec = spec.and(RecipeSpecification.containingCook(cook));
+        if(difficulty!=null) spec = spec.and(RecipeSpecification.containingDifficulty(difficulty));
+        return recipeRepository.findAll(spec);
+    }
+
 }

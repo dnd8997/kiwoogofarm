@@ -34,3 +34,4 @@ public class RecipeDetail {
         this.recipe = recipe;
     }
 }
+
