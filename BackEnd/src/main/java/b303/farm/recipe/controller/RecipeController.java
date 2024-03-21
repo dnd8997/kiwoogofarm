@@ -1,9 +1,8 @@
-package com.ssafy.kiwoogofarm.recipe.controller;
+package b303.farm.recipe.controller;
 
-import com.ssafy.kiwoogofarm.recipe.domain.Recipe;
-import com.ssafy.kiwoogofarm.recipe.domain.RecipeDetail;
-import com.ssafy.kiwoogofarm.recipe.dto.RecipeDto;
-import com.ssafy.kiwoogofarm.recipe.service.RecipeService;
+import b303.farm.recipe.service.RecipeService;
+import b303.farm.recipe.domain.Recipe;
+import b303.farm.recipe.dto.RecipeDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
-package com.ssafy.kiwoogofarm.recipe.service;
+package b303.farm.recipe.service;
 
-import com.ssafy.kiwoogofarm.recipe.domain.Recipe;
+import b303.farm.recipe.domain.Recipe;
 
 import java.util.List;
 

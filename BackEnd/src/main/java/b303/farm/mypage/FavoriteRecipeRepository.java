@@ -1,12 +1,11 @@
-package com.ssafy.kiwoogofarm.mypage;
+package b303.farm.mypage;
 
 
-import com.ssafy.kiwoogofarm.recipe.domain.Recipe;
-import com.ssafy.kiwoogofarm.social.domain.User;
+import b303.farm.recipe.domain.Recipe;
+import b303.farm.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface FavoriteRecipeRepository extends JpaRepository<RecipeFavorites,Long> {
     RecipeFavorites findByRecipeAndUser(Recipe recipe, User user);

@@ -1,7 +1,8 @@
-package com.ssafy.kiwoogofarm.mypage;
+package b303.farm.mypage;
 
-import com.ssafy.kiwoogofarm.recipe.domain.Recipe;
-import com.ssafy.kiwoogofarm.social.domain.User;
+import b303.farm.recipe.domain.Recipe;
+
+import b303.farm.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,21 +1,24 @@
-package com.ssafy.kiwoogofarm.recipe.service;
+package b303.farm.recipe.service;
 
-import com.ssafy.kiwoogofarm.exception.MemberNotFoundException;
-import com.ssafy.kiwoogofarm.exception.RecipeNotFoundException;
-import com.ssafy.kiwoogofarm.mypage.FavoriteRecipeRepository;
-import com.ssafy.kiwoogofarm.mypage.RecipeFavorites;
-import com.ssafy.kiwoogofarm.recipe.controller.RecipeController;
-import com.ssafy.kiwoogofarm.recipe.domain.Recipe;
-import com.ssafy.kiwoogofarm.recipe.domain.RecipeDetailRepository;
-import com.ssafy.kiwoogofarm.recipe.domain.RecipeRepository;
-import com.ssafy.kiwoogofarm.social.domain.User;
-import com.ssafy.kiwoogofarm.social.domain.UserRepository;
+import b303.farm.recipe.domain.RecipeDetailRepository;
+import b303.farm.exception.RecipeNotFoundException;
+import b303.farm.user.User;
+import b303.farm.user.repository.UserRepository;
+import b303.farm.mypage.FavoriteRecipeRepository;
+import b303.farm.mypage.RecipeFavorites;
+import b303.farm.recipe.controller.RecipeController;
+import b303.farm.recipe.domain.Recipe;
+import b303.farm.recipe.domain.RecipeRepository;
+
+
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +54,10 @@ public class RecipeServiceImpl implements RecipeService {
     public String favoriteRecipe(Long id){
         Recipe recipe = recipeRepository.findById(id).orElseThrow(RecipeNotFoundException::new);
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
-        User user = userRepository.findByNickname("sooji"); //임의-> 수정
+//        User user = userRepository.findByNickname(authentication.getName()).orElseThrow(() -> new EntityNotFoundException("User not found"));
+////        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+        User user = userRepository.findByNickname("" +
+                "sooji").orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         //db에서 recipe,user가 둘다 같은 데이터가 있는지 조회한다(true,false불문)
         RecipeFavorites recipeFavorites = favoriteRecipeRepository.findByRecipeAndUser(recipe, user);
@@ -83,10 +88,9 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
 //    @Transactional
     public List<Recipe> getMyFavoriteRecipes() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
-        User user = userRepository.findByNickname("sooji"); //임의-> 수정
-//        List<RecipeFavorites> myFavoriteRecipeList = user.getRecipeFavoritesList();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = userRepository.findByNickname(authentication.getName()).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        User user = userRepository.findByNickname("sooji").orElseThrow(() -> new EntityNotFoundException("User not found"));
         List<RecipeFavorites> myFavoriteRecipeList = favoriteRecipeRepository.findAllByUserAndStatus(user, true);
         log.info("즐겨찾기리스트 확인" + user.getRecipeFavoritesList());//.get(0).getId()
         List<Recipe> myFavoriteRecipes = new ArrayList<>();

@@ -1,6 +1,6 @@
-package com.ssafy.kiwoogofarm.recipe.dto;
+package b303.farm.recipe.dto;
 
-import com.ssafy.kiwoogofarm.recipe.domain.RecipeDetail;
+import b303.farm.recipe.domain.RecipeDetail;
 import lombok.*;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.ssafy.kiwoogofarm.exception;
+package b303.farm.exception;
 
 public class RecipeNotFoundException extends RuntimeException{
 }
