@@ -54,6 +54,11 @@ const router = createRouter({
       name: 'garden',
       component: () => import('../views/GardenView.vue')
     },
+     {
+      path: '/success',
+      name: 'success',
+      component: () => import('../views/SuccessView.vue')
+    },
   ]
 })
 
