@@ -1,47 +1,51 @@
 <template>
-    <div class="container">
-      <aside class="sidebar">
-        <nav class="navigation">
-          <ul>
-            <li 
-                v-for="item in navItems"
-                :key="item.id"
-                @click="scrollToSection(item.id)"
-                :class="{ 'active-nav': item.id === currentState.activeSectionId }"
-            >
-              <v-hover v-slot="{ isHovering }">
-                <a>
-                    <span></span>
-                </a>
+  <div class="container">
+    <aside class="sidebar">
+      <nav class="navigation">
+        <ul>
+          <li 
+              v-for="item in navItems"
+              :key="item.id"
+              @click="scrollToSection(item.id)"
+              :class="{ 'active-nav': item.id === currentState.activeSectionId }"
+          >
+            <v-hover v-slot="{ isHovering }">
+              <a>
+                  <span></span>
+              </a>
 
-                <div
-                  class="nav-text"
-                  :class="[{ 'on-hover': isHovering }]"
-                >
-                    {{ item.title }}
-                </div>
-              </v-hover>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+              <div
+                class="nav-text"
+                :class="[{ 'on-hover': isHovering }]"
+              >
+                  {{ item.title }}
+              </div>
+            </v-hover>
+          </li>
+        </ul>
+      </nav>
+    </aside>
 
-  
-      <v-container class="main-content">
-        <HomeSearchSection />
-        <HomeRecommendationSection />
-        <HomeRecipesSection />
-        <HomeGardensSection />
-    </v-container>
-  </div>
+
+    <v-container class="main-content">
+      <HomeSearchSection />
+      <HomeRecommendationSection />
+      <HomeRecipesSection />
+      <HomeGardensSection />
+  </v-container>
+</div>
 </template>
 
 <script setup>
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, ref, reactive, onUnmounted } from 'vue';
+import { useRoute } from 'vue-router';
 import HomeSearchSection from './sections/HomeSearchSection.vue';
 import HomeRecommendationSection from './sections/HomeRecommendationSection.vue';
 import HomeRecipesSection from './sections/HomeRecipesSection.vue';
 import HomeGardensSection from './sections/HomeGardensSection.vue';
+import router from '@/router';
+
+const route = useRoute();
 
 const sections = ref([]);
 
@@ -63,10 +67,10 @@ const findSectionIndexById = (id) => sections.value.findIndex(section => section
 const moveToSection = (direction) => {
   if (currentState.value.isScrolling) return;
 
-  const currentIndex = findSectionIndexById(currentState.value.activeSectionId);
-  let targetIndex = currentIndex + direction;
+const currentIndex = findSectionIndexById(currentState.value.activeSectionId);
+let targetIndex = currentIndex + direction;
 
-  if (targetIndex >= 0 && targetIndex < sections.value.length) {
+if (targetIndex >= 0 && targetIndex < sections.value.length) {
     currentState.value.isScrolling = true;
     const targetSection = sections.value[targetIndex];
     scrollToSection(targetSection.id);
@@ -106,36 +110,39 @@ const resetAnimationStates = () => {
 };
 
 onMounted(() => {
-  sections.value = Array.from(document.querySelectorAll('.section'))
+  if (route.path === '/') {
+    sections.value = Array.from(document.querySelectorAll('.section'))
 
-  window.addEventListener('wheel', handleWheelEvent, { passive: false })
+    window.addEventListener('wheel', handleWheelEvent, { passive: false })
 
-  if (window.location.hash) {
-    window.location.replace(window.location.pathname)
-  }
+    if (window.location.hash) {
+      window.location.replace(window.location.pathname)
+    }
 
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('aos-animate');
-        currentState.value.activeSectionId = entry.target.id;
-      } else {
-        entry.target.classList.remove('aos-animate');
-      }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('aos-animate');
+          currentState.value.activeSectionId = entry.target.id;
+        } else {
+          entry.target.classList.remove('aos-animate');
+        }
+      });
+    }, {
+      rootMargin: '0px',
+      threshold: 0.1
     });
-  }, {
-    rootMargin: '0px',
-    threshold: 0.1
-  });
 
-  sections.value.forEach(section => {
-    observer.observe(section);
-  });
-
-  
-
+    sections.value.forEach(section => {
+      observer.observe(section);
+    });
+  }
 });
+
+onUnmounted(() => {
+  window.removeEventListener('wheel', handleWheelEvent);
+})
 
 </script>
 
