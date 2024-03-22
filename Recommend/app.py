@@ -24,13 +24,17 @@ class recipe(db.Model):
 @app.route('/users', methods=['GET'])
 def get_users():
     user_info = user.query.all()
-    return jsonify({'User': [{'id': User.id, 'role': User.role, 'email': User.email} for User in user_info]})
+    response = jsonify({'User': [{'id': User.id, 'role': User.role, 'email': User.email} for User in user_info]})
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    return response
 
 
 @app.route('/recipe', methods=['GET'])
 def get_recipes():
     recipe_info = recipe.query.all()
-    return jsonify({'Recipe': [{'id': Recipe.id, 'name': Recipe.name, 'info': Recipe.info} for Recipe in recipe_info]})
+    response = jsonify({'Recipe': [{'id': Recipe.id, 'name': Recipe.name, 'info': Recipe.info} for Recipe in recipe_info]})
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    return response
 
 # 애플리케이션 실행
 if __name__ == '__main__':
