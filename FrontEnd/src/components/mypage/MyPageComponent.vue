@@ -87,7 +87,7 @@ async function fetchCropFavorites() {
 // 찜한 레시피 조회 API
 async function fetchRecipeFavorites() {
   try {
-    const response = await axios.get('https://j10b303.p.ssafy.io/api/recipe/myfavorites');
+    const response = await axios.get('https://j10b303.p.ssafy.io/api/api/recipe/myfavorites');
     recipeFavorites.value = response.data;
   } catch (error) {
     console.error('Error fetching recipe favorites:', error);
