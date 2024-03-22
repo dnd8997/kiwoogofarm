@@ -66,11 +66,16 @@
           <v-row>
             <v-col
               style="text-align: center;"
-              cols="2"
-              v-for="i in 100"
+              cols="3"
+              v-for="(crop, i) in filteredCropData"
               :key="i"
             >
-              {{ i }}
+              <div>
+                {{ crop.thumbnailUrl }}
+              </div>
+              <div>
+                {{ crop.name }}
+              </div>
             </v-col>
           </v-row>
         </div>
@@ -82,14 +87,23 @@
 
 
 <script setup>
-import { ref, watch } from "vue"
+import { onMounted, ref, watch, computed } from "vue"
 import { useRoute } from "vue-router"
 import { useSearchStore } from "@/stores/search"
+import * as Crop from '@/js/Crop';
 
 const route = useRoute()
 const searchStore = useSearchStore()
 
 const searchText = ref(searchStore.searchBox)
+const cropData = ref([])
+
+const filteredCropData = computed(() => {
+  if (!searchText.value) {
+    return cropData.value
+  }
+  return cropData.value.filter(crop => crop.name.includes(searchText.value))
+})
 
 const searchCheckBox = ref([
   { name: '채소류', isActivate: false }, 
@@ -125,6 +139,17 @@ const showIcon = (box) => {
   }
   return false
 }
+
+onMounted(() => {
+  Crop.getCrops(
+    (success) => {
+      cropData.value = success.data
+    },
+    (error) => {
+      console.log(error)
+    }
+  )
+})
 
 watch(() => searchCheckBox.value.map(item => item.isActivate), (newVal, oldVal) => {
   console.log('searchCheckBox 변화 감지', newVal);
