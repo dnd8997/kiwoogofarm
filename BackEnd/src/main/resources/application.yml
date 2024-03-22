@@ -9,9 +9,8 @@ jwt:
 
 spring:
   datasource:
-#    url: jdbc:mysql://j10b303.p.ssafy.io:3306/member?serverTimezone=Asia/Seoul
-    url: jdbc:mysql://localhost:3306/kiwoogofarm
-    username: ssafy
+    url: jdbc:mysql://j10b303.p.ssafy.io:3306/member?serverTimezone=Asia/Seoul
+    username: root
     password: ssafy
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
