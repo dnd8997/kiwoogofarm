@@ -2,6 +2,7 @@ package b303.farm.recipe.service;
 
 import b303.farm.recipe.domain.Recipe;
 import b303.farm.recipe.domain.RecipeDetail;
+import b303.farm.user.User;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ public interface RecipeService {
     List<Recipe> getAllRecipes();
     Recipe getRecipe(Long id);
 
-    String favoriteRecipe(Long id);
+    String favoriteRecipe(Long id,User user);
 
-    List<Recipe> getMyFavoriteRecipes();
+    List<Recipe> getMyFavoriteRecipes(User user);
 
     List<RecipeDetail> getRecipeDetailList(Long recipeId);
     List<Recipe> getRecipeListByKeyword(String keyword);
