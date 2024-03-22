@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { useSearchStore } from '@/stores/search'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/mypage',
@@ -78,6 +79,15 @@ router.beforeEach((to, from, next) => {
     next()
   }
 
+})
+
+router.afterEach((to, from) => {
+  window.scrollTo(0, 0)
+
+  if (from.path === '/search') {
+    const searchStore = useSearchStore()
+    searchStore.setSearchBox('')
+  }
 })
 
 
