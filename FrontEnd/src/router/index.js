@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useSearchStore } from '@/stores/search'
+import { useAuthStore } from '@/stores/auth'
 
 
 const router = createRouter({
@@ -70,10 +71,10 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore()
   const { accessToken, refreshToken } = to.query
   if ( to.name === 'success' && accessToken && refreshToken ) {
-    localStorage.setItem('accessToken', accessToken)
-    localStorage.setItem('refreshToken', refreshToken)
+    authStore.setToken( accessToken, refreshToken )
     next('/')
   } else {
     next()
