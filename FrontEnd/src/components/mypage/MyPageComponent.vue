@@ -95,7 +95,7 @@ async function fetchRecipeFavorites() {
 }
 
 onMounted(() => {
-  fetchCropFavorites();
+  // fetchCropFavorites();
   fetchRecipeFavorites();
 });
 
