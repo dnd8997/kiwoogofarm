@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,19 +52,15 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
 //    @Transactional  //class단위로 넣어야 되는지?
-    public String favoriteRecipe(Long id){
+    public String favoriteRecipe(Long id,String email){
         Recipe recipe = recipeRepository.findById(id).orElseThrow(RecipeNotFoundException::new);
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userRepository.findByNickname(authentication.getName()).orElseThrow(() -> new EntityNotFoundException("User not found"));
-////        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
-        User user = userRepository.findByNickname("" +
-                "sooji").orElseThrow(() -> new EntityNotFoundException("User not found"));
+        User currentUser = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         //db에서 recipe,user가 둘다 같은 데이터가 있는지 조회한다(true,false불문)
-        RecipeFavorites recipeFavorites = favoriteRecipeRepository.findByRecipeAndUser(recipe, user);
+        RecipeFavorites recipeFavorites = favoriteRecipeRepository.findByRecipeAndUser(recipe, currentUser);
         //만약 없다면, 생성하고 저장한다.
         if(recipeFavorites == null){
-            recipeFavorites = RecipeFavorites.createRecipeFavorites(recipe, user);
+            recipeFavorites = RecipeFavorites.createRecipeFavorites(recipe, currentUser);
             favoriteRecipeRepository.save(recipeFavorites);
             return "즐겨찾기 신규설정";  //다른 값?
         } else {
@@ -73,13 +70,13 @@ public class RecipeServiceImpl implements RecipeService {
                 recipeFavorites.unFavoriteRecipe();
 //                favoriteRecipeRepository.save(recipeFavorites);
 
-                log.info("리스트 확인 " + user.getRecipeFavoritesList());//.get(0).getId()
+                log.info("리스트 확인 " + currentUser.getRecipeFavoritesList());//.get(0).getId()
                 return "즐겨찾기 취소";
             } else {
                 //status값이 false라면,status를 true로 바꾸고, 연관관계도 만들고, 좋아요 수도 증가시킨다.
                 recipeFavorites.reFavoriteRecipe();
 //                favoriteRecipeRepository.save(recipeFavorites);
-                log.info("리스트 확인" + user.getRecipeFavoritesList());//.get(0).getId()
+                log.info("리스트 확인" + currentUser.getRecipeFavoritesList());//.get(0).getId()
                 return "즐겨찾기 재설정";
             }
         }
@@ -87,12 +84,10 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
 //    @Transactional
-    public List<Recipe> getMyFavoriteRecipes() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userRepository.findByNickname(authentication.getName()).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        User user = userRepository.findByNickname("sooji").orElseThrow(() -> new EntityNotFoundException("User not found"));
-        List<RecipeFavorites> myFavoriteRecipeList = favoriteRecipeRepository.findAllByUserAndStatus(user, true);
-        log.info("즐겨찾기리스트 확인" + user.getRecipeFavoritesList());//.get(0).getId()
+    public List<Recipe> getMyFavoriteRecipes(String email) {
+        User currentUser = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        List<RecipeFavorites> myFavoriteRecipeList = favoriteRecipeRepository.findAllByUserAndStatus(currentUser, true);
+        log.info("즐겨찾기리스트 확인" + currentUser.getRecipeFavoritesList());//.get(0).getId()
         List<Recipe> myFavoriteRecipes = new ArrayList<>();
         for (RecipeFavorites recipeFavorites : myFavoriteRecipeList) {
             myFavoriteRecipes.add(recipeFavorites.getRecipe());

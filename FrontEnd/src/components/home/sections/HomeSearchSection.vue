@@ -15,6 +15,7 @@
                     :value="userInput" 
                     :style="{ width: inputWidth + 'px' }"
                     @input="changeInput"
+                    @keyup.enter="goSearch"
                 />
                 <p 
                     :class="{ 'dynamic': userInput.length > 0 }" 
@@ -35,10 +36,22 @@
 
 <script setup>
 import { ref, watch, nextTick } from 'vue';
+import { useRouter } from 'vue-router';
+import { useSearchStore } from '@/stores/search'
+
+const router = useRouter()
+const searchStore = useSearchStore()
 
 const userInput = ref('');
 const inputWidth = ref(300);
 const lines = ref(['잘 키우는 방법이', '궁금하다.']);
+
+const goSearch = () => {
+    if ( userInput.value ) {
+        searchStore.setSearchBox(userInput.value)
+        router.push( { name: 'search' })
+    }
+}
 
 const calculateTextWidth = (text) => {
   const element = document.createElement('span');
