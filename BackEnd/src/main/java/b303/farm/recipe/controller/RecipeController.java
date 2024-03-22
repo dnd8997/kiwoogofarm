@@ -69,18 +69,18 @@ public class RecipeController {
     }
 
     //즐겨찾기 설정/해제
-    @PostMapping("/{id}/favorites")
+    @PostMapping("/{id}/favorites/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> favoriteRecipe(@PathVariable final Long id,@AuthenticationPrincipal User user) {
-        String responseMessage = recipeService.favoriteRecipe(id,user);
+    public ResponseEntity<String> favoriteRecipe(@PathVariable final Long id,@PathVariable final String email) {
+        String responseMessage = recipeService.favoriteRecipe(id,email);
         return ResponseEntity.ok(responseMessage);
     }
 
     //내가 찜한 레시피 조회
-    @GetMapping("/myFavorites")
-    public ResponseEntity<List<RecipeDto>> getMyRecipeFavorites(@AuthenticationPrincipal User user) {
+    @GetMapping("/myFavorites/{email}")
+    public ResponseEntity<List<RecipeDto>> getMyRecipeFavorites(@PathVariable final String email) {
         List<RecipeDto> recipeDtoList = new ArrayList<>();
-        List<Recipe> myFavoriteRecipes = recipeService.getMyFavoriteRecipes(user);
+        List<Recipe> myFavoriteRecipes = recipeService.getMyFavoriteRecipes(email);
 
         log.info("유저가 즐겨찾기한 레시피 정보");
         for (Recipe r : myFavoriteRecipes) {
