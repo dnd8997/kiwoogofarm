@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 # Flask 애플리케이션 생성
@@ -24,15 +24,14 @@ class recipe(db.Model):
 @app.route('/users', methods=['GET'])
 def get_users():
     user_info = user.query.all()
-    return {'User': [{'id': User.id, 'role': User.role, 'email': User.email} for User in user_info]}
+    return jsonify({'User': [{'id': User.id, 'role': User.role, 'email': User.email} for User in user_info]})
 
 
 @app.route('/recipe', methods=['GET'])
 def get_recipes():
     recipe_info = recipe.query.all()
-    return {'Recipe': [{'id': Recipe.id, 'name': Recipe.name, 'info': Recipe.info} for Recipe in recipe_info]}
+    return jsonify({'Recipe': [{'id': Recipe.id, 'name': Recipe.name, 'info': Recipe.info} for Recipe in recipe_info]})
 
 # 애플리케이션 실행
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8082, debug=True)
-
