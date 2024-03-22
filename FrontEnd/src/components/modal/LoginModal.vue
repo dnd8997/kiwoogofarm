@@ -10,24 +10,29 @@
                 class="login-card"
                 style="border-radius: 10px;"
             >   
-            <template
-                v-slot:append
-            >
-                <v-icon icon="mdi-close" style="cursor: pointer;"></v-icon>
-            </template>
-            <v-sheet>
-                    <v-card-text class="text-center">
-                        <button>
-                            <img src="https://static.nid.naver.com/oauth/big_g.PNG" width=320 style="border-radius: 20px;">
-                        </button>
-                    </v-card-text>
+                <template
+                    v-slot:append
+                >
+                    <v-icon 
+                        icon="mdi-close" 
+                        style="cursor: pointer;"
+                        @click="closeModal"
+                    >
+                    </v-icon>
+                </template>
+
+                <div
+                    class="modal-text"
+                >로그인
+                </div>
+
+                <v-sheet>
                     <v-card-text class="text-center">
                         <button @click="loginWithKakao">
-                            <img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="320" style="border-radius: 20px;"/>
+                            <img src="@/assets/카카오_로그인.png" width="400" style="border-radius: 30px;"/>
                         </button>
                     </v-card-text>
                 </v-sheet>
-               
             </v-card>
             
         </v-dialog>
@@ -50,11 +55,6 @@ function closeModal() {
     emit('update:logins', false)
 }
 
-onMounted(() => {
-    console.log(props.logins)
-
-})
-
 const loginWithKakao = () => {
 
     window.location.href = "http://j10b303.p.ssafy.io:8080/oauth2/authorization/kakao"
@@ -68,6 +68,15 @@ const loginWithKakao = () => {
     width: 500px;
     height: 420px;
     
+}
+
+.modal-text {
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-top: 15%;
+    margin-bottom: 15%;
 }
 
 </style>
