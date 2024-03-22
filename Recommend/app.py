@@ -30,7 +30,7 @@ def get_users():
 @app.route('/recipe', methods=['GET'])
 def get_recipes():
     recipe_info = recipe.query.all()
-    return {'Recipe': [{'id': Recipe.id, 'role': Recipe.role, 'email': Recipe.email} for Recipe in recipe_info]}
+    return {'Recipe': [{'id': Recipe.id, 'name': Recipe.name, 'info': Recipe.info} for Recipe in recipe_info]}
 
 # 애플리케이션 실행
 if __name__ == '__main__':
