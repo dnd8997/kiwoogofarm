@@ -11,9 +11,9 @@ public interface RecipeService {
     List<Recipe> getAllRecipes();
     Recipe getRecipe(Long id);
 
-    String favoriteRecipe(Long id,User user);
+    String favoriteRecipe(Long id,String email);
 
-    List<Recipe> getMyFavoriteRecipes(User user);
+    List<Recipe> getMyFavoriteRecipes(String email);
 
     List<RecipeDetail> getRecipeDetailList(Long recipeId);
     List<Recipe> getRecipeListByKeyword(String keyword);
