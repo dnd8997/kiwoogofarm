@@ -15,11 +15,22 @@ class user(db.Model):
     role = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False)
 
+class recipe(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    info = db.Column(db.String(100), nullable=False)
+
 # 라우트 및 API 엔드포인트 정의
 @app.route('/users', methods=['GET'])
 def get_users():
     user_info = user.query.all()
     return {'User': [{'id': User.id, 'role': User.role, 'email': User.email} for User in user_info]}
+
+
+@app.route('/recipe', methods=['GET'])
+def get_recipes():
+    recipe_info = recipe.query.all()
+    return {'Recipe': [{'id': Recipe.id, 'role': Recipe.role, 'email': Recipe.email} for Recipe in recipe_info]}
 
 # 애플리케이션 실행
 if __name__ == '__main__':
