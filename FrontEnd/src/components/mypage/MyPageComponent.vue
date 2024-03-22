@@ -47,9 +47,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref,onMounted  } from 'vue';
+import axios from "axios";
 
 const tab = ref(1);
+
+
+const recipeFavorites = ref([]);
+const cropFavorites = ref([]);
+
 
 const itemsMap1 = [
   { name: '완두콩', image: 'https://blog.kakaocdn.net/dn/0YuZx/btr0ilo7qUJ/LAVLvegbIKcGsxZkeSttz1/img.jpg' },
@@ -68,7 +74,30 @@ const itemsMap3 = [
   { name: '토', image: 'https://lh3.googleusercontent.com/proxy/F7Q_AMMuhPfFmrdr7eQbeRLMuHB0igJZ4JNen7MdiKNBN20a_kfKoNWm445_hcxpPvNMoJa9YwvH1IuNCxrO8tsbvHie9o4Cmyk5693GZ6hWYCWg4wGqm8KJ3m4' },
 ];
 
-const items = ref({1: itemsMap1, 2: itemsMap2, 3: itemsMap3});
+const items = ref({1: itemsMap1, 2: itemsMap2, 3: recipeFavorites});
+// 찜한 농작물 조회 API
+async function fetchCropFavorites() {
+  try {
+    const response = await axios.get('https://j10b303.p.ssafy.io/api/crop/myfavorites');
+    cropFavorites.value = response.data;
+  } catch (error) {
+    console.error('Error fetching recipe favorites:', error);
+  }
+}
+// 찜한 레시피 조회 API
+async function fetchRecipeFavorites() {
+  try {
+    const response = await axios.get('https://j10b303.p.ssafy.io/api/recipe/myfavorites');
+    recipeFavorites.value = response.data;
+  } catch (error) {
+    console.error('Error fetching recipe favorites:', error);
+  }
+}
+
+onMounted(() => {
+  fetchCropFavorites();
+  fetchRecipeFavorites();
+});
 
 function handleChangeTab(newTab) {
   tab.value = newTab;
