@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,12 +52,9 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
 //    @Transactional  //class단위로 넣어야 되는지?
-    public String favoriteRecipe(Long id){
+    public String favoriteRecipe(Long id,User user){
         Recipe recipe = recipeRepository.findById(id).orElseThrow(RecipeNotFoundException::new);
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userRepository.findByNickname(authentication.getName()).orElseThrow(() -> new EntityNotFoundException("User not found"));
-//        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(MemberNotFoundException::new);
-        User user = userRepository.findByNickname("sooji").orElseThrow(() -> new EntityNotFoundException("User not found"));
+        User currentUser = userRepository.findByEmail(user.getEmail()).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         //db에서 recipe,user가 둘다 같은 데이터가 있는지 조회한다(true,false불문)
         RecipeFavorites recipeFavorites = favoriteRecipeRepository.findByRecipeAndUser(recipe, user);
@@ -86,12 +84,10 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
 //    @Transactional
-    public List<Recipe> getMyFavoriteRecipes() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userRepository.findByNickname(authentication.getName()).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        User user = userRepository.findByNickname("sooji").orElseThrow(() -> new EntityNotFoundException("User not found"));
-        List<RecipeFavorites> myFavoriteRecipeList = favoriteRecipeRepository.findAllByUserAndStatus(user, true);
-        log.info("즐겨찾기리스트 확인" + user.getRecipeFavoritesList());//.get(0).getId()
+    public List<Recipe> getMyFavoriteRecipes(User user) {
+        User currentUser = userRepository.findByEmail(user.getEmail()).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        List<RecipeFavorites> myFavoriteRecipeList = favoriteRecipeRepository.findAllByUserAndStatus(currentUser, true);
+        log.info("즐겨찾기리스트 확인" + currentUser.getRecipeFavoritesList());//.get(0).getId()
         List<Recipe> myFavoriteRecipes = new ArrayList<>();
         for (RecipeFavorites recipeFavorites : myFavoriteRecipeList) {
             myFavoriteRecipes.add(recipeFavorites.getRecipe());

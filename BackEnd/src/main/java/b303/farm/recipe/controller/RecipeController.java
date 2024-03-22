@@ -3,11 +3,13 @@ package b303.farm.recipe.controller;
 import b303.farm.recipe.service.RecipeService;
 import b303.farm.recipe.domain.Recipe;
 import b303.farm.recipe.dto.RecipeDto;
+import b303.farm.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -69,16 +71,16 @@ public class RecipeController {
     //즐겨찾기 설정/해제
     @PostMapping("/{id}/favorites")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> favoriteRecipe(@PathVariable final Long id) {
-        String responseMessage = recipeService.favoriteRecipe(id);
+    public ResponseEntity<String> favoriteRecipe(@PathVariable final Long id,@AuthenticationPrincipal User user) {
+        String responseMessage = recipeService.favoriteRecipe(id,user);
         return ResponseEntity.ok(responseMessage);
     }
 
     //내가 찜한 레시피 조회
     @GetMapping("/myFavorites")
-    public ResponseEntity<List<RecipeDto>> getMyRecipeFavorites() {
+    public ResponseEntity<List<RecipeDto>> getMyRecipeFavorites(@AuthenticationPrincipal User user) {
         List<RecipeDto> recipeDtoList = new ArrayList<>();
-        List<Recipe> myFavoriteRecipes = recipeService.getMyFavoriteRecipes();
+        List<Recipe> myFavoriteRecipes = recipeService.getMyFavoriteRecipes(user);
 
         log.info("유저가 즐겨찾기한 레시피 정보");
         for (Recipe r : myFavoriteRecipes) {
