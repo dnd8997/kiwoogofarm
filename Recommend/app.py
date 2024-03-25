@@ -101,8 +101,8 @@ def calculate_cosine_similarity(liked_crops, crops):
         index = index_array[0]
         if index not in unique_indices:
             unique_indices.append(index)
-        if len(unique_indices) == 3:  # 중복을 제거한 후 상위 3개의 작물만 추천
-            break
+        # if len(unique_indices) == 3:  # 중복을 제거한 후 상위 3개의 작물만 추천
+        #     break
 
     recommended_crops = [crops[index] for index in unique_indices[:3]]
 
@@ -124,7 +124,7 @@ def get_recommended_crop():
             "difficulty": "보통",
             "grow_time": "중",
             "humidity": "상",
-            "grow_start": "여름",
+            "grow_start": "봄",
             "water_exit": "중"
         }
     ]
