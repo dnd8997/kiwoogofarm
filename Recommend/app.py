@@ -155,15 +155,15 @@ def cosine_recommended_crop():
     liked_crops = [
         {
             "difficulty": "보통",
-            "grow_start": "겨울",
+            "grow_start": "봄, 가을",
             "grow_time": "상",
             "humidity": "상",
-            "id": 25,
-            "name": "쑥갓",
-            "sunshine": "중",
+            "id": 20,
+            "name": "루끌라",
+            "sunshine": "상",
             "temperature": "중",
-            "water_exit": "중",
-            "water_period": "중"
+            "water_exit": "상",
+            "water_period": "상"
         }
     ]
     # 모든 농작물 데이터 가져오기
@@ -196,15 +196,15 @@ def euclidean_recommended_crop():
     liked_crops = [
         {
             "difficulty": "보통",
-            "grow_start": "겨울",
+            "grow_start": "봄, 가을",
             "grow_time": "상",
             "humidity": "상",
-            "id": 25,
-            "name": "쑥갓",
-            "sunshine": "중",
+            "id": 20,   
+            "name": "루끌라",
+            "sunshine": "상",
             "temperature": "중",
-            "water_exit": "중",
-            "water_period": "중"
+            "water_exit": "상",
+            "water_period": "상"
         }
     ]
     # 모든 농작물 데이터 가져오기
