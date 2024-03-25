@@ -1,3 +1,4 @@
+<!-- //TODO 감자, 사과 등 이미지 안뜨는 이유, 다음버튼, 스크롤, 검색창  -->
 <template>
   <div class="flex flex-row items-center justify-center mt-40">
     <!--왼쪽 이동 버튼-->
@@ -10,17 +11,18 @@
       <!-- <img alt="Survey1" class="mt-3 mb-3 w-80 h-80" src="../../assets/insideImage1.jpg"> -->
 
       <!-- 검색창 -->
-      <v-text-field v-model="searchText" label="농작물 이름을 입력해 주세요." prepend-inner-icon="mdi-magnify"></v-text-field>
-
+      <div class="self-end m-5 w-96">
+        <v-text-field v-model="searchText" label="농작물 이름을 입력해 주세요." prepend-inner-icon="mdi-magnify"></v-text-field>
+      </div>
 
       <!-- 재료 목록 -->
       <div class="grid grid-cols-5 gap-20 m-10">
-        <div v-for="crop in filteredCropData" :key="crop.id" class="flex flex-col items-center m-3" @click="
+        <div v-for="crop in filteredCropData" :key="crop.id" class="flex flex-col items-center m-1" @click="
       toggleIngredient(crop.name)">
           <div
-            :class="isSelectedIngredient(crop.name) ? 'ring-2 ring-green-500 rounded-full p-0.5 relative' : 'p-0.5 relative'">
+            :class="isSelectedIngredient(crop.name) ? 'ring-2 ring-green-500 rounded-full p-0.5 relative' : 'ring-1 ring-gray-300 rounded-full p-0.5 relative'">
             <div style="position: relative;">
-              <img :src="crop.thumbnailUrl" alt="crop.name" class="object-cover w-24 h-24 rounded-full" :class="
+              <img :src="crop.thumbnailUrl" alt="crop.name" class="object-cover w-32 h-32 rounded-full" :class="
                   isSelectedIngredient(crop.name) ? 'opacity-50' : ''" />
               <v-icon v-if="isSelectedIngredient(crop.name)" icon="mdi-check" class="text-green-500"
                 style="font-size: 50px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></v-icon>
@@ -207,7 +209,10 @@
     </div>
 
     <!--    오른쪽 이동버튼-->
-    <button @click="nextPage" v-if="currentPage < 3" class="absolute w-40 h-40 right-96"> 다음 &gt;</button>
+    <button @click="nextPage" v-if="currentPage < 3"
+      class="absolute w-40 h-40 font-medium font-bold font-Notosans right-48"> 다음
+      <v-icon icon="mdi-arrow-right"></v-icon>
+    </button>
   </div>
   <!--    추천 받기 버튼-->
   <div>
@@ -252,7 +257,6 @@ import { computed, onMounted, ref } from 'vue';
 
 const searchStore = useSearchStore()
 
-//TODO 재료 누르고 나면 검색창 비우기
 //재료 선택 관련
 const searchText = ref(searchStore.searchBox)
 const cropData = ref([])
