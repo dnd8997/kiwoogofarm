@@ -1,11 +1,11 @@
-<!-- //TODO 감자, 사과 등 이미지 안뜨는 이유, 다음버튼, 스크롤, 검색창  -->
+<!-- //TODO 감자, 사과 등 이미지 안뜨는 이유, 스크롤  -->
 <template>
   <div class="flex flex-row items-center justify-center mt-40">
     <!--왼쪽 이동 버튼-->
     <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-96">&lt; </button>
 
     <!-- 첫번째 질문 -->
-    <div v-if="currentPage === 1" class="flex flex-col items-center justify-center">
+    <div v-if="currentPage === 1" class="flex flex-col items-center justify-center" style="width: 1100px;">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(1/3)</span>
       <span class="mt-5 text-4xl font-bold text-center font-Notosans">요리에 사용할<br>농작물을 선택해주세요</span>
       <!-- <img alt="Survey1" class="mt-3 mb-3 w-80 h-80" src="../../assets/insideImage1.jpg"> -->
@@ -210,7 +210,7 @@
 
     <!--    오른쪽 이동버튼-->
     <button @click="nextPage" v-if="currentPage < 3"
-      class="absolute w-40 h-40 font-medium font-bold font-Notosans right-48"> 다음
+      class="absolute w-40 h-40 font-medium font-bold font-Notosans top-96 right-32"> 다음
       <v-icon icon="mdi-arrow-right"></v-icon>
     </button>
   </div>
