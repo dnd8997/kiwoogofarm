@@ -15,12 +15,20 @@
 
       <!-- 재료 목록 -->
       <div class="grid grid-cols-5 gap-20 m-10">
-        <div v-for="crop in filteredCropData" :key="crop.id" class="flex flex-col items-center m-3 ">
-          <img :src="crop.thumbnailUrl" alt="crop.name" class="object-cover w-24 h-24 rounded-full">
-          <div class="text-center">{{ crop.name }}</div>
+        <div v-for="crop in filteredCropData" :key="crop.id" class="flex flex-col items-center m-3" @click="
+      toggleIngredient(crop.name)">
+          <div
+            :class="isSelectedIngredient(crop.name) ? 'ring-2 ring-green-500 rounded-full p-0.5 relative' : 'p-0.5 relative'">
+            <div style="position: relative;">
+              <img :src="crop.thumbnailUrl" alt="crop.name" class="object-cover w-24 h-24 rounded-full" :class="
+                  isSelectedIngredient(crop.name) ? 'opacity-50' : ''" />
+              <v-icon v-if="isSelectedIngredient(crop.name)" icon="mdi-check" class="text-green-500"
+                style="font-size: 50px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></v-icon>
+            </div>
+          </div>
+          <div class="text-center ">{{ crop.name }}</div>
         </div>
       </div>
-      <!-- 5개씩 가로 정렬, 아래 스크롤 시 농작물 목록 표시 -->
       <!-- 선택 시 좌측 상단에 선택된 농작물 목록 표시, X 버튼 클릭 시 선택한 농작물 취소 -->
 
     </div>
@@ -244,7 +252,7 @@ import { computed, onMounted, ref } from 'vue';
 
 const searchStore = useSearchStore()
 
-
+//TODO 재료 누르고 나면 검색창 비우기
 //재료 선택 관련
 const searchText = ref(searchStore.searchBox)
 const cropData = ref([])
@@ -268,7 +276,7 @@ onMounted(() => {
 })
 
 const isSelected = {
-  'ingredients': ref({ value: '0' }),
+  'ingredients': ref([]),
   'cookingmethod': ref({ value: '0' }),
   'difficulty': ref({ value: '0' }),
 };
@@ -276,13 +284,35 @@ const isSelected = {
 // 모든 질문지에 대한 대답이 완료되었는지 체크하는 함수
 const isAllSelected = () => {
   for (let key in isSelected) {
-    if (isSelected[key].value.value === '0') {
-      return false;
+    if (key == "ingredients") {
+      if (isSelected['ingredients'].value.length === 0) {
+        return false
+      }
     }
+    else {
+      if (isSelected[key].value.value === '0'){
+        return false;
+      } } 
   }
-  return Object.values(isSelected).every(item => item.value.value !== '0');
+  return true;
 };
 
+//재료 선택 토글 함수
+const toggleIngredient = (cropName) => {
+  const index = isSelected['ingredients'].value.findIndex(ingredient => ingredient === cropName);
+  if (index !== -1) {
+    isSelected['ingredients'].value.splice(index, 1);
+  } else {
+    isSelected['ingredients'].value.push(cropName);
+  }
+  searchText.value = ''
+  console.log(isSelected['ingredients'].value)
+}
+
+//해당 재료가 선택되었는지 확인하는 함수
+const isSelectedIngredient = (cropName) => { 
+  return isSelected['ingredients'].value.includes(cropName)
+}
 
 const handleClick = (index, value) => {
   isSelected[index].value =  value ;
