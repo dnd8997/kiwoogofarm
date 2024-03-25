@@ -125,7 +125,7 @@ def get_recommended_crop():
             "difficulty": "보통",
             "grow_time": "중",
             "humidity": "상",
-            "grow_start": "봄",
+            "grow_start": "봄, 가을",
             "water_exit": "중"
         }
     ]
