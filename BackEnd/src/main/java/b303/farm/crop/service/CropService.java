@@ -14,6 +14,12 @@ public interface CropService {
     String favoriteCrop(Long id,String email);
     List<Crop> getMyFavoriteCrops(String email);
 
-    // 카테고리로 농작물 검색
+    // (필터링) 카테고리로 농작물 검색
     List<Crop> searchCropsByCategory(String category);
+
+    // 필터링
+    List<Crop> getEasyCrops();
+    List<Crop> getCropsWithLowSunshine();
+    List<Crop> getCropsWithHighWaterPeriod();
+    List<Crop> getHydroponicsCrops();
 }

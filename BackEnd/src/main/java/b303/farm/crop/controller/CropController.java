@@ -3,8 +3,6 @@ package b303.farm.crop.controller;
 import b303.farm.crop.dto.CropDto;
 import b303.farm.crop.entity.Crop;
 import b303.farm.crop.service.CropService;
-import b303.farm.recipe.domain.Recipe;
-import b303.farm.recipe.dto.RecipeDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +21,7 @@ public class CropController {
 
     private static final Logger log = LoggerFactory.getLogger(CropController.class);
 
-    @Autowired
-    private CropService cropService;
+    private final CropService cropService;
 
     // 농작물 전체 조회
     @GetMapping("/all")
@@ -44,7 +41,7 @@ public class CropController {
         return cropService.searchCrops(name);
     }
 
-    // 카테고리로 농작물 검색
+    // (필터링)카테고리로 농작물 검색
     @GetMapping("/searchByCategory")
     public ResponseEntity<List<Crop>> searchCropsByCategory(@RequestParam(name = "category") String category) {
         List<Crop> crops = cropService.searchCropsByCategory(category);
@@ -54,6 +51,30 @@ public class CropController {
         return new ResponseEntity<>(crops, HttpStatus.OK);
     }
 
+    //(필터링)
+    // 초보자용 농작물 조회
+    @GetMapping("/easy")
+    public List<Crop> getEasyCrops() {
+        return cropService.getEasyCrops();
+    }
+
+    // 빛이 적어도 되는 농작물 조회
+    @GetMapping("/lowSunshine")
+    public List<Crop> getCropsWithLowSunshine() {
+        return cropService.getCropsWithLowSunshine();
+    }
+
+    // 물주기가 긴 농작물 조회
+    @GetMapping("/highWaterPeriod")
+    public List<Crop> getCropsWithHighWaterPeriod() {
+        return cropService.getCropsWithHighWaterPeriod();
+    }
+
+    // 수경재배가 가능한 농작물 조회
+    @GetMapping("/hydroponics")
+    public List<Crop> getHydroponicsCrops() {
+        return cropService.getHydroponicsCrops();
+    }
 
     //즐겨찾기 설정/해제
     @PostMapping("/{id}/favorites/{email}")
@@ -63,7 +84,7 @@ public class CropController {
         return ResponseEntity.ok(responseMessage);
     }
 
-    //내가 찜한 레시피 조회
+    //내가 찜한 농작물 조회
     @GetMapping("/myFavorites/{email}")
     public ResponseEntity<List<CropDto>> getMyCropFavorites(@PathVariable("email") final String email) {
         List<CropDto> cropDtoList = new ArrayList<>();
@@ -103,9 +124,4 @@ public class CropController {
         return ResponseEntity.ok().body(cropDtoList);
     }
 
-        //    // 농작물 찜 변경
-//    @PostMapping("/like")
-//    public String likeCrop(@RequestBody LikeRequest request) {
-//        return cropService.likeCrop(request);
-//    }
 }
