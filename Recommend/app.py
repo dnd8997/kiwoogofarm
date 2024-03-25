@@ -1,5 +1,7 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Flask 애플리케이션 생성
 app = Flask(__name__)
@@ -10,31 +12,55 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # 데이터베이스 모델 정의
-class user(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    role = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False)
-
-class recipe(db.Model):
+class Crop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    info = db.Column(db.String(100), nullable=False)
+    temperature = db.Column(db.String(100), nullable=False)
+    sunshine = db.Column(db.String(100), nullable=False)
+    water_period = db.Column(db.String(100), nullable=False)
 
-# 라우트 및 API 엔드포인트 정의
-@app.route('/users', methods=['GET'])
-def get_users():
-    user_info = user.query.all()
-    response = jsonify({'User': [{'id': User.id, 'role': User.role, 'email': User.email} for User in user_info]})
-    response.headers['Content-Type'] = 'application/json; charset=utf-8'
-    return response
+# 코사인 유사도 계산 함수
+def calculate_cosine_similarity(liked_crop, crops):
+    tfidf_vectorizer = TfidfVectorizer()
+    crop_features = [crop["temperature"] + crop["sunshine"] + crop["water_period"] for crop in crops]
+    liked_crop_features = liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"]
+    crop_features.append(liked_crop_features)
 
+    tfidf_matrix = tfidf_vectorizer.fit_transform(crop_features)
+    cosine_similarities = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
-@app.route('/recipe', methods=['GET'])
-def get_recipes():
-    recipe_info = recipe.query.all()
-    response = jsonify({'Recipe': [{'id': Recipe.id, 'name': Recipe.name, 'info': Recipe.info} for Recipe in recipe_info]})
-    response.headers['Content-Type'] = 'application/json; charset=utf-8'
-    return response
+    similar_crops_indices = cosine_similarities[-1].argsort()[:-2:-1]
+    similar_crop = crops[similar_crops_indices[0]]
+    return similar_crop
+
+# API 엔드포인트 정의
+@app.route('/recommended_crop', methods=['GET'])
+def get_recommended_crop():
+    # 좋아요를 누른 농작물 데이터
+    liked_crop = {
+        "id": 2,
+        "name": "감자",
+        "temperature": "중",
+        "sunshine": "상",
+        "water_period": "하"
+    }
+
+    # 모든 농작물 데이터 가져오기
+    all_crops = Crop.query.all()
+    crops = []
+    for crop in all_crops:
+        crops.append({
+            "id": crop.id,
+            "name": crop.name,
+            "temperature": crop.temperature,
+            "sunshine": crop.sunshine,
+            "water_period": crop.water_period
+        })
+
+    # 코사인 유사도를 사용하여 추천 농작물 계산
+    recommended_crop = calculate_cosine_similarity(liked_crop, crops)
+
+    return jsonify({"recommended_crop": recommended_crop})
 
 # 애플리케이션 실행
 if __name__ == '__main__':
