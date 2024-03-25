@@ -1,4 +1,4 @@
-<!-- //TODO 감자, 사과 등 이미지 안뜨는 이유, 스크롤  -->
+<!-- //TODO 감자, 사과 등 이미지 안뜨는 이유, 스크롤, 뱃지  -->
 <template>
   <div class="flex flex-row items-center justify-center mt-40">
     <!--왼쪽 이동 버튼-->
@@ -12,7 +12,16 @@
 
       <!-- 검색창 -->
       <div class="self-end m-5 w-96">
-        <v-text-field v-model="searchText" label="농작물 이름을 입력해 주세요." prepend-inner-icon="mdi-magnify"></v-text-field>
+        <v-text-field v-model="searchText" label="농작물 이름을 입력해 주세요." variant="solo-filled"
+          prepend-inner-icon="mdi-magnify"></v-text-field>
+      </div>
+
+      <!-- 선택된 재료 뱃지 -->
+      <div v-for="selectedIngredient in isSelected.ingredients.value" :key="selectedIngredient" class="flex flex-row">
+        <v-chip variant="outlined">
+          {{ selectedIngredient }}
+          <v-icon icon="mdi-close" @click="toggleIngredient(selectedIngredient)"></v-icon>
+        </v-chip>
       </div>
 
       <!-- 재료 목록 -->
