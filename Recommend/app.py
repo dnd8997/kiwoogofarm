@@ -139,10 +139,13 @@ def calculate_euclidean_distance(liked_crops, crops):
                                     string_to_number(crop["water_exit"])])
             # 유클리드 거리 계산
             distance = np.linalg.norm(liked_crop_features - crop_vector)
-            euclidean_distances.append(distance)
+            euclidean_distances.append((crop, distance))
+
+    sorted_distances = sorted(euclidean_distances, key=lambda x: x[1])
+    recommended_crops = [crop for crop, _ in sorted_distances[:3]]
 
     # 작물 간의 유클리드 거리 반환
-    return euclidean_distances
+    return recommended_crops
 
 
 # API 엔드포인트 정의
