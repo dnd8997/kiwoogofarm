@@ -95,18 +95,19 @@ def calculate_cosine_similarity(liked_crops, crops):
                 np.linalg.norm(liked_crop_features, axis=1) * np.linalg.norm(crop_vector))
         cosine_similarities.append(similarity)
 
+    # 각 작물과의 유사도를 계산한 후 상위 3개를 추출
     similar_crops_indices = np.argsort(cosine_similarities, axis=1)[:, ::-1]
     unique_indices = []
+    recommended_crops = []
     for indices in similar_crops_indices:
         for index in indices:
             if index not in unique_indices:
                 unique_indices.append(index)
+                recommended_crops.append(crops[index])
             if len(unique_indices) == 3:  # 중복을 제거한 후 상위 3개의 작물만 추천
                 break
         if len(unique_indices) == 3:
             break
-
-    recommended_crops = [crops[index] for index in unique_indices]
 
     return recommended_crops
 
