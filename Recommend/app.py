@@ -104,7 +104,7 @@ def calculate_cosine_similarity(liked_crops, crops):
         # if len(unique_indices) == 3:  # 중복을 제거한 후 상위 3개의 작물만 추천
         #     break
 
-    recommended_crops = [crops[index] for index in unique_indices[:3]]
+    recommended_crops = [crops[index] for index in unique_indices]
 
     return recommended_crops
 
