@@ -1,5 +1,6 @@
 package b303.farm.user;
 
+import b303.farm.mypage.CropFavorites;
 import b303.farm.mypage.RecipeFavorites;
 import jakarta.persistence.*;
 import lombok.*;
@@ -74,5 +75,19 @@ public class User {
         //이 부분에 setUser(null)추가하면 안됨.findByRecipeAndUser이 부분에서 조회가 안됨.
     }
     //추가한 부분 end
+
+    // 농작물 즐겨찾기 기능 관련
+    @OneToMany(mappedBy = "user")
+    private List<CropFavorites> cropFavoritesList= new ArrayList<>();
+
+    //==비즈니스로직 및 (User,CropFavorites)연관관계편의 메서드==//
+    public void addCropFavorite(CropFavorites cropFavorites) {
+        cropFavoritesList.add(cropFavorites);
+        cropFavorites.setUser(this);
+    }
+    public void removeCropFavorite(CropFavorites cropFavorites) {
+        cropFavoritesList.remove(cropFavorites);
+        //이 부분에 setUser(null)추가하면 안됨.findByCropAndUser이 부분에서 조회가 안됨.
+    }
 
 }
