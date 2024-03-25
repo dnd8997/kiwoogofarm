@@ -117,7 +117,6 @@ def get_recommended_crop():
         {
             "id": 2,
             "name": "감자",
-            "thumbnailUrl": "https://postfiles.pstatic.net/MjAyNDAyMTFfMTg0/MDAxNzA3NjIzMTIyNjk1.KkOL7KS-CeF28QfSMz2rMl6JGtUK5CMNK-q67nrg2hsg.TV5f8Mwj8s-vrCWpoulmBVXHH8hz0WjET-TANWnWwnsg.JPEG.skskalcmfnrl/%EC%82%AC%EA%B3%BC_(4).jpg?type=w773",
             "temperature": "중",
             "sunshine": "상",
             "water_period": "하",
