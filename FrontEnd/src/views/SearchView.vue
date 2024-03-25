@@ -1,5 +1,5 @@
 <template>
-    <v-container class="main-container">
+    <v-container>
         <SearchComponent />
     </v-container>
 </template>
@@ -9,9 +9,5 @@ import SearchComponent from '@/components/search/SearchComponent.vue';
 </script>
 
 <style scoped>
-.main-content {
-  flex: 1;
-  max-width: max-content;
-  padding: 1em;
-}
+
 </style>

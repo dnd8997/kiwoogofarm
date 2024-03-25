@@ -1,0 +1,225 @@
+<template>
+    <div class="section">
+        <div>
+            <v-icon icon="mdi-chevron-left" style="font-size: 50px; cursor: pointer;" @click="router.push({ name: 'search' })">
+
+            </v-icon>
+        </div>
+        <div class="section-1" style="margin-left: 10%; margin-top: 2%;">
+            <div>
+                <div style="width: 300px; height: 300px;">
+
+                    <img 
+                        referrerpolicy="no-referrer" 
+                        :src="cropData.imageUrl" 
+                        style="width: 100%; height: 100%;"
+                    >
+                </div>
+                <div>
+                    <v-icon 
+                        v-if="heartCheck" 
+                        @click="checkcheck"
+                        style="cursor: pointer; color: #FF4081;" 
+                        icon="mdi-heart"
+                    >
+                    </v-icon>
+
+                    <v-icon 
+                        v-else 
+                        @click="checkcheck" 
+                        style="cursor: pointer; color: #FF4081;" 
+                        icon="mdi-heart-outline"
+                    >
+                    </v-icon>
+                </div>
+            </div>
+            <div class="crop">
+                <div class="crop-title">
+                    {{ cropData.name }}
+                </div>
+                <div class="crop-info">
+                    <div>
+
+                        {{ cropData.cropInfo }}
+                    </div>
+                </div>
+
+                <div class="window-frame">
+                    <div class="quadrant top-left">
+                        <div>
+                            <v-icon icon="mdi-watering-can-outline" style="font-size: 30px;">
+                            </v-icon>
+                        </div>
+                        <div class="frame-title">
+                            물주기
+                        </div>
+                        <div style="white-space: wrap;">
+                            {{ cropData.waterPeriodInfo }}
+                        </div>
+                    </div>
+                    <div class="quadrant top-right">
+                        <div>
+                            <v-icon icon="mdi-white-balance-sunny" style="font-size: 30px;">
+                            </v-icon>
+                        </div>
+                        <div class="frame-title">
+                            일조량
+                        </div>
+                        <div style="white-space: wrap;">
+                            {{ cropData.sunshineInfo }}
+                        </div>
+                    </div>
+                    <div class="quadrant bottom-left">
+                        <div>
+                            <v-icon icon="mdi-water" style="font-size: 30px;">
+                            </v-icon>
+                        </div>
+                        <div class="frame-title">
+                            습도
+                        </div>
+                        <div style="white-space: wrap;">
+                            {{ cropData.humidityInfo }}
+                        </div>
+                    </div>
+                    <div class="quadrant bottom-right">
+                        <div>
+                            <v-icon icon="mdi-thermometer-lines" style="font-size: 30px;">
+                            </v-icon>
+                        </div>
+                        <div class="frame-title">
+                            온도
+                        </div>
+                        <div style="white-space: wrap;">
+                            {{ cropData.temperatureInfo }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import * as Crop from '@/js/Crop';
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute()
+const router = useRouter()
+const cropData = ref([])
+
+const heartCheck = ref(false)
+
+function checkcheck () {
+    heartCheck.value = !heartCheck.value
+}
+
+onMounted(() => {
+    Crop.getCropById(
+        route.params.cropId,
+        (success) => {
+            cropData.value = success.data
+            console.log(cropData.value)
+        },
+        (error) => {
+            console.error(error)
+        }
+    )
+})
+
+</script>
+
+<style scoped>
+.section {
+  display: flex;
+  justify-content: left;
+  height: 100vh;
+  margin-top: 15%;
+  white-space: nowrap;
+  flex-direction: column;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.section-1 {
+    display: inline-flex;
+}
+
+.crop {
+    margin-left: 8%;
+}
+
+.crop-title {
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.crop-info {
+    margin-top: 5%;
+    white-space: wrap;
+}
+
+.window-frame {
+    position: relative;
+    margin-top: 5%;
+    width: 100%;
+    height: 700px;
+    border-block: 1px solid #E0E0E0;
+}
+
+.window-frame::before, .window-frame::after {
+    content: '';
+    position: absolute;
+    background: #E0E0E0;
+}
+
+.window-frame::before {
+    /* 세로선 */
+    left: 50%;
+    width: 1px;
+    height: 100%;
+}
+
+.window-frame::after {
+    /* 가로선 */
+    top: 50%;
+    height: 1px;
+    width: 100%;
+}
+
+.quadrant {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-left {
+    top: 1%;
+    left: 3%;
+    padding-right: 5%;
+}
+
+.top-right {
+    top: 1%;
+    right: -3%;
+    padding-right: 5%;
+}
+
+.bottom-left {
+    bottom: -1%;
+    left: 3%;
+    padding-right: 5%;
+}
+
+.bottom-right {
+    bottom: -1%;
+    right: -3%;
+    padding-right: 5%;
+}
+
+.frame-title {
+    font-weight: 500;
+}
+</style>
