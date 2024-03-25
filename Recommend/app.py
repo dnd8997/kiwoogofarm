@@ -84,7 +84,12 @@ def get_recommended_crop():
             "name": crop.name,
             "temperature": crop.temperature,
             "sunshine": crop.sunshine,
-            "water_period": crop.water_period
+            "water_period": crop.water_period,
+            "difficulty": crop.difficulty,
+            "grow_time": crop.grow_time,
+            "humidity": crop.humidity,
+            "grow_start": crop.grow_start,
+            "water_exit": crop.water_exit
         })
 
     # 코사인 유사도를 사용하여 추천 농작물 계산
