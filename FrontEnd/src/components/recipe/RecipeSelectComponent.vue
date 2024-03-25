@@ -1,7 +1,7 @@
 <template>
   <div class="mt-40 flex flex-row justify-center items-center">
-<!--왼쪽 이동 버튼-->
-    <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-96">&lt; </button>
+    <!--왼쪽 이동 버튼-->
+    <!-- <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-20">&lt; </button> -->
 
     <!-- 첫번째 질문 -->
     <div  v-if="currentPage === 1" class="flex flex-col justify-center items-center">
@@ -15,16 +15,16 @@
       <!-- 선택 시 좌측 상단에 선택된 농작물 목록 표시, X 버튼 클릭 시 선택한 농작물 취소 -->
       <!-- 우측 상단 검색바에서 농작물 이름 검색 -->
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base !important"
-           :class="isSelected['ingredients'].value === '쉬움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('ingredients','쉬움')" >아니요, 처음입니다.</div>
+          :class="isSelected['ingredients'].value === '쉬움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+          @click="handleClick('ingredients','쉬움')" >아니요, 처음입니다.</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['ingredients'].value === '보통' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('ingredients','보통')" >많이는 아니지만, 소소하게 키워봤습니다.</div>
+          :class="isSelected['ingredients'].value === '보통' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+          @click="handleClick('ingredients','보통')" >많이는 아니지만, 소소하게 키워봤습니다.</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['ingredients'].value === '어려움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('ingredients','어려움')">꽤 많이 키워봤습니다.</div>
+          :class="isSelected['ingredients'].value === '어려움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+          @click="handleClick('ingredients','어려움')">꽤 많이 키워봤습니다.</div>
 
       <div class="py-10"></div>
     </div>
@@ -34,9 +34,170 @@
     <div v-if="currentPage === 2" class="flex flex-col justify-center items-center">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(2/3)</span>
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">조리 방법을 선택해주세요</span>
-      <img alt="Survey2" class="w-96 h-80" src="@/assets/insideImage2.jpg">
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 font-Notosans font-medium text-base"
+      <div class="grid grid-cols-6 gap-x-12 gap-y-6 mt-12 max-w-6xl text-center">
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '굽기' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','굽기')" >
+          <img src="../../assets/fry.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '굽기' ? 'opacity-50 ' : 'opacity-100'">
+          <!-- 1. 이모티콘 사용 -->
+          <!-- <p class="checkmark absolute text-5xl" :class="isSelected['cookingmethod'].value === '굽기' ? 'opacity-100' : 'opacity-0'">✔</p> -->
+          <!-- 2. 체크마크 사진(.svg) 사용 -->
+          <!-- <img src="../../assets/check-svgrepo-com.svg" class="checkmark absolute" :class="isSelected['cookingmethod'].value === '굽기' ? 'opacity-100' : 'opacity-0'"> -->
+          <!-- 3. v-icon 사용 -->
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '굽기' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">굽기</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '끓이기' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','끓이기')" >
+          <img src="../../assets/boil.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '끓이기' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '끓이기' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">끓이기</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '데치기' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','데치기')">
+          <img src="../../assets/dachim.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '데치기' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '데치기' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+        </div>
+          <p class="mt-3">데치기</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '무침' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','무침')">
+          <img src="../../assets/muchim.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '무침' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '무침' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+        </div>
+          <p class="mt-3">무침</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '볶음' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','볶음')">
+          <img src="../../assets/boggeum.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '볶음' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '볶음' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">볶음</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '부침' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','부침')">
+          <img src="../../assets/buchim.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '부침' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '부침' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">부침</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '비빔' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','비빔')">
+          <img src="../../assets/bibim.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '비빔' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '비빔' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">비빔</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '삶기' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','삶기')">
+          <img src="../../assets/samgi.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '삶기' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '삶기' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">삶기</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '절임' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','절임')">
+          <img src="../../assets/jullim.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '절임' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '절임' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">절임</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '조림' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','조림')">
+          <img src="../../assets/jorim.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '조림' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '조림' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">조림</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '찜' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','찜')">
+          <img src="../../assets/jjim.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '찜' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '찜' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">찜</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '튀김' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','튀김')">
+          <img src="../../assets/fried.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '튀김' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '튀김' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">튀김</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '회' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','회')">
+          <img src="../../assets/sushi.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '회' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '회' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">회</p>
+        </div>
+        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+          <div class="image-container relative rounded-full overflow-hidden"
+          :class="isSelected['cookingmethod'].value === '기타' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('cookingmethod','기타')">
+          <img src="../../assets/cook.png" class="align-middle contain" :class="isSelected['cookingmethod'].value === '기타' ? 'opacity-50 ' : 'opacity-100'">
+          <div class="icon-container absolute">
+            <v-icon icon="mdi-check" class="check-icon" :class="isSelected['cookingmethod'].value === '기타' ? 'opacity-100' : 'opacity-0'"></v-icon>
+          </div>
+          </div>
+          <p class="mt-3">기타</p>
+        </div>
+      </div>
+
+      <!-- <div class="cursor-pointer rounded-full text-center font-Notosans font-medium text-base"
            :class="isSelected['cookingmethod'].value === '굽기' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick('cookingmethod','굽기')" >
            <img src="../../assets/fry.png">
@@ -105,7 +266,7 @@
            :class="isSelected['cookingmethod'].value === '기타' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick('cookingmethod','기타')">
            <img src="../../assets/cook.png">
-           기타</div>
+           기타</div> -->
       
 
       <div class="py-10"></div>
@@ -119,34 +280,34 @@
 
       <div class="flex flex-row mt-24" style="justify-content: space-evenly; margin-bottom: 3%;">
         <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-           :class="isSelected['difficulty'].value === '아무나' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('difficulty','아무나')" >
-           <img src="../../assets/everyone2.png">
-           아무나</div>
+          :class="isSelected['difficulty'].value === '아무나' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+          @click="handleClick('difficulty','아무나')" >
+          <img src="../../assets/everyone2.png">
+          아무나</div>
 
       <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-           :class="isSelected['difficulty'].value === '초급' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('difficulty','초급')" >
-           <img src="../../assets/beginner.png">
-           초급</div>
+          :class="isSelected['difficulty'].value === '초급' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+          @click="handleClick('difficulty','초급')" >
+          <img src="../../assets/beginner.png">
+          초급</div>
 
       <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-           :class="isSelected['difficulty'].value === '중급' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('difficulty','중급')" >
-           <img src="../../assets/intermediate.png">
-           중급</div>
+          :class="isSelected['difficulty'].value === '중급' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+          @click="handleClick('difficulty','중급')" >
+          <img src="../../assets/intermediate.png">
+          중급</div>
 
       <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-           :class="isSelected['difficulty'].value === '고급' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('difficulty','고급')">
-           <img src="../../assets/expert2.png">
-           고급</div>
+          :class="isSelected['difficulty'].value === '고급' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+          @click="handleClick('difficulty','고급')">
+          <img src="../../assets/expert2.png">
+          고급</div>
 
       <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-           :class="isSelected['difficulty'].value === '신의경지' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('difficulty','신의경지')" >
-           <img src="../../assets/god.png">
-           신의경지</div>
+          :class="isSelected['difficulty'].value === '신의경지' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+          @click="handleClick('difficulty','신의경지')" >
+          <img src="../../assets/god.png">
+          신의경지</div>
       </div>
       
 
@@ -184,7 +345,9 @@
     </div>
 
 <!--    오른쪽 이동버튼-->
-    <button @click="nextPage" v-if="currentPage < 3" class="absolute w-40 h-40 right-96"> 다음 &gt;</button>
+    <button @click="nextPage" v-if="currentPage < 3" class="right-button absolute font-bold font-Notosans font-medium w-40 h-40 right-48 hidden"> 다음 
+      <v-icon icon="mdi-arrow-right"></v-icon>
+    </button>
   </div>
   <!--    추천 받기 버튼-->
   <div>
@@ -210,6 +373,7 @@ export default {
     nextPage() {
       if (this.currentPage < 3) {
         this.currentPage++;
+        document.getElementsByClassName("right-button").item(0).classList.toggle("hidden");
       }
     },
     prevPage() {
@@ -244,7 +408,8 @@ const isAllSelected = () => {
 
 
 const handleClick = (index, value) => {
-  isSelected[index].value =  value ;
+  isSelected[index].value =  value;
+  document.getElementsByClassName("right-button").item(0).classList.toggle("hidden");
   console.log(isSelected[index].value);
 };
 
@@ -285,6 +450,30 @@ const handleRecommendation = async () => {
   height: 200px;
   width: 200px;
   overflow: hidden;
+}
+.image-container {
+  line-height: 136px;
+  height: 136px;
+  width: 136px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-container > img {
+  object-fit: cover;
+  /* object-fit: contain; */
+}
+.checkmark {
+  height: 50px; 
+  width: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50% );
+  color: #00B562;
+}
+.check-icon {
+  font-size: 50px;
+  color: #00B562;
 }
 /* .cursor-pointer {
   align-content: center;
