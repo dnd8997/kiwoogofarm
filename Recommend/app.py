@@ -96,7 +96,7 @@ def calculate_cosine_similarity(liked_crops, crops):
         cosine_similarities.append(similarity)
 
     similar_crops_indices = np.argsort(cosine_similarities)[::-1][:3]
-    recommended_crops = [crops[index] for index in similar_crops_indices]
+    recommended_crops = [crops[index.item()] for index in similar_crops_indices]  
 
     return recommended_crops
 
