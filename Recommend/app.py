@@ -28,10 +28,15 @@ def calculate_cosine_similarity(liked_crop, crops):
 
     # 좋아요를 누른 작물의 피처를 벡터화
     liked_crop_feature = liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"]
-    liked_crop_vector = tfidf_vectorizer.transform([liked_crop_feature])
+    liked_crop_vector = tfidf_vectorizer.fit_transform([liked_crop_feature])  # TF-IDF 변환을 위해 fit_transform 호출
 
-    # TF-IDF vectorizer 학습
-    tfidf_vectorizer.fit(crop_features)
+    # TF-IDF vectorizer가 학습되었는지 확인
+    if not hasattr(tfidf_vectorizer, 'vocabulary_'):
+        raise ValueError("TF-IDF vectorizer is not fitted.")
+
+    # TF-IDF 변환 후에도 벡터화된 데이터가 있는지 확인
+    if liked_crop_vector is None:
+        raise ValueError("Liked crop vector is None after TF-IDF transformation.")
 
     # 벡터화된 피처들에 대해 코사인 유사도 계산
     tfidf_matrix = tfidf_vectorizer.transform(crop_features)
@@ -44,6 +49,7 @@ def calculate_cosine_similarity(liked_crop, crops):
         recommended_crops.append(crops[index])
 
     return recommended_crops
+
 
 
 
