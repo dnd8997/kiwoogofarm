@@ -155,6 +155,7 @@ def cosine_recommended_crop():
     liked_crops = [
         {
             "difficulty": "보통",
+            "image" : "http://www.worktoday.co.kr/news/photo/201912/5371_6905_61.png",
             "grow_start": "여름",
             "grow_time": "상",
             "humidity": "상",
@@ -167,6 +168,7 @@ def cosine_recommended_crop():
         },
         {
             "difficulty": "보통",
+            "image": "http://www.worktoday.co.kr/news/photo/201912/5371_6905_61.png",
             "grow_start": "봄",
             "grow_time": "상",
             "humidity": "상",
@@ -178,6 +180,7 @@ def cosine_recommended_crop():
             "water_period": "상"
         },
         {
+            "image": "http://www.worktoday.co.kr/news/photo/201912/5371_6905_61.png",
             "difficulty": "보통",
             "grow_start": "봄",
             "grow_time": "상",
