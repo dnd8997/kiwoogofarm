@@ -2,7 +2,6 @@ package b303.farm.crop.service;
 
 import b303.farm.crop.controller.CropController;
 import b303.farm.crop.entity.Crop;
-
 import b303.farm.crop.repository.CropRepository;
 import b303.farm.exception.RecipeNotFoundException;
 import b303.farm.mypage.CropFavorites;
@@ -25,9 +24,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CropServiceImpl implements CropService {
 
-    @Autowired
-    private CropRepository cropRepository;
-//    private final CropDetailRepository cropDetailRepository;
+    private final CropRepository cropRepository;
+    //    private final CropDetailRepository cropDetailRepository;
     private final UserRepository userRepository;
     private final FavoriteCropRepository favoriteCropRepository;
 
@@ -60,6 +58,25 @@ public class CropServiceImpl implements CropService {
         return cropRepository.findByCategory(category);
     }
 
+    @Override
+    public List<Crop> getEasyCrops() {
+        return cropRepository.findByDifficulty("쉬움");
+    }
+
+    @Override
+    public List<Crop> getCropsWithLowSunshine() {
+        return cropRepository.findBySunshine("하");
+    }
+
+    @Override
+    public List<Crop> getCropsWithHighWaterPeriod() {
+        return cropRepository.findByWaterPeriod("상");
+    }
+
+    @Override
+    public List<Crop> getHydroponicsCrops() {
+        return cropRepository.findByIsHydroponics(true);
+    }
 
     @Override
 //    @Transactional  //class단위로 넣어야 되는지?
@@ -105,15 +122,5 @@ public class CropServiceImpl implements CropService {
         }
         return myFavoriteCrops;
     }
-//    @Override
-//    public List<Crop> recommendCrops(RecommendationRequest request) {
-//        // 추천 로직 구현
-//        return new ArrayList<>();
-//    }
 
-//    @Override
-//    public String likeCrop(LikeRequest request) {
-//        // 찜 변경 로직 구현
-//        return "Success";
-//    }
 }
