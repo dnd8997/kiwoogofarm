@@ -52,7 +52,7 @@ def difficulty_to_number(value):
 
 def season_to_number(value):
     if value == "봄, 가을":
-        return 4 + 2
+        return 3
     elif value == "봄":
         return 4
     elif value == "여름":
@@ -199,7 +199,7 @@ def euclidean_recommended_crop():
             "grow_start": "봄, 가을",
             "grow_time": "상",
             "humidity": "상",
-            "id": 20,   
+            "id": 20,
             "name": "루끌라",
             "sunshine": "상",
             "temperature": "중",
