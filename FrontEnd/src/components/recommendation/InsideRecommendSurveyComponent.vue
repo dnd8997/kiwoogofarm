@@ -234,7 +234,7 @@ const handleRecommendation = async () => {
     }
     console.log(requestData);
     // API 요청 보내기
-    const response = await axios.post('/api/recommendation', requestData, {
+    const response = await axios.post('/recommendapi/insideCrop', { 'liked_crops': requestData }, {
       // 필요한 옵션 설정
     });
 

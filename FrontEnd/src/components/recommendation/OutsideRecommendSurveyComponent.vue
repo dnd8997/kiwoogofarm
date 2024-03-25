@@ -201,7 +201,6 @@ export default {
 import { ref  } from 'vue';
 import axios from "axios";
 import { useRouter } from 'vue-router';
-import {data} from "autoprefixer";
 
 const router = useRouter();
 
@@ -241,7 +240,8 @@ const handleRecommendation = async () => {
 
     console.log(requestData);
     // API 요청 보내기
-    const response = await axios.post('https://j10b303.p.ssafy.io/api/recommendation', requestData, {
+    const response = await axios.post('/recommendapi/outsideCrop', { 'liked_crops': requestData }, {
+      // 필요한 옵션 설정
     });
 
     // API 요청 성공 시 페이지 이동
