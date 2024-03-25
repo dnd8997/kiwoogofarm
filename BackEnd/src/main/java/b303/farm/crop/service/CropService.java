@@ -14,6 +14,6 @@ public interface CropService {
     String favoriteCrop(Long id,String email);
     List<Crop> getMyFavoriteCrops(String email);
 
-//    List<Crop> recommendCrops(RecommendationRequest request);
-//    String likeCrop(LikeRequest request);
+    // 카테고리로 농작물 검색
+    List<Crop> searchCropsByCategory(String category);
 }
