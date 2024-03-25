@@ -241,14 +241,13 @@ const handleRecommendation = async () => {
         "water_period": isSelected.water_period.value
       }]
     };
-    console.log(requestData);
     // API 요청 보내기
     const response = await axios.post('/recommendapi/insideCrop',  requestData, {
-      // 필요한 옵션 설정
     });
 
     // API 요청 성공 시 페이지 이동
     if (response.status === 200) {
+      console.log(response.data);
       router.push({
         name: 'recommendresult',
         state: { // params가 state로 바뀌었다.
