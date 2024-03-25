@@ -60,7 +60,7 @@ def difficulty_to_number(value):
 
 def season_to_number(value):
     if value == "봄, 가을":
-        return 3
+        return 2.9
     elif value == "봄":
         return 4
     elif value == "여름":
