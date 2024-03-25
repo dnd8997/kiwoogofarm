@@ -91,25 +91,32 @@ def calculate_cosine_similarity(liked_crops, crops):
                                 season_to_number(crop["grow_start"]),
                                 string_to_number(crop["water_exit"])])
         # 각 작물의 벡터와 좋아요를 누른 작물들의 벡터 사이의 코사인 유사도 계산
-        similarity = np.dot(liked_crop_features, crop_vector) / (
-                np.linalg.norm(liked_crop_features, axis=1) * np.linalg.norm(crop_vector))
-        cosine_similarities.append(similarity)
+        cosine_similarities = cosine_similarity(liked_crop_features, crops)
+        # similarity = np.dot(liked_crop_features, crop_vector) / (
+        #         np.linalg.norm(liked_crop_features, axis=1) * np.linalg.norm(crop_vector))
+        # cosine_similarities.append(similarity)
 
     # 각 작물과의 유사도를 계산한 후 상위 3개를 추출
-    similar_crops_indices = np.argsort(cosine_similarities, axis=1)[:, ::-1]
-    unique_indices = []
+    recommended_crops_indices = np.argsort(cosine_similarities, axis=1)[:, ::-1][:, :3]
     recommended_crops = []
-    for indices in similar_crops_indices:
-        for index in indices:
-            if index not in unique_indices:
-                unique_indices.append(index)
-                recommended_crops.append(crops[index])
-            if len(unique_indices) == 3:  # 중복을 제거한 후 상위 3개의 작물만 추천
-                break
-        if len(unique_indices) == 3:
-            break
+    for indices in recommended_crops_indices:
+        recommended_crops.append([crops[index] for index in indices])
 
     return recommended_crops
+    # similar_crops_indices = np.argsort(cosine_similarities, axis=1)[:, ::-1]
+    # unique_indices = []
+    # recommended_crops = []
+    # for indices in similar_crops_indices:
+    #     for index in indices:
+    #         if index not in unique_indices:
+    #             unique_indices.append(index)
+    #             recommended_crops.append(crops[index])
+    #         if len(unique_indices) == 3:  # 중복을 제거한 후 상위 3개의 작물만 추천
+    #             break
+    #     if len(unique_indices) == 3:
+    #         break
+    #
+    # return recommended_crops
 
 
 # API 엔드포인트 정의
