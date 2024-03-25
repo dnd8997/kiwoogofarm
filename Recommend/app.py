@@ -155,12 +155,36 @@ def cosine_recommended_crop():
     liked_crops = [
         {
             "difficulty": "보통",
-            "grow_start": "봄, 가을",
+            "grow_start": "여름",
             "grow_time": "상",
             "humidity": "상",
-            "id": 20,
-            "name": "루끌라",
+            "id": 13,
+            "name": "양파",
             "sunshine": "상",
+            "temperature": "중",
+            "water_exit": "상",
+            "water_period": "상"
+        },
+        {
+            "difficulty": "보통",
+            "grow_start": "봄",
+            "grow_time": "상",
+            "humidity": "상",
+            "id": 24,
+            "name": "열무",
+            "sunshine": "상",
+            "temperature": "중",
+            "water_exit": "상",
+            "water_period": "상"
+        },
+        {
+            "difficulty": "보통",
+            "grow_start": "봄",
+            "grow_time": "상",
+            "humidity": "상",
+            "id": 8,
+            "name": "샐러리",
+            "sunshine": "중",
             "temperature": "중",
             "water_exit": "상",
             "water_period": "상"
@@ -196,12 +220,36 @@ def euclidean_recommended_crop():
     liked_crops = [
         {
             "difficulty": "보통",
-            "grow_start": "봄, 가을",
+            "grow_start": "여름",
             "grow_time": "상",
             "humidity": "상",
-            "id": 20,
-            "name": "루끌라",
+            "id": 13,
+            "name": "양파",
             "sunshine": "상",
+            "temperature": "중",
+            "water_exit": "상",
+            "water_period": "상"
+        },
+        {
+            "difficulty": "보통",
+            "grow_start": "봄",
+            "grow_time": "상",
+            "humidity": "상",
+            "id": 24,
+            "name": "열무",
+            "sunshine": "상",
+            "temperature": "중",
+            "water_exit": "상",
+            "water_period": "상"
+        },
+        {
+            "difficulty": "보통",
+            "grow_start": "봄",
+            "grow_time": "상",
+            "humidity": "상",
+            "id": 8,
+            "name": "샐러리",
+            "sunshine": "중",
             "temperature": "중",
             "water_exit": "상",
             "water_period": "상"
