@@ -30,8 +30,11 @@ def calculate_cosine_similarity(liked_crop, crops):
     liked_crop_feature = liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"]
     liked_crop_vector = tfidf_vectorizer.transform([liked_crop_feature])
 
+    # TF-IDF vectorizer 학습
+    tfidf_vectorizer.fit(crop_features)
+
     # 벡터화된 피처들에 대해 코사인 유사도 계산
-    tfidf_matrix = tfidf_vectorizer.fit_transform(crop_features)
+    tfidf_matrix = tfidf_vectorizer.transform(crop_features)
     cosine_similarities = cosine_similarity(liked_crop_vector, tfidf_matrix)
 
     # 코사인 유사도가 가장 높은 작물 추천
@@ -41,6 +44,7 @@ def calculate_cosine_similarity(liked_crop, crops):
         recommended_crops.append(crops[index])
 
     return recommended_crops
+
 
 
 
