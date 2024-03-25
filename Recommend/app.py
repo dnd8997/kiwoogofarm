@@ -15,6 +15,7 @@ db = SQLAlchemy(app)
 # 데이터베이스 모델 정의
 class Crop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    image_url = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     temperature = db.Column(db.String(100), nullable=False)
     sunshine = db.Column(db.String(100), nullable=False)
@@ -240,6 +241,7 @@ def get_euclidean_recommended_crop(user_id):
         crop.dict ={
             "id": crop.id,
             "name": crop.name,
+            "image_url" : crop.image_url,
             "temperature": crop.temperature,
             "sunshine": crop.sunshine,
             "water_period": crop.water_period,
@@ -267,6 +269,7 @@ def post_euclidean_recommended_inside_crop():
         crop.dict ={
             "id": crop.id,
             "name": crop.name,
+            "image_url": crop.image_url,
             "temperature": crop.temperature,
             "sunshine": crop.sunshine,
             "water_period": crop.water_period,
@@ -294,6 +297,7 @@ def post_euclidean_recommended_outside_crop():
         crop.dict ={
             "id": crop.id,
             "name": crop.name,
+            "image_url": crop.image_url,
             "temperature": crop.temperature,
             "sunshine": crop.sunshine,
             "water_period": crop.water_period,
