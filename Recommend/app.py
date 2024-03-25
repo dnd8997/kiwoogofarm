@@ -25,22 +25,63 @@ class Crop(db.Model):
     water_exit = db.Column(db.String(100), nullable=False)
 
 
+def string_to_number(value):
+    if value == "상":
+        return 3
+    elif value == "중":
+        return 2
+    elif value == "하":
+        return 1
+    elif value == "최하":
+        return 0
+    else:
+        raise ValueError("Invalid value: {}".format(value))
+
+
+def difficulty_to_number(value):
+    if value == "어려움":
+        return 3
+    elif value == "보통":
+        return 2
+    elif value == "쉬움":
+        return 1
+    else:
+        raise ValueError("Invalid value: {}".format(value))
+
+
+def season_to_number(value):
+    if value == "봄":
+        return 4
+    elif value == "여름":
+        return 3
+    elif value == "가을":
+        return 2
+    elif value == "겨울":
+        return 1
+    else:
+        raise ValueError("Invalid value: {}".format(value))
 
 # 코사인 유사도 계산 함수
 def calculate_cosine_similarity(liked_crops, crops):
     tfidf_vectorizer = TfidfVectorizer()
 
-    crop_features = [crop["temperature"] + crop["sunshine"] + crop["water_period"] +
-                     crop["difficulty"] + crop["grow_time"] + crop["humidity"] +
-                     crop["grow_start"] + crop["water_exit"]
+    crop_features = [string_to_number(crop["temperature"]) + string_to_number(crop["sunshine"]) +
+                     string_to_number(crop["water_period"]) + difficulty_to_number(crop["difficulty"]) +
+                     string_to_number(crop["grow_time"]) + string_to_number(crop["humidity"]) +
+                     season_to_number(crop["grow_start"]) + string_to_number(crop["water_exit"])
                      for crop in crops if crop["id"] not in [liked_crop["id"] for liked_crop in liked_crops]]
 
     # 좋아요를 누른 작물의 피처를 벡터화
     liked_crop_features = []
     for liked_crop in liked_crops:
-        liked_crop_feature = liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"] + \
-                             liked_crop["difficulty"] + liked_crop["grow_time"] + liked_crop["humidity"] + \
-                             liked_crop["grow_start"] + liked_crop["water_exit"]
+        liked_crop_feature = [string_to_number(liked_crop["temperature"]),
+                              string_to_number(liked_crop["sunshine"]),
+                              string_to_number(liked_crop["water_period"]),
+                              difficulty_to_number(liked_crop["difficulty"]),
+                              string_to_number(liked_crop["grow_time"]),
+                              string_to_number(liked_crop["humidity"]),
+                              season_to_number(liked_crop["grow_start"]),
+                              string_to_number(liked_crop["water_exit"])]
         liked_crop_features.append(liked_crop_feature)
 
         liked_crop_vectors = tfidf_vectorizer.fit_transform(liked_crop_features)
