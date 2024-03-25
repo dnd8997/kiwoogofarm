@@ -29,16 +29,20 @@ def calculate_cosine_similarity(liked_crop, crops):
     # 벡터화된 피처들에 대해 코사인 유사도 계산을 위한 행렬 생성
     tfidf_matrix = tfidf_vectorizer.fit_transform(crop_features)
 
-    # 새로운 데이터인 liked_crop를 추가한 후 코사인 유사도 계산
+    # 좋아요를 누른 작물을 제외한 행렬 생성
     liked_crop_feature = liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"]
     liked_crop_vector = tfidf_vectorizer.transform([liked_crop_feature])
-    cosine_similarities = cosine_similarity(liked_crop_vector, tfidf_matrix)
+    tfidf_matrix_without_liked_crop = tfidf_matrix[:-1]
+
+    # 코사인 유사도 계산
+    cosine_similarities = cosine_similarity(liked_crop_vector, tfidf_matrix_without_liked_crop)
 
     # 코사인 유사도가 가장 높은 상위 n개의 농작물 추천
     n_recommendations = 3  # 추천할 농작물 개수
     similar_crops_indices = cosine_similarities.argsort()[0][::-1]  # 유사도가 높은 순으로 정렬
-    recommended_crops = [crops[i] for i in similar_crops_indices if i < len(crops) - 1][:n_recommendations]  # liked_crop 제외 및 상위 n개 선택
+    recommended_crops = [crops[i] for i in similar_crops_indices][:n_recommendations]  # 상위 n개 선택
     return recommended_crops
+
 
 
 # API 엔드포인트 정의
