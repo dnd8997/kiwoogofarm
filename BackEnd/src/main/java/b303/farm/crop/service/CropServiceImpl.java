@@ -31,7 +31,7 @@ public class CropServiceImpl implements CropService {
     private final UserRepository userRepository;
     private final FavoriteCropRepository favoriteCropRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(CropController.class);
+    private static final Logger log = LoggerFactory.getLogger(CropServiceImpl.class);
 
 //    public CropServiceImpl(CropDetailRepository cropDetailRepository, UserRepository userRepository, FavoriteCopRepository favoriteCropRepository) {
 //        this.cropDetailRepository = cropDetailRepository;
@@ -53,6 +53,11 @@ public class CropServiceImpl implements CropService {
     @Override
     public List<Crop> searchCrops(String name) {
         return cropRepository.findByNameContaining(name);
+    }
+
+    @Override
+    public List<Crop> searchCropsByCategory(String category) {
+        return cropRepository.findByCategory(category);
     }
 
 

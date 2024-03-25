@@ -44,6 +44,17 @@ public class CropController {
         return cropService.searchCrops(name);
     }
 
+    // 카테고리로 농작물 검색
+    @GetMapping("/searchByCategory")
+    public ResponseEntity<List<Crop>> searchCropsByCategory(@RequestParam(name = "category") String category) {
+        List<Crop> crops = cropService.searchCropsByCategory(category);
+        if (crops.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(crops, HttpStatus.OK);
+    }
+
+
     //즐겨찾기 설정/해제
     @PostMapping("/{id}/favorites/{email}")
     @ResponseStatus(HttpStatus.OK)
