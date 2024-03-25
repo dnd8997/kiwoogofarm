@@ -229,9 +229,16 @@ const handleRecommendation = async () => {
   try {
     // isSelected 객체의 값을 추출하여 API 요청에 필요한 데이터로 변환
     const requestData = {};
-    for (let key in isSelected) {
-      requestData[key] = isSelected[key].value;
-    }
+    requestData["liked_crops"] = [
+      {
+        "difficulty": isSelected['difficulty'].value,
+        "grow_start": isSelected['grow_start'].value,
+        "grow_time": isSelected['grow_time'].value,
+        "sunshine": isSelected['sunshine'].value,
+        "water_exit": isSelected['water_exit'].value,
+        "water_period": isSelected['water_period'].value
+      }
+    ];
     console.log(requestData);
     // API 요청 보내기
     const response = await axios.post('/recommendapi/insideCrop', { 'liked_crops': requestData }, {
