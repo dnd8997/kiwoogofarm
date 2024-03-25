@@ -22,16 +22,26 @@ class Crop(db.Model):
 # 코사인 유사도 계산 함수
 def calculate_cosine_similarity(liked_crop, crops):
     tfidf_vectorizer = TfidfVectorizer()
+
+    # 농작물 데이터를 피처로 벡터화
     crop_features = [crop["temperature"] + crop["sunshine"] + crop["water_period"] for crop in crops]
     liked_crop_features = liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"]
     crop_features.append(liked_crop_features)
 
+    # 벡터화된 피처들에 대해 코사인 유사도 계산
     tfidf_matrix = tfidf_vectorizer.fit_transform(crop_features)
     cosine_similarities = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
-    similar_crops_indices = cosine_similarities[-1].argsort()[:-2:-1]
+    # 코사인 유사도가 가장 높은 농작물 추천
+    similar_crops_indices = cosine_similarities[-1].argsort()[:-2:-1]  # 가장 유사도가 높은 농작물의 인덱스
+
+    # 추천된 농작물이 없는 경우 예외 처리
+    if not similar_crops_indices:
+        return {}
+
     similar_crop = crops[similar_crops_indices[0]]
     return similar_crop
+
 
 # API 엔드포인트 정의
 @app.route('/recommended_crop', methods=['GET'])
