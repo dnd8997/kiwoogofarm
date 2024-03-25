@@ -134,7 +134,7 @@ def get_recommended_crop():
             "id": 4,
             "name": "고추",
             "temperature": "상",
-            "sunshine": "보통",
+            "sunshine": "중",
             "water_period": "하",
             "difficulty": "보통",
             "grow_time": "중",
