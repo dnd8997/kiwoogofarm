@@ -26,6 +26,13 @@ class Crop(db.Model):
     water_exit = db.Column(db.String(100), nullable=False)
 
 
+class CropFavorite(db.Model):
+    id = db.Column(db.BIGINT, primary_key=True)
+    is_liked = db.Column(db.Boolean, nullable=False)
+    user_id = db.Column(db.BIGINT, db.ForeignKey('user.id'), nullable=False)
+    crop_id = db.Column(db.BIGINT, db.ForeignKey('crop.id'), nullable=False)
+
+
 def string_to_number(value):
     if value == "상":
         return 3
@@ -66,6 +73,27 @@ def season_to_number(value):
     else:
         raise ValueError("Invalid value: {}".format(value))
 
+
+def get_liked_crops_from_database(user_id):
+    crop_favorites = CropFavorite.query.filter_by(user_id=user_id, is_liked=True).all()
+    liked_crops = []
+    for crop_favorite in crop_favorites:
+        crop = Crop.query.get(crop_favorite.crop_id)
+        if crop:
+            crop_dict = {
+                "id": crop.id,
+                "name": crop.name,
+                "temperature": crop.temperature,
+                "sunshine": crop.sunshine,
+                "water_period": crop.water_period,
+                "difficulty": crop.difficulty,
+                "grow_time": crop.grow_time,
+                "humidity": crop.humidity,
+                "grow_start": crop.grow_start,
+                "water_exit": crop.water_exit
+            }
+            liked_crops.append(crop_dict)
+    return liked_crops
 
 
 def calculate_cosine_similarity(liked_crops, crops):
