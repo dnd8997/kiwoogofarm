@@ -59,7 +59,7 @@ def calculate_cosine_similarity(liked_crop, crops):
 
 
 # API 엔드포인트 정의
-@app.route('/recommended_crop', methods=['GET'])
+@app.route('/crop', methods=['GET'])
 def get_recommended_crop():
     # 좋아요를 누른 농작물 데이터
     liked_crop = {
@@ -79,7 +79,7 @@ def get_recommended_crop():
     all_crops = Crop.query.all()
     crops = []
     for crop in all_crops:
-        crops.append({
+        crop.dict ={
             "id": crop.id,
             "name": crop.name,
             "temperature": crop.temperature,
@@ -90,7 +90,8 @@ def get_recommended_crop():
             "humidity": crop.humidity,
             "grow_start": crop.grow_start,
             "water_exit": crop.water_exit
-        })
+        }
+        crops.append(crop.dict)
 
     # 코사인 유사도를 사용하여 추천 농작물 계산
     recommended_crop = calculate_cosine_similarity(liked_crop, crops)
