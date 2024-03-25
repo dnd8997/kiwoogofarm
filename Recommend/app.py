@@ -58,9 +58,9 @@ def get_recommended_crop():
         })
 
     # 코사인 유사도를 사용하여 추천 농작물 계산
-    recommended_crop = calculate_cosine_similarity(liked_crop, crops)
+    # recommended_crop = calculate_cosine_similarity(liked_crop, crops)
 
-    return jsonify({"recommended_crop": recommended_crop})
+    return jsonify({"recommended_crop": crops})
 
 # 애플리케이션 실행
 if __name__ == '__main__':
