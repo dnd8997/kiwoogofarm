@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -68,7 +68,6 @@ def season_to_number(value):
 
 
 
-# 코사인 유사도 계산 함수
 def calculate_cosine_similarity(liked_crops, crops):
     liked_crop_features = np.array([[string_to_number(liked_crop["temperature"]),
                                      string_to_number(liked_crop["sunshine"]),
@@ -81,7 +80,7 @@ def calculate_cosine_similarity(liked_crops, crops):
                                     for liked_crop in liked_crops])
 
     liked_crop_ids = set(liked_crop["id"] for liked_crop in liked_crops)
-    # 좋아요를 누른 작물의 피처를 벡터화
+
     crops_features = np.array([[string_to_number(crop["temperature"]),
                                 string_to_number(crop["sunshine"]),
                                 string_to_number(crop["water_period"]),
@@ -92,7 +91,6 @@ def calculate_cosine_similarity(liked_crops, crops):
                                 string_to_number(crop["water_exit"])]
                                 for crop in crops if crop["id"] not in liked_crop_ids])
 
-        # 각 작물의 벡터와 좋아요를 누른 작물들의 벡터 사이의 코사인 유사도 계산
     cosine_similarities = cosine_similarity(liked_crop_features, crops_features)
 
     similar_crops_indices = np.argsort(cosine_similarities, axis=1)[:, ::-1]
@@ -122,11 +120,10 @@ def calculate_euclidean_distance(liked_crops, crops):
                                      string_to_number(liked_crop["water_exit"])]
                                     for liked_crop in liked_crops])
 
-    # 좋아요를 누른 작물의 특성과 crops에 있는 각 작물의 특성 간의 유클리드 거리 계산
     euclidean_distances = []
 
     liked_crop_ids = set(liked_crop["id"] for liked_crop in liked_crops)
-    # 좋아요를 누른 작물의 피처를 벡터화
+
     for crop in crops:
         if crop["id"] not in liked_crop_ids:
             crop_vector = np.array([string_to_number(crop["temperature"]),
@@ -137,25 +134,22 @@ def calculate_euclidean_distance(liked_crops, crops):
                                     string_to_number(crop["humidity"]),
                                     season_to_number(crop["grow_start"]),
                                     string_to_number(crop["water_exit"])])
-            # 유클리드 거리 계산
+
             distance = np.linalg.norm(liked_crop_features - crop_vector)
             euclidean_distances.append((crop, distance))
 
     sorted_distances = sorted(euclidean_distances, key=lambda x: x[1])
     recommended_crops = [crop for crop, _ in sorted_distances[:3]]
 
-    # 작물 간의 유클리드 거리 반환
     return recommended_crops
 
 
-# API 엔드포인트 정의
-@app.route('/crop', methods=['GET'])
-def cosine_recommended_crop():
-    # 좋아요를 누른 농작물 데이터
+@app.route('/getCrop', methods=['GET'])
+def get_euclidean_recommended_crop():
+
     liked_crops = [
         {
             "difficulty": "보통",
-            "image" : "http://www.worktoday.co.kr/news/photo/201912/5371_6905_61.png",
             "grow_start": "여름",
             "grow_time": "상",
             "humidity": "상",
@@ -166,34 +160,8 @@ def cosine_recommended_crop():
             "water_exit": "상",
             "water_period": "상"
         },
-        {
-            "difficulty": "보통",
-            "image": "http://www.worktoday.co.kr/news/photo/201912/5371_6905_61.png",
-            "grow_start": "봄",
-            "grow_time": "상",
-            "humidity": "상",
-            "id": 24,
-            "name": "열무",
-            "sunshine": "상",
-            "temperature": "중",
-            "water_exit": "상",
-            "water_period": "상"
-        },
-        {
-            "image": "http://www.worktoday.co.kr/news/photo/201912/5371_6905_61.png",
-            "difficulty": "보통",
-            "grow_start": "봄",
-            "grow_time": "상",
-            "humidity": "상",
-            "id": 8,
-            "name": "샐러리",
-            "sunshine": "중",
-            "temperature": "중",
-            "water_exit": "상",
-            "water_period": "상"
-        }
     ]
-    # 모든 농작물 데이터 가져오기
+
     all_crops = Crop.query.all()
     crops = []
     for crop in all_crops:
@@ -211,77 +179,37 @@ def cosine_recommended_crop():
         }
         crops.append(crop.dict)
 
-    # 코사인 유사도를 사용하여 추천 농작물 계산
-    recommended_crop = calculate_cosine_similarity(liked_crops, crops)
-
-    return jsonify({"recommended_crop": recommended_crop})
-
-
-@app.route('/crop2', methods=['GET'])
-def euclidean_recommended_crop():
-    # 좋아요를 누른 농작물 데이터
-    liked_crops = [
-        {
-            "difficulty": "보통",
-            "grow_start": "여름",
-            "grow_time": "상",
-            "humidity": "상",
-            "id": 13,
-            "name": "양파",
-            "sunshine": "상",
-            "temperature": "중",
-            "water_exit": "상",
-            "water_period": "상"
-        },
-        {
-            "difficulty": "보통",
-            "grow_start": "봄",
-            "grow_time": "상",
-            "humidity": "상",
-            "id": 24,
-            "name": "열무",
-            "sunshine": "상",
-            "temperature": "중",
-            "water_exit": "상",
-            "water_period": "상"
-        },
-        {
-            "difficulty": "보통",
-            "grow_start": "봄",
-            "grow_time": "상",
-            "humidity": "상",
-            "id": 8,
-            "name": "샐러리",
-            "sunshine": "중",
-            "temperature": "중",
-            "water_exit": "상",
-            "water_period": "상"
-        }
-    ]
-    # 모든 농작물 데이터 가져오기
-    all_crops = Crop.query.all()
-    crops = []
-    for crop in all_crops:
-        crop.dict ={
-            "id": crop.id,
-            "name": crop.name,
-            "temperature": crop.temperature,
-            "sunshine": crop.sunshine,
-            "water_period": crop.water_period,
-            "difficulty": crop.difficulty,
-            "grow_time": crop.grow_time,
-            "humidity": crop.humidity,
-            "grow_start": crop.grow_start,
-            "water_exit": crop.water_exit
-        }
-        crops.append(crop.dict)
-
-    # 코사인 유사도를 사용하여 추천 농작물 계산
     recommended_crop = calculate_euclidean_distance(liked_crops, crops)
 
     return jsonify({"recommended_crop": recommended_crop})
 
 
-# 애플리케이션 실행
+@app.route('/crop', methods=['POST'])
+def euclidean_recommended_crop():
+
+    liked_crops = request.json.get('liked_crops')
+
+    all_crops = Crop.query.all()
+    crops = []
+    for crop in all_crops:
+        crop.dict ={
+            "id": crop.id,
+            "name": crop.name,
+            "temperature": crop.temperature,
+            "sunshine": crop.sunshine,
+            "water_period": crop.water_period,
+            "difficulty": crop.difficulty,
+            "grow_time": crop.grow_time,
+            "humidity": crop.humidity,
+            "grow_start": crop.grow_start,
+            "water_exit": crop.water_exit
+        }
+        crops.append(crop.dict)
+
+    recommended_crop = calculate_euclidean_distance(liked_crops, crops)
+
+    return jsonify({"recommended_crop": recommended_crop})
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8082, debug=True)
