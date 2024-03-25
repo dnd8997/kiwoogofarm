@@ -77,8 +77,8 @@ def season_to_number(value):
 def get_liked_crops_from_database(user_id):
     crop_favorites = CropFavorite.query.filter_by(user_id=user_id, is_liked=True).all()
     liked_crops = []
-    for crop_favorite in crop_favorites:
-        crop = Crop.query.get(crop_favorite.crop_id)
+    for cropfavorites in crop_favorites:
+        crop = Crop.query.get(cropfavorites.crop_id)
         if crop:
             crop_dict = {
                 "id": crop.id,
@@ -203,10 +203,10 @@ def survey_calculate_euclidean_distance(liked_crops, crops):
     return recommended_crops
 
 
-@app.route('/crop/<int:crop_id>', methods=['GET'])
-def get_euclidean_recommended_crop(crop_id):
+@app.route('/crop/<int:user_id>', methods=['GET'])
+def get_euclidean_recommended_crop(user_id):
 
-    liked_crops = get_liked_crops_from_database(crop_id)
+    liked_crops = get_liked_crops_from_database(user_id)
 
     all_crops = Crop.query.all()
     crops = []
