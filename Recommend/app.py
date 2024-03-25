@@ -27,6 +27,7 @@ class Crop(db.Model):
 
 
 class CropFavorite(db.Model):
+    __tablename__ = 'cropfavorites'
     id = db.Column(db.BIGINT, primary_key=True)
     is_liked = db.Column(db.Boolean, nullable=False)
     user_id = db.Column(db.BIGINT, db.ForeignKey('user.id'), nullable=False)
