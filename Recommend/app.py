@@ -140,6 +140,18 @@ def get_recommended_crop():
             "water_exit": "중",
             "water_period": "중"
         },
+        {
+            "difficulty": "보통",
+            "grow_start": "봄",
+            "grow_time": "하",
+            "humidity": "상",
+            "id": 4,
+            "name": "고추",
+            "sunshine": "하",
+            "temperature": "상",
+            "water_exit": "하",
+            "water_period": "중"
+        }
     ]
     # 모든 농작물 데이터 가져오기
     all_crops = Crop.query.all()
