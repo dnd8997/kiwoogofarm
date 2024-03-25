@@ -150,21 +150,9 @@ def calculate_euclidean_distance(liked_crops, crops):
 
 # API 엔드포인트 정의
 @app.route('/crop', methods=['GET'])
-def get_recommended_crop():
+def cosine_recommended_crop():
     # 좋아요를 누른 농작물 데이터
     liked_crops = [
-        {
-            "id": 2,
-            "name": "감자",
-            "temperature": "중",
-            "sunshine": "상",
-            "water_period": "하",
-            "difficulty": "보통",
-            "grow_time": "중",
-            "humidity": "상",
-            "grow_start": "봄",
-            "water_exit": "중"
-        },
         {
             "difficulty": "보통",
             "grow_start": "겨울",
@@ -175,18 +163,6 @@ def get_recommended_crop():
             "sunshine": "중",
             "temperature": "중",
             "water_exit": "중",
-            "water_period": "중"
-        },
-        {
-            "difficulty": "보통",
-            "grow_start": "봄",
-            "grow_time": "하",
-            "humidity": "상",
-            "id": 4,
-            "name": "고추",
-            "sunshine": "하",
-            "temperature": "상",
-            "water_exit": "하",
             "water_period": "중"
         }
     ]
@@ -219,18 +195,6 @@ def euclidean_recommended_crop():
     # 좋아요를 누른 농작물 데이터
     liked_crops = [
         {
-            "id": 2,
-            "name": "감자",
-            "temperature": "중",
-            "sunshine": "상",
-            "water_period": "하",
-            "difficulty": "보통",
-            "grow_time": "중",
-            "humidity": "상",
-            "grow_start": "봄",
-            "water_exit": "중"
-        },
-        {
             "difficulty": "보통",
             "grow_start": "겨울",
             "grow_time": "상",
@@ -240,18 +204,6 @@ def euclidean_recommended_crop():
             "sunshine": "중",
             "temperature": "중",
             "water_exit": "중",
-            "water_period": "중"
-        },
-        {
-            "difficulty": "보통",
-            "grow_start": "봄",
-            "grow_time": "하",
-            "humidity": "상",
-            "id": 4,
-            "name": "고추",
-            "sunshine": "하",
-            "temperature": "상",
-            "water_exit": "하",
             "water_period": "중"
         }
     ]
