@@ -5,6 +5,8 @@ import b303.farm.user.User;
 import b303.farm.user.repository.UserRepository;
 import b303.farm.user.dto.UserSignUpDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
