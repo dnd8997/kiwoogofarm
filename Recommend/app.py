@@ -92,7 +92,7 @@ def calculate_cosine_similarity(liked_crops, crops):
                                 string_to_number(crop["water_exit"])])
         # 각 작물의 벡터와 좋아요를 누른 작물들의 벡터 사이의 코사인 유사도 계산
         similarity = np.dot(liked_crop_features, crop_vector) / (
-                    np.linalg.norm(liked_crop_features) * np.linalg.norm(crop_vector))
+                np.linalg.norm(liked_crop_features, axis=1) * np.linalg.norm(crop_vector))
         cosine_similarities.append(similarity)
 
     similar_crops_indices = np.argsort(cosine_similarities)[::-1]
@@ -115,16 +115,16 @@ def get_recommended_crop():
     # 좋아요를 누른 농작물 데이터
     liked_crops = [
         {
-            "difficulty": "쉬움",
-            "grow_start": "봄",
-            "grow_time": "중",
-            "humidity": "중",
-            "id": 1,
-            "name": "대파",
-            "sunshine": "중",
+            "id": 2,
+            "name": "감자",
             "temperature": "중",
-            "water_exit": "상",
-            "water_period": "중"
+            "sunshine": "상",
+            "water_period": "하",
+            "difficulty": "보통",
+            "grow_time": "중",
+            "humidity": "상",
+            "grow_start": "봄",
+            "water_exit": "중"
         }
     ]
     # 모든 농작물 데이터 가져오기
