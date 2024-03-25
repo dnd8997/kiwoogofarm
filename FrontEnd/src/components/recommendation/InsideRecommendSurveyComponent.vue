@@ -231,10 +231,10 @@ const handleRecommendation = async () => {
     const requestData = {
       liked_crops: [{
         "difficulty": isSelected.difficulty.value,
-        "temperature": isSelected.grow_start.value,
+        "temperature": isSelected.temperature.value,
         "grow_time": isSelected.grow_time.value,
         "sunshine": isSelected.sunshine.value,
-        "humidity": isSelected.water_exit.value,
+        "humidity": isSelected.humidity.value,
         "water_period": isSelected.water_period.value
       }]
     };
