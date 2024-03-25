@@ -126,32 +126,6 @@ def get_recommended_crop():
             "humidity": "상",
             "grow_start": "여름",
             "water_exit": "중"
-        },
-        {
-            "id": 10,
-            "name": "당근",
-            "thumbnailUrl": "https://postfiles.pstatic.net/MjAyNDAyMTFfMTg0/MDAxNzA3NjIzMTIyNjk1.KkOL7KS-CeF28QfSMz2rMl6JGtUK5CMNK-q67nrg2hsg.TV5f8Mwj8s-vrCWpoulmBVXHH8hz0WjET-TANWnWwnsg.JPEG.skskalcmfnrl/%EC%82%AC%EA%B3%BC_(4).jpg?type=w773",
-            "temperature": "중",
-            "sunshine": "중",
-            "water_period": "중",
-            "difficulty": "보통",
-            "grow_time": "중",
-            "humidity": "상",
-            "grow_start": "여름",
-            "water_exit": "중"
-        },
-        {
-            "id": 4,
-            "name": "고추",
-            "thumbnailUrl": "https://postfiles.pstatic.net/MjAyNDAyMTFfMTg0/MDAxNzA3NjIzMTIyNjk1.KkOL7KS-CeF28QfSMz2rMl6JGtUK5CMNK-q67nrg2hsg.TV5f8Mwj8s-vrCWpoulmBVXHH8hz0WjET-TANWnWwnsg.JPEG.skskalcmfnrl/%EC%82%AC%EA%B3%BC_(4).jpg?type=w773",
-            "temperature": "상",
-            "sunshine": "중",
-            "water_period": "하",
-            "difficulty": "보통",
-            "grow_time": "중",
-            "humidity": "상",
-            "grow_start": "여름",
-            "water_exit": "상"
         }
     ]
     # 모든 농작물 데이터 가져오기
