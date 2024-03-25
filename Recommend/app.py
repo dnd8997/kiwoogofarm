@@ -79,19 +79,20 @@ def calculate_cosine_similarity(liked_crops, crops):
                                      string_to_number(liked_crop["water_exit"])]
                                     for liked_crop in liked_crops])
 
+
     # 좋아요를 누른 작물의 피처를 벡터화
-    cosine_similarities = []
-    for crop in crops:
-        crop_vector = np.array([string_to_number(crop["temperature"]),
+    crops_features = np.array([[string_to_number(crop["temperature"]),
                                 string_to_number(crop["sunshine"]),
                                 string_to_number(crop["water_period"]),
                                 difficulty_to_number(crop["difficulty"]),
                                 string_to_number(crop["grow_time"]),
                                 string_to_number(crop["humidity"]),
                                 season_to_number(crop["grow_start"]),
-                                string_to_number(crop["water_exit"])])
+                                string_to_number(crop["water_exit"])]
+                               for crop in crops])
+
         # 각 작물의 벡터와 좋아요를 누른 작물들의 벡터 사이의 코사인 유사도 계산
-        cosine_similarities = cosine_similarity(liked_crop_features, crops)
+    cosine_similarities = cosine_similarity(liked_crop_features, crops_features)
 
     similar_crops_indices = np.argsort(cosine_similarities, axis=1)[:, ::-1]
     unique_indices = []
