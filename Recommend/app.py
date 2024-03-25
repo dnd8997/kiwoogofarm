@@ -24,31 +24,38 @@ class Crop(db.Model):
     grow_start = db.Column(db.String(100), nullable=False)
     water_exit = db.Column(db.String(100), nullable=False)
 
+
+
 # 코사인 유사도 계산 함수
-def calculate_cosine_similarity(liked_crop, crops):
+def calculate_cosine_similarity(liked_crops, crops):
     tfidf_vectorizer = TfidfVectorizer()
 
     crop_features = [crop["temperature"] + crop["sunshine"] + crop["water_period"] +
                      crop["difficulty"] + crop["grow_time"] + crop["humidity"] +
                      crop["grow_start"] + crop["water_exit"]
-                     for crop in crops if crop["id"] != liked_crop["id"]]
+                     for crop in crops if crop["id"] not in [liked_crop["id"] for liked_crop in liked_crops]]
 
     # 좋아요를 누른 작물의 피처를 벡터화
-    liked_crop_feature = (liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"] +
-                          liked_crop["difficulty"] + liked_crop["grow_time"] + liked_crop["humidity"] + liked_crop["grow_start"] + liked_crop["water_exit"])
-    liked_crop_vector = tfidf_vectorizer.fit_transform([liked_crop_feature])  # TF-IDF 변환을 위해 fit_transform 호출
+    liked_crop_features = []
+    for liked_crop in liked_crops:
+        liked_crop_feature = liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"] + \
+                             liked_crop["difficulty"] + liked_crop["grow_time"] + liked_crop["humidity"] + \
+                             liked_crop["grow_start"] + liked_crop["water_exit"]
+        liked_crop_features.append(liked_crop_feature)
+
+        liked_crop_vectors = tfidf_vectorizer.fit_transform(liked_crop_features)
 
     # TF-IDF vectorizer가 학습되었는지 확인
     if not hasattr(tfidf_vectorizer, 'vocabulary_'):
         raise ValueError("TF-IDF vectorizer is not fitted.")
 
     # TF-IDF 변환 후에도 벡터화된 데이터가 있는지 확인
-    if liked_crop_vector is None:
+    if liked_crop_vectors is None:
         raise ValueError("Liked crop vector is None after TF-IDF transformation.")
 
     # 벡터화된 피처들에 대해 코사인 유사도 계산
     tfidf_matrix = tfidf_vectorizer.transform(crop_features)
-    cosine_similarities = cosine_similarity(liked_crop_vector, tfidf_matrix)
+    cosine_similarities = cosine_similarity(liked_crop_vectors, tfidf_matrix)
 
     # 코사인 유사도가 가장 높은 작물 추천 (상위 3개)
     similar_crops_indices = cosine_similarities.argsort()[0][::-1][:3]
@@ -62,19 +69,44 @@ def calculate_cosine_similarity(liked_crop, crops):
 @app.route('/crop', methods=['GET'])
 def get_recommended_crop():
     # 좋아요를 누른 농작물 데이터
-    liked_crop = {
-        "id": 2,
-        "name": "감자",
-        "temperature": "중",
-        "sunshine": "상",
-        "water_period": "하",
-        "difficulty": "보통",
-        "grow_time": "중",
-        "humidity": "상",
-        "grow_start": "봄",
-        "water_exit" : "중"
-    }
-
+    liked_crops = [
+        {
+            "id": 2,
+            "name": "감자",
+            "temperature": "중",
+            "sunshine": "상",
+            "water_period": "하",
+            "difficulty": "보통",
+            "grow_time": "중",
+            "humidity": "상",
+            "grow_start": "봄",
+            "water_exit": "중"
+        },
+        {
+            "id": 10,
+            "name": "당근",
+            "temperature": "중",
+            "sunshine": "중",
+            "water_period": "중",
+            "difficulty": "보통",
+            "grow_time": "중",
+            "humidity": "상",
+            "grow_start": "봄",
+            "water_exit": "중"
+        },
+        {
+            "id": 4,
+            "name": "고추",
+            "temperature": "상",
+            "sunshine": "보통",
+            "water_period": "하",
+            "difficulty": "보통",
+            "grow_time": "중",
+            "humidity": "상",
+            "grow_start": "가을",
+            "water_exit": "상"
+        }
+    ]
     # 모든 농작물 데이터 가져오기
     all_crops = Crop.query.all()
     crops = []
@@ -94,7 +126,7 @@ def get_recommended_crop():
         crops.append(crop.dict)
 
     # 코사인 유사도를 사용하여 추천 농작물 계산
-    recommended_crop = calculate_cosine_similarity(liked_crop, crops)
+    recommended_crop = calculate_cosine_similarity(liked_crops, crops)
 
     return jsonify({"recommended_crop": recommended_crop})
 
