@@ -124,7 +124,7 @@ def get_recommended_crop():
             "difficulty": "보통",
             "grow_time": "중",
             "humidity": "상",
-            "grow_start": "봄",
+            "grow_start": "여름",
             "water_exit": "중"
         },
         {
@@ -137,7 +137,7 @@ def get_recommended_crop():
             "difficulty": "보통",
             "grow_time": "중",
             "humidity": "상",
-            "grow_start": "봄",
+            "grow_start": "여름",
             "water_exit": "중"
         },
         {
@@ -150,7 +150,7 @@ def get_recommended_crop():
             "difficulty": "보통",
             "grow_time": "중",
             "humidity": "상",
-            "grow_start": "가을",
+            "grow_start": "여름",
             "water_exit": "상"
         }
     ]
