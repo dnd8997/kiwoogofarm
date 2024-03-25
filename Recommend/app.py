@@ -203,23 +203,10 @@ def survey_calculate_euclidean_distance(liked_crops, crops):
     return recommended_crops
 
 
-@app.route('/crop', methods=['GET'])
-def get_euclidean_recommended_crop():
+@app.route('/crop/<int:crop_id>', methods=['GET'])
+def get_euclidean_recommended_crop(crop_id):
 
-    liked_crops = [
-        {
-            "difficulty": "보통",
-            "grow_start": "여름",
-            "grow_time": "상",
-            "humidity": "상",
-            "id": 13,
-            "name": "양파",
-            "sunshine": "상",
-            "temperature": "중",
-            "water_exit": "상",
-            "water_period": "상"
-        },
-    ]
+    liked_crops = get_liked_crops_from_database(crop_id)
 
     all_crops = Crop.query.all()
     crops = []
@@ -244,7 +231,7 @@ def get_euclidean_recommended_crop():
 
 
 @app.route('/crop', methods=['POST'])
-def euclidean_recommended_crop():
+def post_euclidean_recommended_crop():
 
     liked_crops = request.json.get('liked_crops')
 
