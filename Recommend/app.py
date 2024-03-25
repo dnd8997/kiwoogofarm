@@ -111,6 +111,40 @@ def calculate_cosine_similarity(liked_crops, crops):
     return recommended_crops
 
 
+def calculate_euclidean_distance(liked_crops, crops):
+    liked_crop_features = np.array([[string_to_number(liked_crop["temperature"]),
+                                     string_to_number(liked_crop["sunshine"]),
+                                     string_to_number(liked_crop["water_period"]),
+                                     difficulty_to_number(liked_crop["difficulty"]),
+                                     string_to_number(liked_crop["grow_time"]),
+                                     string_to_number(liked_crop["humidity"]),
+                                     season_to_number(liked_crop["grow_start"]),
+                                     string_to_number(liked_crop["water_exit"])]
+                                    for liked_crop in liked_crops])
+
+    # 좋아요를 누른 작물의 특성과 crops에 있는 각 작물의 특성 간의 유클리드 거리 계산
+    euclidean_distances = []
+
+    liked_crop_ids = set(liked_crop["id"] for liked_crop in liked_crops)
+    # 좋아요를 누른 작물의 피처를 벡터화
+    for crop in crops:
+        if crop["id"] not in liked_crop_ids:
+            crop_vector = np.array([string_to_number(crop["temperature"]),
+                                    string_to_number(crop["sunshine"]),
+                                    string_to_number(crop["water_period"]),
+                                    difficulty_to_number(crop["difficulty"]),
+                                    string_to_number(crop["grow_time"]),
+                                    string_to_number(crop["humidity"]),
+                                    season_to_number(crop["grow_start"]),
+                                    string_to_number(crop["water_exit"])])
+            # 유클리드 거리 계산
+            distance = np.linalg.norm(liked_crop_features - crop_vector)
+            euclidean_distances.append(distance)
+
+    # 작물 간의 유클리드 거리 반환
+    return euclidean_distances
+
+
 # API 엔드포인트 정의
 @app.route('/crop', methods=['GET'])
 def get_recommended_crop():
@@ -174,6 +208,70 @@ def get_recommended_crop():
     # 코사인 유사도를 사용하여 추천 농작물 계산
     recommended_crop = calculate_cosine_similarity(liked_crops, crops)
 
+    return jsonify({"recommended_crop": recommended_crop})
+
+
+@app.route('/crop2', methods=['GET'])
+def euclidean_recommended_crop():
+    # 좋아요를 누른 농작물 데이터
+    liked_crops = [
+        {
+            "id": 2,
+            "name": "감자",
+            "temperature": "중",
+            "sunshine": "상",
+            "water_period": "하",
+            "difficulty": "보통",
+            "grow_time": "중",
+            "humidity": "상",
+            "grow_start": "봄",
+            "water_exit": "중"
+        },
+        {
+            "difficulty": "보통",
+            "grow_start": "겨울",
+            "grow_time": "상",
+            "humidity": "상",
+            "id": 25,
+            "name": "쑥갓",
+            "sunshine": "중",
+            "temperature": "중",
+            "water_exit": "중",
+            "water_period": "중"
+        },
+        {
+            "difficulty": "보통",
+            "grow_start": "봄",
+            "grow_time": "하",
+            "humidity": "상",
+            "id": 4,
+            "name": "고추",
+            "sunshine": "하",
+            "temperature": "상",
+            "water_exit": "하",
+            "water_period": "중"
+        }
+    ]
+    # 모든 농작물 데이터 가져오기
+    all_crops = Crop.query.all()
+    crops = []
+    for crop in all_crops:
+        crop.dict ={
+            "id": crop.id,
+            "name": crop.name,
+            "temperature": crop.temperature,
+            "sunshine": crop.sunshine,
+            "water_period": crop.water_period,
+            "difficulty": crop.difficulty,
+            "grow_time": crop.grow_time,
+            "humidity": crop.humidity,
+            "grow_start": crop.grow_start,
+            "water_exit": crop.water_exit
+        }
+        crops.append(crop.dict)
+
+    # 코사인 유사도를 사용하여 추천 농작물 계산
+    recommended_crop = calculate_euclidean_distance(liked_crops, crops)
 
     return jsonify({"recommended_crop": recommended_crop})
 
