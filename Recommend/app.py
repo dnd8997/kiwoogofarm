@@ -202,7 +202,7 @@ def inside_calculate_euclidean_distance(liked_crops, crops):
 
 
 def outside_calculate_euclidean_distance(liked_crops, crops):
-    liked_crop_features = np.array([[string_to_number(liked_crop["grow_start"]),
+    liked_crop_features = np.array([[season_to_number(liked_crop["grow_start"]),
                                      string_to_number(liked_crop["sunshine"]),
                                      string_to_number(liked_crop["water_period"]),
                                      difficulty_to_number(liked_crop["difficulty"]),
@@ -213,7 +213,7 @@ def outside_calculate_euclidean_distance(liked_crops, crops):
     euclidean_distances = []
 
     for crop in crops:
-            crop_vector = np.array([string_to_number(crop["grow_start"]),
+            crop_vector = np.array([season_to_number(crop["grow_start"]),
                                     string_to_number(crop["sunshine"]),
                                     string_to_number(crop["water_period"]),
                                     difficulty_to_number(crop["difficulty"]),
