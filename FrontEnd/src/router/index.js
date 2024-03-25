@@ -27,6 +27,11 @@ const router = createRouter({
       component: () => import('../views/SearchView.vue')
     },
     {
+      path: '/search/:cropId',
+      name: 'searchdetail',
+      component: () => import('../views/SearchDetailView.vue')
+    },
+    {
       path: '/recommendation',
       name: 'recommendation',
       component: () => import('../views/RecommendationView.vue')
