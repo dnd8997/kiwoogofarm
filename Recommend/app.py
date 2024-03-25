@@ -23,19 +23,14 @@ class Crop(db.Model):
 def calculate_cosine_similarity(liked_crop, crops):
     tfidf_vectorizer = TfidfVectorizer()
 
-    # 농작물 데이터를 피처로 벡터화
-    crop_features = [crop["temperature"] + crop["sunshine"] + crop["water_period"] for crop in crops]
-
-    # 벡터화된 피처들에 대해 코사인 유사도 계산을 위한 행렬 생성
-    tfidf_matrix = tfidf_vectorizer.fit_transform(crop_features)
-
-    # 좋아요를 누른 작물을 제외한 행렬 생성
+    # 좋아요를 누른 작물을 제외한 데이터를 피처로 벡터화
+    crop_features = [crop["temperature"] + crop["sunshine"] + crop["water_period"] for crop in crops[:-1]]
     liked_crop_feature = liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"]
-    liked_crop_vector = tfidf_vectorizer.transform([liked_crop_feature])
-    tfidf_matrix_without_liked_crop = tfidf_matrix[:-1]
 
-    # 코사인 유사도 계산
-    cosine_similarities = cosine_similarity(liked_crop_vector, tfidf_matrix_without_liked_crop)
+    # 벡터화된 피처들에 대해 코사인 유사도 계산
+    tfidf_matrix = tfidf_vectorizer.fit_transform(crop_features)
+    liked_crop_vector = tfidf_vectorizer.transform([liked_crop_feature])
+    cosine_similarities = cosine_similarity(liked_crop_vector, tfidf_matrix)
 
     # 코사인 유사도가 가장 높은 상위 n개의 농작물 추천
     n_recommendations = 3  # 추천할 농작물 개수
