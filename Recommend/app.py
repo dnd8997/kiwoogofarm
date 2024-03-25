@@ -21,7 +21,6 @@ class Crop(db.Model):
     difficulty = db.Column(db.String(100), nullable=False)
     grow_time = db.Column(db.String(100), nullable=False)
     humidity = db.Column(db.String(100), nullable=False)
-    is_hydroponics = db.Column(db.String(100), nullable=False)
     grow_start = db.Column(db.String(100), nullable=False)
     water_exit = db.Column(db.String(100), nullable=False)
 
@@ -31,13 +30,12 @@ def calculate_cosine_similarity(liked_crop, crops):
 
     crop_features = [crop["temperature"] + crop["sunshine"] + crop["water_period"] +
                      crop["difficulty"] + crop["grow_time"] + crop["humidity"] +
-                     crop["is_hydroponics"] + crop["grow_start"] + crop["water_exit"]
+                     crop["grow_start"] + crop["water_exit"]
                      for crop in crops if crop["id"] != liked_crop["id"]]
 
     # 좋아요를 누른 작물의 피처를 벡터화
     liked_crop_feature = (liked_crop["temperature"] + liked_crop["sunshine"] + liked_crop["water_period"] +
-                          liked_crop["difficulty"] + liked_crop["grow_time"] + liked_crop["humidity"] +
-                          liked_crop["is_hydroponics"] + liked_crop["grow_start"] + liked_crop["water_exit"])
+                          liked_crop["difficulty"] + liked_crop["grow_time"] + liked_crop["humidity"] + liked_crop["grow_start"] + liked_crop["water_exit"])
     liked_crop_vector = tfidf_vectorizer.fit_transform([liked_crop_feature])  # TF-IDF 변환을 위해 fit_transform 호출
 
     # TF-IDF vectorizer가 학습되었는지 확인
@@ -69,7 +67,12 @@ def get_recommended_crop():
         "name": "감자",
         "temperature": "중",
         "sunshine": "상",
-        "water_period": "하"
+        "water_period": "하",
+        "difficulty": "보통",
+        "grow_time": "중",
+        "humidity": "상",
+        "grow_start": "봄",
+        "water_exit" : "중"
     }
 
     # 모든 농작물 데이터 가져오기
