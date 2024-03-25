@@ -115,16 +115,16 @@ def get_recommended_crop():
     # 좋아요를 누른 농작물 데이터
     liked_crops = [
         {
-            "id": 2,
-            "name": "감자",
-            "temperature": "중",
-            "sunshine": "상",
-            "water_period": "하",
-            "difficulty": "보통",
-            "grow_time": "중",
-            "humidity": "상",
+            "difficulty": "쉬움",
             "grow_start": "봄",
-            "water_exit": "중"
+            "grow_time": "중",
+            "humidity": "중",
+            "id": 1,
+            "name": "대파",
+            "sunshine": "중",
+            "temperature": "중",
+            "water_exit": "상",
+            "water_period": "중"
         }
     ]
     # 모든 농작물 데이터 가져오기
