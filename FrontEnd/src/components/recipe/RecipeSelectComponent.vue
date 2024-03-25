@@ -409,7 +409,7 @@ const isAllSelected = () => {
 
 const handleClick = (index, value) => {
   isSelected[index].value =  value;
-  document.getElementsByClassName("right-button").item(0).classList.toggle("hidden");
+  document.getElementsByClassName("right-button").item(0).classList.remove("hidden");
   console.log(isSelected[index].value);
 };
 
