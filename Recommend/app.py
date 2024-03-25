@@ -96,7 +96,14 @@ def calculate_cosine_similarity(liked_crops, crops):
         cosine_similarities.append(similarity)
 
     similar_crops_indices = np.argsort(cosine_similarities)[::-1][:3]
-    recommended_crops = [crops[index[0]] for index in similar_crops_indices]
+
+    # 중복 제거
+    unique_indices = []
+    for index in similar_crops_indices:
+        if index not in unique_indices:
+            unique_indices.append(index)
+
+    recommended_crops = [crops[index] for index in unique_indices]
 
     return recommended_crops
 
@@ -163,6 +170,7 @@ def get_recommended_crop():
 
     # 코사인 유사도를 사용하여 추천 농작물 계산
     recommended_crop = calculate_cosine_similarity(liked_crops, crops)
+
 
     return jsonify({"recommended_crop": recommended_crop})
 
