@@ -125,9 +125,21 @@ def get_recommended_crop():
             "difficulty": "보통",
             "grow_time": "중",
             "humidity": "상",
-            "grow_start": "봄, 가을",
+            "grow_start": "봄",
             "water_exit": "중"
-        }
+        },
+        {
+            "difficulty": "보통",
+            "grow_start": "겨울",
+            "grow_time": "상",
+            "humidity": "상",
+            "id": 25,
+            "name": "쑥갓",
+            "sunshine": "중",
+            "temperature": "중",
+            "water_exit": "중",
+            "water_period": "중"
+        },
     ]
     # 모든 농작물 데이터 가져오기
     all_crops = Crop.query.all()
