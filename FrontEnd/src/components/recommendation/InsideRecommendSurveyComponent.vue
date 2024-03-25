@@ -197,6 +197,9 @@ export default {
 <script setup>
 import { ref  } from 'vue';
 import axios from "axios";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const isSelected = {
   'difficulty': ref({ value: '0' }),
@@ -246,9 +249,11 @@ const handleRecommendation = async () => {
 
     // API 요청 성공 시 페이지 이동
     if (response.status === 200) {
-      this.$router.push({
-        path: '/recommendresult',
-        state: { recommendation: response.data }
+      router.push({
+        name: 'recommendresult',
+        state: { // params가 state로 바뀌었다.
+          result : response.data
+        },
       });
 
     } else {
