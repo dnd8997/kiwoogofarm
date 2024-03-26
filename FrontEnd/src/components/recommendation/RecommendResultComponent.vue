@@ -54,24 +54,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted ,watch} from 'vue';
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useRoute, useRouter } from 'vue-router';
 import "swiper/swiper.min.css";
 
-const route = useRoute();
 const router = useRouter();
 
+  const route = useRoute();
 const isLoading = ref(true);
 const result = ref([]);
 
-onMounted(() => {
-    result.value = route.state.result;
-    console.log(result.value);
-    setTimeout(() => {
-      isLoading.value = false;
-    }, 3000);
-
+watch(() => route.state.result, (newResult) => {
+  if (newResult) {
+    result.value = newResult;
+    isLoading.value = false;
+  }
 });
 </script>
 
