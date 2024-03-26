@@ -1,4 +1,3 @@
-<!-- //TODO 감자, 사과 등 이미지 안뜨는 이유, 스크롤  -->
 <template>
   <div class="flex flex-row items-center justify-center mt-40">
     <!--왼쪽 이동 버튼-->
@@ -8,12 +7,12 @@
     <div v-if="currentPage === 1" class="flex flex-col items-center justify-center" style="width: 1100px;">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(1/3)</span>
       <span class="mt-5 text-4xl font-bold text-center font-Notosans">요리에 사용할<br>농작물을 선택해주세요</span>
-      <span class="mt-5 text-xl text-center font-Notosans"> 중복 선택 가능합니다</span>
+      <span class="mt-2 text-xl text-center font-Notosans"> 중복 선택 가능합니다</span>
       <!-- <img alt="Survey1" class="mt-3 mb-3 w-80 h-80" src="../../assets/insideImage1.jpg"> -->
 
-      <div class="flex flex-row items-center w-full m-5 ">
+      <div class="flex flex-row items-center justify-between w-full">
         <!-- 선택된 재료 뱃지 -->
-        <div class="flex flex-row flex-wrap justify-start w-3/4 gap-3 ml-16">
+        <div class="flex flex-row flex-wrap justify-start w-3/4 gap-3 my-4 ml-24 mr-8">
           <div v-for="selectedIngredient in isSelected.ingredients.value" :key="selectedIngredient">
             <v-chip variant="outlined" class="flex items-center justify-between">
               {{ selectedIngredient }}
@@ -23,25 +22,26 @@
         </div>
 
         <!-- 검색창 -->
-        <div class="self-end w-1/4">
+        <div class="self-end w-1/4 mr-12">
           <v-text-field v-model="searchText" label="농작물 이름을 입력해 주세요." variant="solo-filled"
             prepend-inner-icon="mdi-magnify"></v-text-field>
         </div>
       </div>
+
       <!-- 재료 목록 -->
-      <div class="grid grid-cols-5 gap-20 m-10">
+      <div class="grid grid-cols-5 my-6 gap-x-20 gap-y-5">
         <div v-for="crop in filteredCropData" :key="crop.id" class="flex flex-col items-center m-1" @click="
       toggleIngredient(crop.name)">
           <div
             :class="isSelectedIngredient(crop.name) ? 'ring-2 ring-green-500 rounded-full p-0.5 relative' : 'ring-1 ring-gray-300 rounded-full p-0.5 relative'">
             <div style="position: relative;">
-              <img :src="crop.thumbnailUrl" alt="crop.name" class="object-cover w-32 h-32 rounded-full" :class="
+              <img referrerpolicy="no-referrer" :src="crop.thumbnailUrl" alt="crop.name" class="object-cover rounded-full w-28 h-28" :class="
                   isSelectedIngredient(crop.name) ? 'opacity-50' : ''" />
               <v-icon v-if="isSelectedIngredient(crop.name)" icon="mdi-check" class="text-green-500"
                 style="font-size: 50px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></v-icon>
             </div>
           </div>
-          <div class="text-center ">{{ crop.name }}</div>
+          <div class="mt-2 text-center">{{ crop.name }}</div>
         </div>
       </div>
       <!-- 선택 시 좌측 상단에 선택된 농작물 목록 표시, X 버튼 클릭 시 선택한 농작물 취소 -->
@@ -387,4 +387,5 @@ const handleRecommendation = async () => {
   border-radius: 70%;
   overflow: hidden;
 } */
+
 </style>
