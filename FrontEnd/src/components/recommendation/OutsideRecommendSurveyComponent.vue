@@ -201,7 +201,9 @@ export default {
 import { ref  } from 'vue';
 import axios from "axios";
 import { useRouter } from 'vue-router';
+import { useRecommendationStore } from '@/stores/recommend';
 
+const recommendationStore = useRecommendationStore();
 const router = useRouter();
 
 const isSelected = {
@@ -252,12 +254,10 @@ const handleRecommendation = async () => {
 
     // API 요청 성공 시 페이지 이동
     if (response.status === 200) {
+      recommendationStore.setRecommendationData(response.data.recommended_crop);
       router.push({
         name: 'recommendresult',
-        state: { // params가 state로 바뀌었다.
-          result: response.data.recommended_crop
-      },
-    });
+      });
 
     } else {
       console.error('API 요청 실패:', response.status);
