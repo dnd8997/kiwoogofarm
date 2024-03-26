@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 # 데이터베이스 모델 정의
 class Crop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    image_url = db.Column(db.Integer, primary_key=True)
+    image_url = db.Column(db.String(255), primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     temperature = db.Column(db.String(100), nullable=False)
     sunshine = db.Column(db.String(100), nullable=False)
