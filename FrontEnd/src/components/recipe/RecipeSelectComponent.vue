@@ -36,7 +36,7 @@
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">조리 방법을 선택해주세요</span>
 
       <div class="grid grid-cols-6 gap-x-12 gap-y-6 mt-12 max-w-6xl text-center">
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '굽기' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','굽기')" >
@@ -52,7 +52,7 @@
           </div>
           <p class="mt-3">굽기</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '끓이기' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','끓이기')" >
@@ -63,7 +63,7 @@
           </div>
           <p class="mt-3">끓이기</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '데치기' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','데치기')">
@@ -74,7 +74,7 @@
         </div>
           <p class="mt-3">데치기</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '무침' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','무침')">
@@ -85,7 +85,7 @@
         </div>
           <p class="mt-3">무침</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '볶음' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','볶음')">
@@ -96,7 +96,7 @@
           </div>
           <p class="mt-3">볶음</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '부침' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','부침')">
@@ -107,7 +107,7 @@
           </div>
           <p class="mt-3">부침</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '비빔' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','비빔')">
@@ -118,7 +118,7 @@
           </div>
           <p class="mt-3">비빔</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '삶기' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','삶기')">
@@ -129,7 +129,7 @@
           </div>
           <p class="mt-3">삶기</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '절임' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','절임')">
@@ -140,7 +140,7 @@
           </div>
           <p class="mt-3">절임</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '조림' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','조림')">
@@ -151,7 +151,7 @@
           </div>
           <p class="mt-3">조림</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '찜' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','찜')">
@@ -162,7 +162,7 @@
           </div>
           <p class="mt-3">찜</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '튀김' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','튀김')">
@@ -173,7 +173,7 @@
           </div>
           <p class="mt-3">튀김</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '회' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','회')">
@@ -184,7 +184,7 @@
           </div>
           <p class="mt-3">회</p>
         </div>
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base">
+        <div class="cook cursor-pointer text-center font-Notosans font-medium text-base">
           <div class="image-container relative rounded-full overflow-hidden"
           :class="isSelected['cookingmethod'].value === '기타' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('cookingmethod','기타')">
@@ -278,38 +278,84 @@
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(3/3)</span>
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">조리 난이도를 선택해주세요</span>
 
+      <!-- <div class="grid grid-cols-5 gap-x-12 gap-y-6 mt-24 max-w-6xl text-center">
+        <div class="difficulty-select cursor-pointer text-center font-Notosans font-medium text-base"
+          :class="isSelected['difficulty'].value === '아무나' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('difficulty','아무나')">
+          <div class="difficulty-container relative overflow-hidden m-4">
+          <img src="../../assets/everyone2.png" class="align-middle contain" :class="isSelected['difficulty'].value === '아무나' ? 'opacity-50 ' : 'opacity-100'">
+          </div>
+          <p class="mt-3">아무나</p>
+        </div>
+
+        <div class="difficulty-select cursor-pointer text-center font-Notosans font-medium text-base"
+          :class="isSelected['difficulty'].value === '초급' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('difficulty','초급')">
+          <div class="difficulty-container relative overflow-hidden">
+          <img src="../../assets/beginner.png" class="align-middle contain" :class="isSelected['difficulty'].value === '초급' ? 'opacity-50 ' : 'opacity-100'">
+          </div>
+          <p class="mt-3">초급</p>
+        </div>
+
+        <div class="difficulty-select cursor-pointer text-center font-Notosans font-medium text-base"
+          :class="isSelected['difficulty'].value === '중급' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('difficulty','중급')" >
+          <div class="difficulty-container relative overflow-hidden">
+          <img src="../../assets/intermediate.png" class="align-middle contain" :class="isSelected['difficulty'].value === '중급' ? 'opacity-50 ' : 'opacity-100'">
+          </div>
+          <p class="mt-3">중급</p>
+        </div>
+
+        <div class="difficulty-select cursor-pointer text-center font-Notosans font-medium text-base"
+          :class="isSelected['difficulty'].value === '고급' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('difficulty','고급')" >
+          <div class="difficulty-container relative overflow-hidden">
+          <img src="../../assets/expert2.png" class="align-middle contain" :class="isSelected['difficulty'].value === '고급' ? 'opacity-50 ' : 'opacity-100'">
+          </div>
+          <p class="mt-3">고급</p>
+        </div>
+
+        <div class="difficulty-select cursor-pointer text-center font-Notosans font-medium text-base"
+          :class="isSelected['difficulty'].value === '신의경지' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
+          @click="handleClick('difficulty','신의경지')" >
+          <div class="difficulty-container relative overflow-hidden">
+          <img src="../../assets/god.png" class="align-middle contain" :class="isSelected['difficulty'].value === '신의경지' ? 'opacity-50 ' : 'opacity-100'">
+          </div>
+          <p class="mt-3">신의 경지</p>
+        </div>
+      </div> -->
+
       <div class="flex flex-row mt-24" style="justify-content: space-evenly; margin-bottom: 3%;">
-        <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-          :class="isSelected['difficulty'].value === '아무나' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        <div class="container cursor-pointer text-center font-Notosans font-medium text-base mx-5 shadow-xl outline-2 outline-gray-900"
+          :class="isSelected['difficulty'].value === '아무나' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('difficulty','아무나')" >
           <img src="../../assets/everyone2.png">
-          아무나</div>
+          <p class="my-8">아무나</p></div>
 
-      <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-          :class="isSelected['difficulty'].value === '초급' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+      <div class="container cursor-pointer text-center font-Notosans font-medium text-base mx-5 shadow-xl"
+          :class="isSelected['difficulty'].value === '초급' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('difficulty','초급')" >
           <img src="../../assets/beginner.png">
           초급</div>
 
-      <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-          :class="isSelected['difficulty'].value === '중급' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+      <div class="container cursor-pointer text-center font-Notosans font-medium text-base mx-5 shadow-xl"
+          :class="isSelected['difficulty'].value === '중급' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('difficulty','중급')" >
           <img src="../../assets/intermediate.png">
           중급</div>
 
-      <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-          :class="isSelected['difficulty'].value === '고급' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+      <div class="container cursor-pointer text-center font-Notosans font-medium text-base mx-5 shadow-xl"
+          :class="isSelected['difficulty'].value === '고급' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('difficulty','고급')">
           <img src="../../assets/expert2.png">
           고급</div>
 
-      <div class="cursor-pointer text-center font-Notosans font-medium text-base mx-5"
-          :class="isSelected['difficulty'].value === '신의경지' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+      <div class="container cursor-pointer text-center font-Notosans font-medium text-base mx-5 shadow-xl"
+          :class="isSelected['difficulty'].value === '신의경지' ? 'border-solid border-2 border-green-700' : 'opacity-100'"
           @click="handleClick('difficulty','신의경지')" >
           <img src="../../assets/god.png">
           신의경지</div>
-      </div>
-      
+      </div>      
 
       <!-- <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
            :class="isSelected['difficulty'].value === '아무나' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
@@ -446,7 +492,12 @@ const handleRecommendation = async () => {
 </script>
 
 <style scoped>
-.cursor-pointer > img {
+/* .cursor-pointer > img {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+} */
+.cook > img {
   height: 200px;
   width: 200px;
   overflow: hidden;
@@ -461,6 +512,8 @@ const handleRecommendation = async () => {
 }
 .image-container > img {
   object-fit: cover;
+  height: 100%;
+  width: auto;
   /* object-fit: contain; */
 }
 .checkmark {
@@ -475,6 +528,19 @@ const handleRecommendation = async () => {
   font-size: 50px;
   color: #00B562;
 }
+.difficulty-container {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+}
+.container > img {
+  height: 200px;
+  width: 200px;
+}
+/* .difficulty-select{
+  height: 400px;
+  width: 250px;
+} */
 /* .cursor-pointer {
   align-content: center;
   height: 300px;
