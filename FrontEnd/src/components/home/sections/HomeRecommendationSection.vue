@@ -14,8 +14,8 @@
                     <div style="display: flex; justify-content: center;">
                         <img :src="vegetable.src" alt="Vegetable image" style="width: 60%;">
                     </div>
-                    <p style="font-size: 22px; margin-bottom: 10px;">{{ vegetable.name }}</p>
-                    <p style="font-size: 16px;">{{ vegetable.introduction }}</p>
+                    <p style="font-size: 22px; margin-bottom: 10px;  font-weight: bold;">{{ vegetable.name }}</p>
+                    <p style="font-size: 15px;">{{ vegetable.introduction }}</p>
                 </v-col>
             </v-row>
 
@@ -72,12 +72,12 @@ const vegetableList = ref([
 }
 
 .recommendation-box #box-title #nickname {
-    color: #00E676;
-    border-bottom: 3px solid #00E676;
+    color: #00B564;
+    border-bottom: 3px solid #00B564;
 }
 
 .recommendation-button {
-    color: #00C853;
+    color: #00B564;
     font-size: 24px;
     font-weight: 500;
     margin-left: auto;

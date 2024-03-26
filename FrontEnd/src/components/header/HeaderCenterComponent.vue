@@ -73,7 +73,7 @@ console.log(checkHeader.value)
   content: '';
   display: block;
   margin-top: 5px;
-  border-bottom: solid 3px #00E676;
+  border-bottom: solid 3px #00B564;
   transform: scaleX(0);
   transition: transform .25s ease-in-out;
 }
