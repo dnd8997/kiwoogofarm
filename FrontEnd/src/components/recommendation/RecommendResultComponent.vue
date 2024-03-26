@@ -69,7 +69,6 @@ const result = ref([]);
 
 onMounted(() => {
   if (!result.value) {
-    console.log(recommendationStore.recommendationData);
     result.value = recommendationStore.recommendationData;
     setTimeout(() => {
       isLoading.value = false;
