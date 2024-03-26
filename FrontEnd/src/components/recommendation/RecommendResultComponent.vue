@@ -33,10 +33,10 @@
           :pagination="true"
           :spaceBetween="20"
       >
-        <swiper-slide v-for="(image, index) in result" :key="index">
-          <div class="slide-content flex flex-col items-center">
-            <img :src="image.image_url" :alt="`Image ${index + 1}`" referrerpolicy="no-referrer" />
-            <div class="mt-5 font-Notosans font-normal text-xl ">{{image.name}}</div>
+        <swiper-slide v-for="(crop, index) in result" :key="index">
+          <div class="slide-content flex flex-col items-center" @click="router.push(`/search/${crop.id}`)">
+            <img :src="crop.image_url" :alt="`Image ${index + 1}`" referrerpolicy="no-referrer" />
+            <div class="mt-5 font-Notosans font-normal text-xl ">{{crop.name}}</div>
           </div>
         </swiper-slide>
       </swiper>
