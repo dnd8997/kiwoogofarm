@@ -68,11 +68,13 @@ const isLoading = ref(true);
 const result = ref([]);
 
 onMounted(() => {
-  console.log(recommendationStore.recommendationData);
-  result.value = recommendationStore.recommendationData;
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 3000);
+  if (!result.value) {
+    console.log(recommendationStore.recommendationData);
+    result.value = recommendationStore.recommendationData;
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 3000);
+  }
 });
 
 </script>
