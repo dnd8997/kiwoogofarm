@@ -66,7 +66,7 @@ const isLoading = ref(true);
 const result = ref([]);
 
 onMounted(() => {
-  result.value = JSON.parse(route.state.result);
+  result.value = route.state.requestData;
   console.log(result.value);
   isLoading.value = false;
 });
