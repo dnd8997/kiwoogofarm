@@ -268,9 +268,8 @@ const handleRecommendation = async () => {
     if (response.status === 200) {
 
       recommendationStore.setRecommendationData(response.data.recommended_crop);
-
+      isLoading.value = true;
       setTimeout(() => {
-        isLoading.value = true;
         router.push({
           name: 'recommendresult',
         });
