@@ -1,9 +1,8 @@
 <template>
     <div class="section">
         <div>
-            <v-icon icon="mdi-chevron-left" style="font-size: 50px; cursor: pointer;" @click="router.push({ name: 'search' })">
-
-            </v-icon>
+          <v-icon icon="mdi-chevron-left" style="font-size: 50px; cursor: pointer;" @click="goBack">
+          </v-icon>
         </div>
         <div class="section-1" style="margin-left: 10%; margin-top: 2%;">
             <div>
@@ -112,6 +111,10 @@ const router = useRouter()
 const cropData = ref([])
 
 const heartCheck = ref(false)
+
+const goBack = () => {
+  router.back();
+}
 
 function checkcheck () {
     heartCheck.value = !heartCheck.value
