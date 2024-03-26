@@ -41,14 +41,14 @@
         </swiper-slide>
       </swiper>
 
-      <div class="ml-16 text-3xl mt-12 text-[#00B564] font-Notosans font-medium cursor-pointer">
+      <router-link to="/recipe" class="ml-16 text-3xl mt-12 text-[#00B564] font-Notosans font-medium cursor-pointer">
         요리추천 받으러 가기
         <v-icon
-            class="mb-2 "
+            class="mb-2"
             icon="mdi-arrow-right"
             start
         ></v-icon>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
