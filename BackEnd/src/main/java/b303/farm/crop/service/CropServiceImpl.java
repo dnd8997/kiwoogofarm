@@ -75,7 +75,7 @@ public class CropServiceImpl implements CropService {
 
     @Override
     public List<Crop> getHydroponicsCrops() {
-        return cropRepository.findByIsHydroponics(true);
+        return cropRepository.findByIsHydroponics(1);
     }
 
     @Override

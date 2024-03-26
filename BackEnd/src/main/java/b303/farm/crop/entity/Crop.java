@@ -39,7 +39,7 @@ public class Crop {
     private String humidity;
 
     @Column(name = "is_hydroponics")
-    private Boolean isHydroponics;
+    private int isHydroponics;
 
     @Column(name = "grow_start")
     private String growStart;

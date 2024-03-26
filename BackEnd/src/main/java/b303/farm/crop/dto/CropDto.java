@@ -1,6 +1,5 @@
 package b303.farm.crop.dto;
 
-import jakarta.persistence.Column;
 import lombok.*;
 
 @Getter

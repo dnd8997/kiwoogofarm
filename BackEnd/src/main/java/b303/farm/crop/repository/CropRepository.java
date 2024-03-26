@@ -23,5 +23,5 @@ public interface CropRepository extends JpaRepository<Crop, Long> {
     List<Crop> findByWaterPeriod(String waterPeriod);
 
     // 4. 수경재배가 가능한: is_hydroponics가 TRUE인 것들
-    List<Crop> findByIsHydroponics(Boolean isHydroponics);
+    List<Crop> findByIsHydroponics(int isHydroponics);
 }
