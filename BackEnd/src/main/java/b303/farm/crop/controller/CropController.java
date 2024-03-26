@@ -105,7 +105,7 @@ public class CropController {
                     .height(c.getHeight())
                     .waterPeriod(c.getWaterPeriod())
                     .humidity(c.getHumidity())
-                    .isHydroponics(c.getIsHydroponics())
+//                    .isHydroponics(c.getIsHydroponics())
                     .growStart(c.getGrowStart())
                     .waterExit(c.getWaterExit())
                     .cropInfo(c.getCropInfo())
