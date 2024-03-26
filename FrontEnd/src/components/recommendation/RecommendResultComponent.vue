@@ -66,9 +66,11 @@ const isLoading = ref(true);
 const result = ref([]);
 
 onMounted(() => {
-  result.value = route.state.requestData;
-  console.log(result.value);
-  isLoading.value = false;
+  setTimeout(() => {
+    result.value = route.state.requestData;
+    console.log(result.value);
+    isLoading.value = false;
+  }, 3000);
 });
 
 </script>
