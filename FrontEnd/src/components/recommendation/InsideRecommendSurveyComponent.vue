@@ -213,7 +213,7 @@ import { useRecommendationStore } from '@/stores/recommend';
 
 const recommendationStore = useRecommendationStore();
 const router = useRouter();
-const isLoading = ref(true);
+const isLoading = ref(false);
 const isSelected = {
   'difficulty': ref({ value: '0' }),
   'temperature': ref({ value: '0' }),
@@ -260,9 +260,11 @@ const handleRecommendation = async () => {
 
     // API 요청 성공 시 페이지 이동
     if (response.status === 200) {
+
       recommendationStore.setRecommendationData(response.data.recommended_crop);
+
       setTimeout(() => {
-        isLoading.value = false;
+        isLoading.value = true;
         router.push({
           name: 'recommendresult',
         });
