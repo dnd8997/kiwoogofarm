@@ -6,19 +6,19 @@
         </div>
         <div class="section-1" style="margin-left: 10%; margin-top: 2%;">
             <div>
-                <div style="width: 300px; height: 300px;">
+                <div style="width: 360px; height: 300px;">
 
                     <img 
                         referrerpolicy="no-referrer" 
                         :src="cropData.imageUrl" 
-                        style="width: 100%; height: 100%;"
+                        style="width: 100%; height: 100%; object-fit: cover;"
                     >
                 </div>
-                <div>
+                <div class="mt-3">
                     <v-icon 
                         v-if="heartCheck" 
                         @click="checkcheck"
-                        style="cursor: pointer; color: #FF4081;" 
+                        style="cursor: pointer; color: #FF4081;"
                         icon="mdi-heart"
                     >
                     </v-icon>
@@ -36,7 +36,7 @@
                 <div class="crop-title">
                     {{ cropData.name }}
                 </div>
-                <div class="crop-info">
+                <div class="whitespace-pre-wrap mt-6 text-[#4F4F4F] ">
                     <div>
 
                         {{ cropData.cropInfo }}
@@ -46,49 +46,49 @@
                 <div class="window-frame">
                     <div class="quadrant top-left">
                         <div>
-                            <v-icon icon="mdi-watering-can-outline" style="font-size: 30px;">
+                            <v-icon icon="mdi-watering-can-outline" style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
                             </v-icon>
                         </div>
                         <div class="frame-title">
                             물주기
                         </div>
-                        <div class="frame-content">
+                        <div class="whitespace-pre-wrap text-[#4F4F4F] text-sm ">
                             {{ cropData.waterPeriodInfo }}
                         </div>
                     </div>
                     <div class="quadrant top-right">
                         <div>
-                            <v-icon icon="mdi-white-balance-sunny" style="font-size: 30px;">
+                            <v-icon icon="mdi-white-balance-sunny" style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
                             </v-icon>
                         </div>
                         <div class="frame-title">
                             일조량
                         </div>
-                        <div class="frame-content">
+                        <div class="whitespace-pre-wrap  text-[#4F4F4F] text-sm">
                             {{ cropData.sunshineInfo }}
                         </div>
                     </div>
                     <div class="quadrant bottom-left">
                         <div>
-                            <v-icon icon="mdi-water" style="font-size: 30px;">
+                            <v-icon icon="mdi-water" style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
                             </v-icon>
                         </div>
                         <div class="frame-title">
                             습도
                         </div>
-                        <div class="frame-content">
+                        <div class="whitespace-pre-wrap  text-[#4F4F4F] text-sm">
                             {{ cropData.humidityInfo }}
                         </div>
                     </div>
                     <div class="quadrant bottom-right">
                         <div>
-                            <v-icon icon="mdi-thermometer-lines" style="font-size: 30px;">
+                            <v-icon icon="mdi-thermometer-lines" style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
                             </v-icon>
                         </div>
                         <div class="frame-title">
                             온도
                         </div>
-                        <div class="frame-content">
+                        <div class="whitespace-pre-wrap text-[#4F4F4F] text-sm">
                             {{ cropData.temperatureInfo }}
                         </div>
                     </div>
@@ -155,20 +155,15 @@ onMounted(() => {
 }
 
 .crop-title {
-    font-weight: 400;
-    font-size: 24px;
-}
-
-.crop-info {
-    margin-top: 5%;
-    white-space: wrap;
+    font-weight: 700;
+    font-size: 28px;
 }
 
 .window-frame {
     position: relative;
     margin-top: 5%;
     width: 100%;
-    height: 600px;
+    height: 300px;
     border-block: 1px solid #E0E0E0;
 }
 
@@ -225,11 +220,8 @@ onMounted(() => {
 }
 
 .frame-title {
-    font-weight: 500;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.frame-content {
-    white-space: wrap;
-    font-size: 15px;
-}
 </style>
