@@ -1,5 +1,16 @@
 <template>
-  <div class="mt-40 flex flex-row justify-center items-center">
+  <div v-if="isLoading" class="flex justify-center items-center flex-col">
+    <div class="mt-72">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: transparent; display: block; shape-rendering: auto;" width="100px" height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <circle cx="50" cy="50" fill="none" stroke="#00b564" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
+          <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+        </circle>
+      </svg>
+    </div>
+    <div class="font-Notosans font-medium text-lg mt-3">분석중입니다..</div>
+  </div>
+
+  <div v-else class="mt-40 flex flex-row justify-center items-center">
 <!--왼쪽 이동 버튼-->
     <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-96">&lt; </button>
 
@@ -202,7 +213,7 @@ import { useRecommendationStore } from '@/stores/recommend';
 
 const recommendationStore = useRecommendationStore();
 const router = useRouter();
-
+const isLoading = ref(true);
 const isSelected = {
   'difficulty': ref({ value: '0' }),
   'temperature': ref({ value: '0' }),
@@ -250,9 +261,13 @@ const handleRecommendation = async () => {
     // API 요청 성공 시 페이지 이동
     if (response.status === 200) {
       recommendationStore.setRecommendationData(response.data.recommended_crop);
-      router.push({
-        name: 'recommendresult',
-      });
+      setTimeout(() => {
+        isLoading.value = false;
+        router.push({
+          name: 'recommendresult',
+        });
+      }, 3000);
+
     } else {
       console.error('API 요청 실패:', response.status);
       // 실패한 경우에 대한 처리 추가
