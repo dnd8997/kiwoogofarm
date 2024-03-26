@@ -1,37 +1,58 @@
 <template>
-  <div class="mt-40 flex flex-row justify-center items-center">
+  <div class="flex flex-row items-center justify-center mt-40">
     <!--왼쪽 이동 버튼-->
-    <!-- <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-20">&lt; </button> -->
+    <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-96">&lt; </button>
 
     <!-- 첫번째 질문 -->
-    <div  v-if="currentPage === 1" class="flex flex-col justify-center items-center">
+    <div v-if="currentPage === 1" class="flex flex-col items-center justify-center" style="width: 1100px;">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(1/3)</span>
-      <span class="mt-5 font-bold font-Notosans text-4xl text-center">요리에 사용할<br>농작물을 선택해주세요</span>
-      <img alt="Survey1" class="w-80 h-80 mt-3 mb-3" src="../../assets/insideImage1.jpg">
+      <span class="mt-5 text-4xl font-bold text-center font-Notosans">요리에 사용할<br>농작물을 선택해주세요</span>
+      <span class="mt-2 text-xl text-center font-Notosans"> 중복 선택 가능합니다</span>
+      <!-- <img alt="Survey1" class="mt-3 mb-3 w-80 h-80" src="../../assets/insideImage1.jpg"> -->
 
-      <!-- 재료 목록에서 이미지, 재료 이름을 불러와야함 -->
-      <!-- v-for 사용? -->
-      <!-- 5개씩 가로 정렬, 아래 스크롤 시 농작물 목록 표시 -->
+      <div class="flex flex-row items-center justify-between w-full">
+        <!-- 선택된 재료 뱃지 -->
+        <div class="flex flex-row flex-wrap justify-start w-3/4 gap-3 my-4 ml-24 mr-8">
+          <div v-for="selectedIngredient in isSelected.ingredients.value" :key="selectedIngredient">
+            <v-chip variant="outlined" class="flex items-center justify-between">
+              {{ selectedIngredient }}
+              <v-icon @click="toggleIngredient(selectedIngredient)">mdi-close</v-icon>
+            </v-chip>
+          </div>
+        </div>
+
+        <!-- 검색창 -->
+        <div class="self-end w-1/4 mr-12">
+          <v-text-field v-model="searchText" label="농작물 이름을 입력해 주세요." variant="solo-filled"
+            prepend-inner-icon="mdi-magnify"></v-text-field>
+        </div>
+      </div>
+
+      <!-- 재료 목록 -->
+      <div class="grid grid-cols-5 my-6 gap-x-20 gap-y-5">
+        <div v-for="crop in filteredCropData" :key="crop.id" class="flex flex-col items-center m-1" @click="
+      toggleIngredient(crop.name)">
+          <div
+            :class="isSelectedIngredient(crop.name) ? 'ring-2 ring-green-500 rounded-full p-0.5 relative' : 'ring-1 ring-gray-300 rounded-full p-0.5 relative'">
+            <div style="position: relative;">
+              <img referrerpolicy="no-referrer" :src="crop.thumbnailUrl" alt="crop.name" class="object-cover rounded-full w-28 h-28" :class="
+                  isSelectedIngredient(crop.name) ? 'opacity-50' : ''" />
+              <v-icon v-if="isSelectedIngredient(crop.name)" icon="mdi-check" class="text-green-500"
+                style="font-size: 50px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></v-icon>
+            </div>
+          </div>
+          <div class="mt-2 text-center">{{ crop.name }}</div>
+        </div>
+      </div>
       <!-- 선택 시 좌측 상단에 선택된 농작물 목록 표시, X 버튼 클릭 시 선택한 농작물 취소 -->
       <!-- 우측 상단 검색바에서 농작물 이름 검색 -->
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base !important"
-          :class="isSelected['ingredients'].value === '쉬움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-          @click="handleClick('ingredients','쉬움')" >아니요, 처음입니다.</div>
-
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-          :class="isSelected['ingredients'].value === '보통' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-          @click="handleClick('ingredients','보통')" >많이는 아니지만, 소소하게 키워봤습니다.</div>
-
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-          :class="isSelected['ingredients'].value === '어려움' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-          @click="handleClick('ingredients','어려움')">꽤 많이 키워봤습니다.</div>
 
       <div class="py-10"></div>
     </div>
 
     <!-- 두번째 질문 -->
     <!-- 6개씩 가로 정렬, 사진이 원 내부에만 있도록 설정 -->
-    <div v-if="currentPage === 2" class="flex flex-col justify-center items-center">
+    <div v-if="currentPage === 2" class="flex flex-col items-center justify-center">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(2/3)</span>
       <span class="mt-5 font-bold font-Notosans text-4xl text-center">조리 방법을 선택해주세요</span>
 
@@ -203,65 +224,71 @@
            <img src="../../assets/fry.png">
            굽기</div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '끓이기' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','끓이기')" >
-           <img src="../../assets/boil.png">
-           끓이기</div>
+        :class="isSelected['cookingmethod'].value === '끓이기' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','끓이기')">
+        <img src="../../assets/boil.png">
+        끓이기
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '데치기' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','데치기')">
-           <img src="../../assets/dachim.png">
-           데치기</div>
+        :class="isSelected['cookingmethod'].value === '데치기' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','데치기')">
+        <img src="../../assets/dachim.png">
+        데치기
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '무침' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','무침')">
-           <img src="../../assets/muchim.png">
-           무침</div>
+        :class="isSelected['cookingmethod'].value === '무침' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','무침')">
+        <img src="../../assets/muchim.png">
+        무침
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '볶음' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','볶음')">
-           <img src="../../assets/boggeum.png">
-           볶음</div>
+        :class="isSelected['cookingmethod'].value === '볶음' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','볶음')">
+        <img src="../../assets/boggeum.png">
+        볶음
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '부침' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','부침')">
-           <img src="../../assets/buchim.png">
-           부침</div>
+        :class="isSelected['cookingmethod'].value === '부침' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','부침')">
+        <img src="../../assets/buchim.png">
+        부침
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '비빔' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','비빔')">
-           <img src="../../assets/bibim.png">
-           비빔</div>
+        :class="isSelected['cookingmethod'].value === '비빔' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','비빔')">
+        <img src="../../assets/bibim.png">
+        비빔
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '삶기' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','삶기')">
-           <img src="../../assets/samgi.png">
-           삶기</div>
+        :class="isSelected['cookingmethod'].value === '삶기' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','삶기')">
+        <img src="../../assets/samgi.png">
+        삶기
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '절임' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','절임')">
-           <img src="../../assets/jullim.png">
-           절임</div>
-            <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '조림' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','조림')">
-           <img src="../../assets/jorim.png">
-           조림</div>
+        :class="isSelected['cookingmethod'].value === '절임' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','절임')">
+        <img src="../../assets/jullim.png">
+        절임
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '찜' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','찜')">
-           <img src="../../assets/jjim.png">
-           찜</div>
+        :class="isSelected['cookingmethod'].value === '조림' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','조림')">
+        <img src="../../assets/jorim.png">
+        조림
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '튀김' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','튀김')">
-           <img src="../../assets/fried.png">
-           튀김</div>
+        :class="isSelected['cookingmethod'].value === '찜' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','찜')">
+        <img src="../../assets/jjim.png">
+        찜
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['cookingmethod'].value === '회' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('cookingmethod','회')">
-           <img src="../../assets/sushi.png">
-           회</div>
+        :class="isSelected['cookingmethod'].value === '튀김' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+        @click="handleClick('cookingmethod','튀김')">
+        <img src="../../assets/fried.png">
+        튀김
+      </div>
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
            :class="isSelected['cookingmethod'].value === '기타' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick('cookingmethod','기타')">
@@ -274,9 +301,9 @@
 
     <!-- 세번째 질문 -->
     <!-- 가로 정렬 -->
-    <div v-if="currentPage === 3" class="flex flex-col justify-center items-center">
+    <div v-if="currentPage === 3" class="flex flex-col items-center justify-center">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(3/3)</span>
-      <span class="mt-5 font-bold font-Notosans text-4xl text-center">조리 난이도를 선택해주세요</span>
+      <span class="mt-5 text-4xl font-bold text-center font-Notosans">조리 난이도를 선택해주세요</span>
 
       <!-- <div class="grid grid-cols-5 gap-x-12 gap-y-6 mt-24 max-w-6xl text-center">
         <div class="difficulty-select cursor-pointer text-center font-Notosans font-medium text-base"
@@ -391,15 +418,15 @@
     </div>
 
 <!--    오른쪽 이동버튼-->
-    <button @click="nextPage" v-if="currentPage < 3" class="right-button absolute font-bold font-Notosans font-medium w-40 h-40 right-48 hidden"> 다음 
+    <button @click="nextPage" v-if="currentPage < 3" class="right-button absolute font-bold font-Notosans font-medium w-40 h-40 right-48"> 다음 
       <v-icon icon="mdi-arrow-right"></v-icon>
     </button>
   </div>
   <!--    추천 받기 버튼-->
   <div>
-    <button v-if="isAllSelected()&&currentPage === 3" @click="handleRecommendation" 
-    class="font-Notosans font-bold text-l absolute w-40 h-20 right-60 cursor-pointer flex items-center justify-center"
-    :class="isSelected['difficulty'].value != '0' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'">
+    <button v-if="isAllSelected()&&currentPage === 3" @click="handleRecommendation"
+      class="absolute flex items-center justify-center w-40 h-20 font-bold cursor-pointer font-Notosans text-l right-60"
+      :class="isSelected['difficulty'].value != '0' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'">
       추천 받기
       <v-icon icon="mdi-arrow-right" start></v-icon>
     </button>
@@ -407,7 +434,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -433,11 +459,37 @@ export default {
 </script>
 
 <script setup>
-import { ref  } from 'vue';
+import * as Crop from '@/js/Crop';
+import { useSearchStore } from "@/stores/search";
 import axios from "axios";
+import { computed, onMounted, ref } from 'vue';
+
+const searchStore = useSearchStore()
+
+//재료 선택 관련
+const searchText = ref(searchStore.searchBox)
+const cropData = ref([])
+
+const filteredCropData = computed(() => {
+  if (!searchText.value) {
+    return cropData.value
+  }
+  return cropData.value.filter(crop => crop.name.includes(searchText.value))
+})
+
+onMounted(() => {
+  Crop.getCrops(
+    (success) => {
+      cropData.value = success.data
+    },
+    (error) => {
+      console.log(error)
+    }
+  )
+})
 
 const isSelected = {
-  'ingredients': ref({ value: '0' }),
+  'ingredients': ref([]),
   'cookingmethod': ref({ value: '0' }),
   'difficulty': ref({ value: '0' }),
 };
@@ -445,13 +497,35 @@ const isSelected = {
 // 모든 질문지에 대한 대답이 완료되었는지 체크하는 함수
 const isAllSelected = () => {
   for (let key in isSelected) {
-    if (isSelected[key].value.value === '0') {
-      return false;
+    if (key == "ingredients") {
+      if (isSelected['ingredients'].value.length === 0) {
+        return false
+      }
     }
+    else {
+      if (isSelected[key].value.value === '0'){
+        return false;
+      } } 
   }
-  return Object.values(isSelected).every(item => item.value.value !== '0');
+  return true;
 };
 
+//재료 선택 토글 함수
+const toggleIngredient = (cropName) => {
+  const index = isSelected['ingredients'].value.findIndex(ingredient => ingredient === cropName);
+  if (index !== -1) {
+    isSelected['ingredients'].value.splice(index, 1);
+  } else {
+    isSelected['ingredients'].value.push(cropName);
+  }
+  searchText.value = ''
+  console.log(isSelected['ingredients'].value)
+}
+
+//해당 재료가 선택되었는지 확인하는 함수
+const isSelectedIngredient = (cropName) => { 
+  return isSelected['ingredients'].value.includes(cropName)
+}
 
 const handleClick = (index, value) => {
   isSelected[index].value =  value;
@@ -554,4 +628,5 @@ const handleRecommendation = async () => {
   border-radius: 70%;
   overflow: hidden;
 } */
+
 </style>
