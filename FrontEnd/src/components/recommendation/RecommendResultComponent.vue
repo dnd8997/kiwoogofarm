@@ -58,7 +58,9 @@ import { ref, onMounted ,watch} from 'vue';
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useRoute, useRouter } from 'vue-router';
 import "swiper/swiper.min.css";
+import { useRecommendationStore } from '@/stores/recommend';
 
+const recommendationStore = useRecommendationStore();
 const router = useRouter();
 
   const route = useRoute();
@@ -66,9 +68,9 @@ const isLoading = ref(true);
 const result = ref([]);
 
 onMounted(() => {
+  console.log(recommendationStore.recommendationData);
+  result.value = recommendationStore.recommendationData;
   setTimeout(() => {
-    result.value = route.state.requestData;
-    console.log(result.value);
     isLoading.value = false;
   }, 3000);
 });
