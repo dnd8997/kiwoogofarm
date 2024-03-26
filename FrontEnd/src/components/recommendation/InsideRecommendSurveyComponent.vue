@@ -247,7 +247,7 @@ const handleRecommendation = async () => {
 
     // API 요청 성공 시 페이지 이동
     if (response.status === 200) {
-      console.log(response.data);
+      console.log(response.data.recommended_crop);
       router.push({
         name: 'recommendresult',
         state: { // params가 state로 바뀌었다.
