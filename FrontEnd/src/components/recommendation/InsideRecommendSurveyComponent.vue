@@ -197,6 +197,11 @@ export default {
 <script setup>
 import { ref  } from 'vue';
 import axios from "axios";
+import { useRouter } from 'vue-router';
+import { useRecommendationStore } from '@/stores/recommend';
+
+const recommendationStore = useRecommendationStore();
+const router = useRouter();
 
 const isSelected = {
   'difficulty': ref({ value: '0' }),
@@ -228,23 +233,26 @@ const handleClick = (index, value) => {
 const handleRecommendation = async () => {
   try {
     // isSelected 객체의 값을 추출하여 API 요청에 필요한 데이터로 변환
-    const requestData = {};
-    for (let key in isSelected) {
-      requestData[key] = isSelected[key].value;
-    }
-    console.log(requestData);
+    const requestData = {
+      liked_crops: [{
+        "difficulty": isSelected.difficulty.value,
+        "temperature": isSelected.temperature.value,
+        "grow_time": isSelected.grow_time.value,
+        "sunshine": isSelected.sunshine.value,
+        "humidity": isSelected.humidity.value,
+        "water_period": isSelected.water_period.value
+      }]
+    };
     // API 요청 보내기
-    const response = await axios.post('/api/recommendation', requestData, {
-      // 필요한 옵션 설정
+    const response = await axios.post('/recommendapi/insideCrop',  requestData, {
     });
 
     // API 요청 성공 시 페이지 이동
     if (response.status === 200) {
-      this.$router.push({
-        path: '/recommendresult',
-        state: { recommendation: response.data }
+      recommendationStore.setRecommendationData(response.data.recommended_crop);
+      router.push({
+        name: 'recommendresult',
       });
-
     } else {
       console.error('API 요청 실패:', response.status);
       // 실패한 경우에 대한 처리 추가
