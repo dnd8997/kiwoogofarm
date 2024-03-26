@@ -68,10 +68,14 @@
             cols="3"
             v-for="(crop, i) in filteredCropData"
             :key="i"
-            @click="router.push(`/search/${crop.id}`)"
           >
             <div class="image-container">
-              <img referrerpolicy="no-referrer" :src="crop.thumbnailUrl">
+              <img 
+                referrerpolicy="no-referrer" 
+                :src="crop.thumbnailUrl" 
+                style="cursor: pointer;"
+                @click="router.push(`/search/${crop.id}`)"
+              >
             </div>
             <div>
               {{ crop.name }}
@@ -102,6 +106,25 @@ const filteredCropData = computed(() => {
   if (activeCategories.value.length > 0) {
     tempFilteredData = tempFilteredData.filter(crop => activeCategories.value.includes(crop.category))
   }
+
+  searchCheckBox2.value.forEach(item => {
+    if (item.isActivate) {
+      switch (item.name) {
+        case '초보자용':
+          tempFilteredData = tempFilteredData.filter(crop => crop.difficulty === '쉬움');
+          break;
+        case '빛이 적어도 되는':
+          tempFilteredData = tempFilteredData.filter(crop => crop.sunshine === '하');
+          break;
+        case '흙이 필요없는':
+          tempFilteredData = tempFilteredData.filter(crop => crop.isHydroponics === 1);
+          break;
+        case '물주기가 긴':
+          tempFilteredData = tempFilteredData.filter(crop => crop.waterPeriod === '상');
+          break;
+      }
+    }
+  });
 
   return tempFilteredData
 })

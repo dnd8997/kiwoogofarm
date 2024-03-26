@@ -53,7 +53,7 @@
                         <div class="frame-title">
                             물주기
                         </div>
-                        <div style="white-space: wrap;">
+                        <div class="frame-content">
                             {{ cropData.waterPeriodInfo }}
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         <div class="frame-title">
                             일조량
                         </div>
-                        <div style="white-space: wrap;">
+                        <div class="frame-content">
                             {{ cropData.sunshineInfo }}
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         <div class="frame-title">
                             습도
                         </div>
-                        <div style="white-space: wrap;">
+                        <div class="frame-content">
                             {{ cropData.humidityInfo }}
                         </div>
                     </div>
@@ -89,12 +89,14 @@
                         <div class="frame-title">
                             온도
                         </div>
-                        <div style="white-space: wrap;">
+                        <div class="frame-content">
                             {{ cropData.temperatureInfo }}
                         </div>
                     </div>
                 </div>
-
+                <div style="margin-top: 20%;">
+                    H!@
+                </div>
             </div>
         </div>
     </div>
@@ -163,7 +165,7 @@ onMounted(() => {
     position: relative;
     margin-top: 5%;
     width: 100%;
-    height: 700px;
+    height: 600px;
     border-block: 1px solid #E0E0E0;
 }
 
@@ -221,5 +223,10 @@ onMounted(() => {
 
 .frame-title {
     font-weight: 500;
+}
+
+.frame-content {
+    white-space: wrap;
+    font-size: 15px;
 }
 </style>
