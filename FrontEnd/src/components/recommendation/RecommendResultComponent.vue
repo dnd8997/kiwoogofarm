@@ -63,13 +63,15 @@ const route = useRoute();
 const router = useRouter();
 
 const isLoading = ref(true);
-const result = ref();
+const result = ref([]);
 
 onMounted(() => {
-  result.value = route.state.result;
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 3000);
+  if (route?.state?.result) {
+    result.value = route.state.result;
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 3000);
+  }
 });
 </script>
 
