@@ -187,7 +187,7 @@ onUnmounted(() => {
 .navigation ul li:hover,
 .navigation ul li.on-hover,
 .navigation ul li.active-nav {
-  color: #00E676;
+  color: #00B564;
   opacity: 1 !important;
 }
 

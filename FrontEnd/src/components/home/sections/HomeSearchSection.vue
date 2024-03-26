@@ -119,7 +119,7 @@ watch(userInput, async (newValue) => {
     font-size: 50px;
     font-weight: 300;
     height: 20px;
-    color: #00E676;
+    color: #00B564;
 }
 
 #input1 {
@@ -131,7 +131,7 @@ watch(userInput, async (newValue) => {
     outline: none;
     border-bottom: 3px solid black;
     font-size: 45px;
-    color: #00E676;
+    color: #00B564;
     font-weight: bold;
     caret-color: transparent;
     padding-left: 10px;
