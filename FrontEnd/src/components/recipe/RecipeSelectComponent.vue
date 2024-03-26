@@ -1,4 +1,4 @@
-<!-- //TODO 감자, 사과 등 이미지 안뜨는 이유, 스크롤, 뱃지  -->
+<!-- //TODO 감자, 사과 등 이미지 안뜨는 이유, 스크롤  -->
 <template>
   <div class="flex flex-row items-center justify-center mt-40">
     <!--왼쪽 이동 버튼-->
@@ -8,22 +8,26 @@
     <div v-if="currentPage === 1" class="flex flex-col items-center justify-center" style="width: 1100px;">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(1/3)</span>
       <span class="mt-5 text-4xl font-bold text-center font-Notosans">요리에 사용할<br>농작물을 선택해주세요</span>
+      <span class="mt-5 text-xl text-center font-Notosans"> 중복 선택 가능합니다</span>
       <!-- <img alt="Survey1" class="mt-3 mb-3 w-80 h-80" src="../../assets/insideImage1.jpg"> -->
 
-      <!-- 검색창 -->
-      <div class="self-end m-5 w-96">
-        <v-text-field v-model="searchText" label="농작물 이름을 입력해 주세요." variant="solo-filled"
-          prepend-inner-icon="mdi-magnify"></v-text-field>
-      </div>
+      <div class="flex flex-row items-center w-full m-5 ">
+        <!-- 선택된 재료 뱃지 -->
+        <div class="flex flex-row flex-wrap justify-start w-3/4 gap-3 ml-16">
+          <div v-for="selectedIngredient in isSelected.ingredients.value" :key="selectedIngredient">
+            <v-chip variant="outlined" class="flex items-center justify-between">
+              {{ selectedIngredient }}
+              <v-icon @click="toggleIngredient(selectedIngredient)">mdi-close</v-icon>
+            </v-chip>
+          </div>
+        </div>
 
-      <!-- 선택된 재료 뱃지 -->
-      <div v-for="selectedIngredient in isSelected.ingredients.value" :key="selectedIngredient" class="flex flex-row">
-        <v-chip variant="outlined">
-          {{ selectedIngredient }}
-          <v-icon icon="mdi-close" @click="toggleIngredient(selectedIngredient)"></v-icon>
-        </v-chip>
+        <!-- 검색창 -->
+        <div class="self-end w-1/4">
+          <v-text-field v-model="searchText" label="농작물 이름을 입력해 주세요." variant="solo-filled"
+            prepend-inner-icon="mdi-magnify"></v-text-field>
+        </div>
       </div>
-
       <!-- 재료 목록 -->
       <div class="grid grid-cols-5 gap-20 m-10">
         <div v-for="crop in filteredCropData" :key="crop.id" class="flex flex-col items-center m-1" @click="
