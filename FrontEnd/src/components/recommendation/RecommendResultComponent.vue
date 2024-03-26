@@ -65,12 +65,12 @@ const router = useRouter();
 const isLoading = ref(true);
 const result = ref([]);
 
-watch(() => route.state.result, (newResult) => {
-  if (newResult) {
-    result.value = newResult;
-    isLoading.value = false;
-  }
+onMounted(() => {
+  result.value = JSON.parse(route.state.result);
+  console.log(result.value);
+  isLoading.value = false;
 });
+
 </script>
 
 <style scoped>
