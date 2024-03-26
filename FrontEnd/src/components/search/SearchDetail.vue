@@ -14,28 +14,47 @@
                         style="width: 100%; height: 100%; object-fit: cover;"
                     >
                 </div>
-                <div class="mt-3">
-                    <v-icon 
-                        v-if="heartCheck" 
-                        @click="checkcheck"
-                        style="cursor: pointer; color: #FF4081;"
-                        icon="mdi-heart"
-                    >
-                    </v-icon>
+<!--                <div class="mt-3">-->
+<!--                    <v-icon -->
+<!--                        v-if="heartCheck" -->
+<!--                        @click="checkcheck"-->
+<!--                        style="cursor: pointer; color: #FF4081;"-->
+<!--                        icon="mdi-heart"-->
+<!--                    >-->
+<!--                    </v-icon>-->
 
-                    <v-icon 
-                        v-else 
-                        @click="checkcheck" 
-                        style="cursor: pointer; color: #FF4081;" 
-                        icon="mdi-heart-outline"
-                    >
-                    </v-icon>
-                </div>
+<!--                    <v-icon -->
+<!--                        v-else -->
+<!--                        @click="checkcheck" -->
+<!--                        style="cursor: pointer; color: #FF4081;" -->
+<!--                        icon="mdi-heart-outline"-->
+<!--                    >-->
+<!--                    </v-icon>-->
+<!--                </div>-->
             </div>
             <div class="crop">
+              <div class="flex flex-row">
                 <div class="crop-title">
-                    {{ cropData.name }}
+                  {{ cropData.name }}
                 </div>
+                <div class="ml-2 mt-2">
+                  <v-icon
+                      v-if="heartCheck"
+                      @click="checkcheck"
+                      style="cursor: pointer; color: #FF4081;"
+                      icon="mdi-heart"
+                  >
+                  </v-icon>
+
+                  <v-icon
+                      v-else
+                      @click="checkcheck"
+                      style="cursor: pointer; color: #FF4081;"
+                      icon="mdi-heart-outline"
+                  >
+                  </v-icon>
+                </div>
+              </div>
                 <div class="whitespace-pre-wrap mt-6 text-[#4F4F4F] ">
                     <div>
 
