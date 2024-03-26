@@ -251,7 +251,7 @@ const handleRecommendation = async () => {
       router.push({
         name: 'recommendresult',
         state: { // params가 state로 바뀌었다.
-          result : response.data
+          result: response.data.recommended_crop
         },
       });
 
