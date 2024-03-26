@@ -35,7 +35,7 @@
       >
         <swiper-slide v-for="(image, index) in result" :key="index">
           <div class="slide-content flex flex-col items-center">
-            <img :src="image.image_url" :alt="`Image ${index + 1}`" class="" />
+            <img :src="image.image_url" :alt="`Image ${index + 1}`" referrerpolicy="no-referrer" />
             <div class="mt-5 font-Notosans font-normal text-xl ">{{image.name}}</div>
           </div>
         </swiper-slide>
@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted ,watch} from 'vue';
+import { ref, onMounted} from 'vue';
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useRoute, useRouter } from 'vue-router';
 import "swiper/swiper.min.css";
