@@ -6,6 +6,7 @@ import * as MyPage from '@/js/MyPage';
 export const useAuthStore = defineStore('auth', () => {
     const email = ref(null)
     const nickName = ref(null)
+    const userId = ref(null)
     
     const isAuthenticated = computed(() => !!accessToken.value)
 
@@ -18,7 +19,8 @@ export const useAuthStore = defineStore('auth', () => {
             MyPage.getUserinfo(
                 email.value,
                 (success) => {
-                    nickName.value = success.data
+                    nickName.value = success.data.nickname
+                    userId.value = success.data.Id
                 },
                 (error) => {
                     console.error(error)
@@ -33,6 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
         try {
             email.value = null
             nickName.value = null
+            userId.value = null
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
         }   catch (error) {

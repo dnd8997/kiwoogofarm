@@ -11,9 +11,11 @@
                 style="justify-content: space-evenly; width: 60%; margin-bottom: 3%;"
             >
                 <v-col v-for="(vegetable, index) in vegetableList" :key="index" style="margin-left: 5%;">
-                    <img :src="vegetable.src" alt="Vegetable image">
-                    <p style="font-size: 26px; margin-bottom: 10px;">{{ vegetable.name }}</p>
-                    <p style="font-size: 18px;">{{ vegetable.introduction }}</p>
+                    <div style="display: flex; justify-content: center;">
+                        <img :src="vegetable.src" alt="Vegetable image" style="width: 60%;">
+                    </div>
+                    <p style="font-size: 22px; margin-bottom: 10px;">{{ vegetable.name }}</p>
+                    <p style="font-size: 16px;">{{ vegetable.introduction }}</p>
                 </v-col>
             </v-row>
 
@@ -48,6 +50,7 @@ const vegetableList = ref([
 .recommendation-box {
     display: flex;
     margin-left: 10%;
+    margin-top: 7%;
     width: 100vw;
     justify-content: center;
     align-items: center;
@@ -59,8 +62,8 @@ const vegetableList = ref([
 
 .recommendation-box #box-title {
     display: flex;
-    margin-bottom: 5%;
-    font-size: 40px;
+    margin-bottom: 3%;
+    font-size: 36px;
     font-weight: 600;
 }
 
