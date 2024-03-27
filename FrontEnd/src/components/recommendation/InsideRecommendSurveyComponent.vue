@@ -140,10 +140,6 @@
            :class="isSelected['humidity'].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick('humidity','하')">건조합니다</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['humidity'].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('humidity','?')">잘 모르겠습니다</div>
-
       <div class="py-10"></div>
     </div>
 
@@ -155,15 +151,15 @@
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
            :class="isSelected['is_hydroponics'].value === 'TRUE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('is_hydroponics','TRUE')" >네</div>
+           @click="handleClick('is_hydroponics',1)" >네</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
            :class="isSelected['is_hydroponics'].value === 'FALSE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('is_hydroponics','FALSE')" >아니요</div>
+           @click="handleClick('is_hydroponics',0)" >아니요</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
            :class="isSelected['is_hydroponics'].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('is_hydroponics','?')">잘 모르겠습니다</div>
+           @click="handleClick('is_hydroponics',0.5)">잘 모르겠습니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -197,7 +193,7 @@ const isSelected = {
   'sunshine': ref({ value: '0' }),
   'water_period': ref({ value: '0' }),
   'humidity': ref({ value: '0' }),
-  'is_hydroponics': ref({ value: '0' }),
+  'is_hydroponics': ref({ value: 0 }),
 };
 
 const nextPage = () => {
