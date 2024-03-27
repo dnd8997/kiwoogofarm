@@ -189,6 +189,7 @@ import { useRecommendationStore } from '@/stores/recommend';
 const recommendationStore = useRecommendationStore();
 const router = useRouter();
 const isLoading = ref(false);
+const currentPage = ref(1);
 const isSelected = {
   'difficulty': ref({ value: '0' }),
   'temperature': ref({ value: '0' }),
