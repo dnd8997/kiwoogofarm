@@ -184,30 +184,6 @@
 
 </template>
 
-<script>
-
-export default {
-  data() {
-    return {
-      currentPage: 1,
-    };
-  },
-
-  methods: {
-    nextPage() {
-      if (this.currentPage < 7) {
-        this.currentPage++;
-      }
-    },
-    prevPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-      }
-    },
-  },
-
-};
-</script>
 
 <script setup>
 import { ref  } from 'vue';
@@ -218,6 +194,7 @@ import { useRecommendationStore } from '@/stores/recommend';
 const recommendationStore = useRecommendationStore();
 const router = useRouter();
 const isLoading = ref(false);
+const currentPage = ref(1);
 const isSelected = {
   'difficulty': ref({ value: '0' }),
   'grow_start': ref({ value: '0' }),
@@ -227,6 +204,18 @@ const isSelected = {
   'water_exit': ref({ value: '0' }),
   'is_hydroponics': ref({ value: '0' }),
 };
+
+  const nextPage = () => {
+    if (currentPage.value < 7) {
+      currentPage.value++;
+    }
+  };
+  
+  const prevPage = () => {
+    if (currentPage.value > 1) {
+      currentPage.value--;
+    }
+  };
 
 // 모든 질문지에 대한 대답이 완료되었는지 체크하는 함수
 const isAllSelected = () => {
@@ -240,7 +229,9 @@ const isAllSelected = () => {
 
 const handleClick = (index, value) => {
   isSelected[index].value =  value ;
-  console.log(isSelected[index].value);
+  if (currentPage.value < 7) {
+      nextPage();
+    }
 };
 
 // 추천 요청을 보내는 함수
