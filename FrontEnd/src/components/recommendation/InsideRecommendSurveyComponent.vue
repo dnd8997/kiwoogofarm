@@ -237,7 +237,9 @@ const isAllSelected = () => {
 
 const handleClick = (index, value) => {
   isSelected[index].value =  value ;
-  console.log(isSelected[index].value);
+  if (currentPage < 7) {
+    nextPage();
+  }
 };
 
 // 추천 요청을 보내는 함수
