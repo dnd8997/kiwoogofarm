@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-row items-center justify-center mt-40">
   <!--왼쪽 이동 버튼-->
-    <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-12">&lt; </button>
+    <button @click="prevPage" v-if="currentPage > 1" class="left-button absolute font-bold font-Notosans font-medium w-40 h-40 top-96 left-24">
+      <v-icon icon="mdi-arrow-left"></v-icon> 이전
+    </button>
 
     <!-- 첫번째 질문 -->
     <div v-if="currentPage === 1" class="flex flex-col items-center justify-center" style="width: 1100px;">
