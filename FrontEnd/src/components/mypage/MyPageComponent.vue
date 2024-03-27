@@ -25,15 +25,15 @@
             :value="n"
         >
           <v-container fluid class="h-full ">
-            <v-row class="h-full flex items-center justify-center mt-5" >
+            <v-row class="h-full flex items-center justify-start mt-5" >
               <v-col
                   v-for="(item, index) in items[n]"
                   :key="index"
                   cols="3"
               >
-                <div class="flex flex-col items-center my-4">
+                <div class="flex flex-col items-center my-4 cursor-pointer" @click="router.push(`/search/${item.id}`)">
                   <v-avatar size="180">
-                    <v-img :src="item.image" alt="" class="object-cover"></v-img>
+                    <v-img :src="item.thumbnailUrl" alt="" class="object-cover"></v-img>
                   </v-avatar>
                   <div class="mt-3 text-lg">{{ item.name }}</div>
                 </div>
@@ -49,7 +49,9 @@
 <script setup>
 import { ref,onMounted  } from 'vue';
 import axios from "axios";
+import {useRouter} from "vue-router";
 
+const router = useRouter()
 const tab = ref(1);
 
 
@@ -74,12 +76,13 @@ const itemsMap3 = [
   { name: '토', image: 'https://lh3.googleusercontent.com/proxy/F7Q_AMMuhPfFmrdr7eQbeRLMuHB0igJZ4JNen7MdiKNBN20a_kfKoNWm445_hcxpPvNMoJa9YwvH1IuNCxrO8tsbvHie9o4Cmyk5693GZ6hWYCWg4wGqm8KJ3m4' },
 ];
 
-const items = ref({1: itemsMap1, 2: itemsMap2, 3: recipeFavorites});
+const items = ref({1: cropFavorites, 2: itemsMap2, 3: recipeFavorites});
 // 찜한 농작물 조회 API
 async function fetchCropFavorites() {
   try {
-    const response = await axios.get('https://j10b303.p.ssafy.io/api/crop/myfavorites');
+    const response = await axios.get('https://j10b303.p.ssafy.io/api/crop/myFavorites/jungyoanwoo@naver.com');
     cropFavorites.value = response.data;
+    console.log(cropFavorites.value);
   } catch (error) {
     console.error('Error fetching recipe favorites:', error);
   }
@@ -87,16 +90,18 @@ async function fetchCropFavorites() {
 // 찜한 레시피 조회 API
 async function fetchRecipeFavorites() {
   try {
-    const response = await axios.get('https://j10b303.p.ssafy.io/api/api/recipe/myFavorites/jungyoanwoo@naver.com');
+    const response = await axios.get('https://j10b303.p.ssafy.io/api/recipe/myFavorites/jungyoanwoo@naver.com');
     recipeFavorites.value = response.data;
   } catch (error) {
     console.error('Error fetching recipe favorites:', error);
   }
 }
 
+
 onMounted(() => {
   // fetchCropFavorites();
   fetchRecipeFavorites();
+  fetchCropFavorites();
 });
 
 function handleChangeTab(newTab) {
