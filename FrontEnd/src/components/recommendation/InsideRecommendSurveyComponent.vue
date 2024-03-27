@@ -206,6 +206,12 @@ const nextPage = () => {
   }
 };
 
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+};
+
 const isAllSelected = () => {
   for (let key in isSelected) {
     if (isSelected[key].value.value === '0') {
