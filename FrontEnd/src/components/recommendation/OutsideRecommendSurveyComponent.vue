@@ -152,15 +152,15 @@
       <img alt="Survey7" class="w-72 h-72 mt-6" src="@/assets/outsideImage7.jpg">
 
       <div class="cursor-pointer mt-6 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected['is_hydroponics'].value === 'TRUE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           :class="isSelected['is_hydroponics'].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick('is_hydroponics',1)" >네</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected['is_hydroponics'].value === 'FALSE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           :class="isSelected['is_hydroponics'].value === 0 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick('is_hydroponics',0)" >아니요</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected['is_hydroponics'].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           :class="isSelected['is_hydroponics'].value === 0.5 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick('is_hydroponics',0.5)">잘 모르겠습니다</div>
 
       <div class="py-10"></div>
