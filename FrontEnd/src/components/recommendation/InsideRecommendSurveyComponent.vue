@@ -140,10 +140,6 @@
            :class="isSelected['humidity'].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick('humidity','하')">건조합니다</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['humidity'].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('humidity','?')">잘 모르겠습니다</div>
-
       <div class="py-10"></div>
     </div>
 
@@ -154,16 +150,16 @@
       <img alt="Survey7" class="w-80 h-80 mt-8" src="@/assets/insideImage7.jpg">
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['is_hydroponics'].value === 'TRUE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('is_hydroponics','TRUE')" >네</div>
+           :class="isSelected['is_hydroponics'].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('is_hydroponics',1)" >네</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['is_hydroponics'].value === 'FALSE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('is_hydroponics','FALSE')" >아니요</div>
+           :class="isSelected['is_hydroponics'].value === 0 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('is_hydroponics',0)" >아니요</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  font-Notosans font-medium text-base"
-           :class="isSelected['is_hydroponics'].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('is_hydroponics','?')">잘 모르겠습니다</div>
+           :class="isSelected['is_hydroponics'].value === 0.5 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('is_hydroponics',0.5)">잘 모르겠습니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -180,33 +176,8 @@
   </div>
 </template>
 
-<script>
-
-export default {
-  data() {
-    return {
-      currentPage: 1,
-    };
-  },
-
-  methods: {
-    nextPage() {
-      if (this.currentPage < 7) {
-        this.currentPage++;
-      }
-    },
-    prevPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-      }
-    },
-  },
-
-};
-</script>
-
 <script setup>
-import { ref  } from 'vue';
+import { ref } from 'vue';
 import axios from "axios";
 import { useRouter } from 'vue-router';
 import { useRecommendationStore } from '@/stores/recommend';
@@ -214,6 +185,7 @@ import { useRecommendationStore } from '@/stores/recommend';
 const recommendationStore = useRecommendationStore();
 const router = useRouter();
 const isLoading = ref(false);
+const currentPage = ref(1);
 const isSelected = {
   'difficulty': ref({ value: '0' }),
   'temperature': ref({ value: '0' }),
@@ -221,10 +193,21 @@ const isSelected = {
   'sunshine': ref({ value: '0' }),
   'water_period': ref({ value: '0' }),
   'humidity': ref({ value: '0' }),
-  'is_hydroponics': ref({ value: '0' }),
+  'is_hydroponics': ref({ value: 0 }),
 };
 
-// 모든 질문지에 대한 대답이 완료되었는지 체크하는 함수
+const nextPage = () => {
+  if (currentPage.value < 7) {
+    currentPage.value++;
+  }
+};
+
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+};
+
 const isAllSelected = () => {
   for (let key in isSelected) {
     if (isSelected[key].value.value === '0') {
@@ -234,16 +217,15 @@ const isAllSelected = () => {
   return Object.values(isSelected).every(item => item.value.value !== '0');
 };
 
-
 const handleClick = (index, value) => {
-  isSelected[index].value =  value ;
-  console.log(isSelected[index].value);
+  isSelected[index].value = value;
+  if (currentPage.value < 7) {
+    nextPage();
+  }
 };
 
-// 추천 요청을 보내는 함수
 const handleRecommendation = async () => {
   try {
-    // isSelected 객체의 값을 추출하여 API 요청에 필요한 데이터로 변환
     const requestData = {
       liked_crops: [{
         "difficulty": isSelected.difficulty.value,
@@ -254,13 +236,8 @@ const handleRecommendation = async () => {
         "water_period": isSelected.water_period.value
       }]
     };
-    // API 요청 보내기
-    const response = await axios.post('/recommendapi/insideCrop',  requestData, {
-    });
-
-    // API 요청 성공 시 페이지 이동
+    const response = await axios.post('/recommendapi/insideCrop',  requestData);
     if (response.status === 200) {
-
       recommendationStore.setRecommendationData(response.data.recommended_crop);
       isLoading.value = true;
       setTimeout(() => {
@@ -268,15 +245,13 @@ const handleRecommendation = async () => {
           name: 'recommendresult',
         });
       }, 3000);
-
     } else {
       console.error('API 요청 실패:', response.status);
-      // 실패한 경우에 대한 처리 추가
     }
   } catch (error) {
     console.error('API 요청 중 오류 발생:', error);
-    // 오류 발생 시에 대한 처리 추가
   }
 }
 </script>
+
 

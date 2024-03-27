@@ -141,10 +141,6 @@
            :class="isSelected['water_exit'].value === '하' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
            @click="handleClick('water_exit','하')">물빠짐이 느립니다</div>
 
-      <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected['water_exit'].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('water_exit','?')">잘 모르겠습니다</div>
-
 
       <div class="py-10"></div>
     </div>
@@ -156,16 +152,16 @@
       <img alt="Survey7" class="w-72 h-72 mt-6" src="@/assets/outsideImage7.jpg">
 
       <div class="cursor-pointer mt-6 rounded-full w-[400px] text-center py-5  text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected['is_hydroponics'].value === 'TRUE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('is_hydroponics','TRUE')" >네</div>
+           :class="isSelected['is_hydroponics'].value === 1 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('is_hydroponics',1)" >네</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected['is_hydroponics'].value === 'FALSE' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('is_hydroponics','FALSE')" >아니요</div>
+           :class="isSelected['is_hydroponics'].value === 0 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('is_hydroponics',0)" >아니요</div>
 
       <div class="cursor-pointer mt-5 rounded-full w-[400px] text-center py-5 text-[#444444] font-Notosans font-medium text-base"
-           :class="isSelected['is_hydroponics'].value === '?' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
-           @click="handleClick('is_hydroponics','?')">잘 모르겠습니다</div>
+           :class="isSelected['is_hydroponics'].value === 0.5 ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'"
+           @click="handleClick('is_hydroponics',0.5)">잘 모르겠습니다</div>
 
       <div class="py-10"></div>
     </div>
@@ -184,30 +180,6 @@
 
 </template>
 
-<script>
-
-export default {
-  data() {
-    return {
-      currentPage: 1,
-    };
-  },
-
-  methods: {
-    nextPage() {
-      if (this.currentPage < 7) {
-        this.currentPage++;
-      }
-    },
-    prevPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-      }
-    },
-  },
-
-};
-</script>
 
 <script setup>
 import { ref  } from 'vue';
@@ -218,6 +190,7 @@ import { useRecommendationStore } from '@/stores/recommend';
 const recommendationStore = useRecommendationStore();
 const router = useRouter();
 const isLoading = ref(false);
+const currentPage = ref(1);
 const isSelected = {
   'difficulty': ref({ value: '0' }),
   'grow_start': ref({ value: '0' }),
@@ -225,8 +198,20 @@ const isSelected = {
   'sunshine': ref({ value: '0' }),
   'water_period': ref({ value: '0' }),
   'water_exit': ref({ value: '0' }),
-  'is_hydroponics': ref({ value: '0' }),
+  'is_hydroponics': ref({ value: 0 }),
 };
+
+  const nextPage = () => {
+    if (currentPage.value < 7) {
+      currentPage.value++;
+    }
+  };
+  
+  const prevPage = () => {
+    if (currentPage.value > 1) {
+      currentPage.value--;
+    }
+  };
 
 // 모든 질문지에 대한 대답이 완료되었는지 체크하는 함수
 const isAllSelected = () => {
@@ -240,7 +225,9 @@ const isAllSelected = () => {
 
 const handleClick = (index, value) => {
   isSelected[index].value =  value ;
-  console.log(isSelected[index].value);
+  if (currentPage.value < 7) {
+      nextPage();
+    }
 };
 
 // 추천 요청을 보내는 함수
