@@ -33,7 +33,7 @@
               >
                 <div class="flex flex-col items-center my-4 cursor-pointer" @click="router.push(`/search/${item.id}`)">
                   <v-avatar size="180">
-                    <v-img :src="item.thumbnailUrl" alt="" class="object-cover"></v-img>
+                    <v-img :src="item.imageUrl" alt="" class="object-cover"></v-img>
                   </v-avatar>
                   <div class="mt-3 text-lg">{{ item.name }}</div>
                 </div>
