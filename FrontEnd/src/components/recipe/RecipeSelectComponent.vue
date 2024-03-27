@@ -432,7 +432,7 @@
     </div>
 
 <!--    오른쪽 이동버튼-->
-    <button @click="nextPage" v-if="currentPage < 3" class="right-button absolute font-bold font-Notosans font-medium w-40 h-40 right-24"> 다음
+    <button @click="nextPage" v-if="currentPage < 3" class="right-button absolute font-bold font-Notosans font-medium w-40 h-40 top-96 right-24"> 다음
       <v-icon icon="mdi-arrow-right"></v-icon>
     </button>
   </div>
