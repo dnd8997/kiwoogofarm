@@ -112,9 +112,34 @@
                         </div>
                     </div>
                 </div>
-                <div style="margin-top: 20%;">
-                    H!@
-                </div>
+            </div>
+        </div>
+
+        
+        <div class="healthy-section">
+            <div class="healthy-section-subtitle">
+                기능성
+            </div>
+            <div class="healthy-section-title">
+                건강상의 유익성
+            </div>
+            <div style="margin-top: 2%;">
+                <img src="@/assets/healthy.png" alt="">
+            </div>
+            <div style="font-size: 17px; margin-top: 5%; width: 50%; white-space: wrap;">
+                {{ cropData.effectInfo }}
+            </div>
+            <div style="margin-top: 5%;">
+
+            </div>
+            <div class="healthy-section-subtitle">
+                키우는 방법
+            </div>
+            <div class="healthy-section-title">
+                자세히 알아보기
+            </div>
+            <div style="font-size: 17px; margin-top: 5%; margin-bottom: 5%; white-space: wrap; text-align: center;">
+                <a :href="cropData.link" style="font-weight: bold; border-bottom: solid 1px black;">{{ cropData.link }}</a>
             </div>
         </div>
     </div>
@@ -167,6 +192,22 @@ onMounted(() => {
 
 .section-1 {
     display: inline-flex;
+}
+
+.healthy-section {
+    margin-top: 10%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+}
+
+.healthy-section-subtitle {
+    font-size: 12px; color: #00B564;
+}
+
+.healthy-section-title {
+    margin-top: 1%; font-size: 20px; font-weight: 500;
 }
 
 .crop {
