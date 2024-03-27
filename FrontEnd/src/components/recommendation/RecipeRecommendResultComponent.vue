@@ -1,78 +1,45 @@
 <template>
   <div>
-
-    <!--로딩화면-->
-    <div v-if="isLoading" class="flex flex-col items-center justify-center">
-      <div class="mt-72">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: transparent; display: block; shape-rendering: auto;" width="100px" height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-          <circle cx="50" cy="50" fill="none" stroke="#00b564" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
-            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
-          </circle>
-        </svg>
-      </div>
-      <div class="mt-3 text-lg font-medium font-Notosans">분석중입니다..</div>
-    </div>
-
     <!--결과 화면-->
-    <div v-else class="flex flex-col items-center justify-center">
-      <h2 class="mt-40 text-3xl font-medium font-Notosans">당신을 위한 레시피는!!</h2>
+    <div class="flex flex-col items-center justify-center">
+      <h2 class="mt-40 text-3xl font-medium font-Notosans">당신을 위한 레시피는</h2>
 
-      <!--추천하는 농작물 리스트-->
-      <swiper
-          :effect="'coverflow'"
-          :grabCursor="true"
-          :centeredSlides="true"
-          :slidesPerView="'auto'"
-          :coverflowEffect="{
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    }"
-          :pagination="true"
-          :spaceBetween="20"
-      >
-        <swiper-slide v-for="(image, index) in result" :key="index">
-          <div class="flex flex-col items-center slide-content">
-            <img :src="image.image_url" :alt="`Image ${index + 1}`" referrerpolicy="no-referrer" />
-            <div class="mt-5 text-xl font-normal font-Notosans ">{{image.name}}</div>
+      <!--추천하는 레시피 리스트-->
+      <swiper :effect="'coverflow'" :grabCursor="true" :centeredSlides="true" :slidesPerView="'auto'" :coverflowEffect="{
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      }" :pagination="true" :spaceBetween="20">
+        <swiper-slide v-for="(recipe, index) in result" :key="index">
+          <div class="flex flex-col items-center slide-content" @click="router.push(`/recipedetail/${recipe.id}`)">
+            <img :src="recipe.image" :alt="`Image ${index + 1}`" referrerpolicy="no-referrer" />
+            <div class="mt-5 text-xl font-normal font-Notosans ">{{ recipe.name }}</div>
           </div>
         </swiper-slide>
       </swiper>
-
-      <!-- <router-link to="/recipe" class="ml-16 text-3xl mt-12 text-[#00B564] font-Notosans font-medium cursor-pointer">
-        요리추천 받으러 가기
-        <v-icon
-            class="mb-2"
-            icon="mdi-arrow-right"
-            start
-        ></v-icon>
-      </router-link> -->
     </div>
   </div>
 </template>
 
 <script setup>
-import { useRecommendationStore } from '@/stores/recommend';
+import { useRecipeRecommendationStore } from '@/stores/recipeRecommend';
 import "swiper/swiper.min.css";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const recommendationStore = useRecommendationStore();
+const recipeRecommendationStore = useRecipeRecommendationStore();
 const router = useRouter();
 
-  const route = useRoute();
+const route = useRoute();
 const isLoading = ref(true);
 const result = ref([]);
 
 onMounted(() => {
-  console.log(recommendationStore.recommendationData);
-  result.value = recommendationStore.recommendationData;
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 3000);
+  result.value = recipeRecommendationStore.recipeRecommendationData;
+  console.log(result.value)
 });
 
 </script>
@@ -83,6 +50,7 @@ onMounted(() => {
   padding-top: 50px;
   padding-bottom: 50px;
 }
+
 .swiper-slide {
   background-size: cover;
   width: 300px;
@@ -95,6 +63,7 @@ onMounted(() => {
   border-radius: 0.375rem;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 15px 0px;
 }
+
 .slide-content img {
   width: 300px;
   height: 230px;
