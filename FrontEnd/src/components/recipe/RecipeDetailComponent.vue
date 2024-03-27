@@ -53,13 +53,15 @@ const goBack = () => {
 const heartCheck = ref(false)
 
 function checkcheck() {
-    Recipe.likeRecipe(recipeId, email, (success) => {
-        console.log("좋아요설정/해제 성공")
+    Recipe.likeRecipe(recipeId, email,
+        (success) => {
+            console.log("좋아요 설정/해제 성공")
+            heartCheck.value = !heartCheck.value
+            //TODO 좋아요 요청이 성공적으로 처리된 후에 서버로부터 좋아요 수를 다시 가져와서 업데이트해야 함
     },
         (error) => {
             console.error(error)
         })
-    heartCheck.value = !heartCheck.value
 }
 
 onMounted(() => {
@@ -67,7 +69,8 @@ onMounted(() => {
         route.params.recipeId,
         (success) => {
             recipeData.value = success.data
-            console.log("여기",recipeData.value)
+            console.log("여기", recipeData.value)
+            //TODO 서버로부터 받은 레시피 정보에 좋아요 상태가 있는지 확인하여 heartCheck에 반영해야 함
         },
         (error) => {
             console.error(error)
