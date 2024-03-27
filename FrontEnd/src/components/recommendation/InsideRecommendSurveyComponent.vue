@@ -180,33 +180,8 @@
   </div>
 </template>
 
-<script>
-
-export default {
-  data() {
-    return {
-      currentPage: 1,
-    };
-  },
-
-  methods: {
-    nextPage() {
-      if (this.currentPage < 7) {
-        this.currentPage++;
-      }
-    },
-    prevPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-      }
-    },
-  },
-
-};
-</script>
-
 <script setup>
-import { ref  } from 'vue';
+import { ref } from 'vue';
 import axios from "axios";
 import { useRouter } from 'vue-router';
 import { useRecommendationStore } from '@/stores/recommend';
@@ -224,7 +199,12 @@ const isSelected = {
   'is_hydroponics': ref({ value: '0' }),
 };
 
-// 모든 질문지에 대한 대답이 완료되었는지 체크하는 함수
+const nextPage = () => {
+  if (currentPage.value < 7) {
+    currentPage.value++;
+  }
+};
+
 const isAllSelected = () => {
   for (let key in isSelected) {
     if (isSelected[key].value.value === '0') {
@@ -234,18 +214,15 @@ const isAllSelected = () => {
   return Object.values(isSelected).every(item => item.value.value !== '0');
 };
 
-
 const handleClick = (index, value) => {
-  isSelected[index].value =  value ;
-  if (currentPage < 7) {
+  isSelected[index].value = value;
+  if (currentPage.value < 7) {
     nextPage();
   }
 };
 
-// 추천 요청을 보내는 함수
 const handleRecommendation = async () => {
   try {
-    // isSelected 객체의 값을 추출하여 API 요청에 필요한 데이터로 변환
     const requestData = {
       liked_crops: [{
         "difficulty": isSelected.difficulty.value,
@@ -256,13 +233,8 @@ const handleRecommendation = async () => {
         "water_period": isSelected.water_period.value
       }]
     };
-    // API 요청 보내기
-    const response = await axios.post('/recommendapi/insideCrop',  requestData, {
-    });
-
-    // API 요청 성공 시 페이지 이동
+    const response = await axios.post('/recommendapi/insideCrop',  requestData);
     if (response.status === 200) {
-
       recommendationStore.setRecommendationData(response.data.recommended_crop);
       isLoading.value = true;
       setTimeout(() => {
@@ -270,15 +242,13 @@ const handleRecommendation = async () => {
           name: 'recommendresult',
         });
       }, 3000);
-
     } else {
       console.error('API 요청 실패:', response.status);
-      // 실패한 경우에 대한 처리 추가
     }
   } catch (error) {
     console.error('API 요청 중 오류 발생:', error);
-    // 오류 발생 시에 대한 처리 추가
   }
 }
 </script>
+
 
