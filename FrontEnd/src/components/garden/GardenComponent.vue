@@ -17,7 +17,7 @@
 
     <!--정보창-->
     <div v-if="isDivVisible" class="absolute top-32 right-0 w-[23%] h-[80%] bg-white z-20 font-Notosans">
-      <img src="@/assets/close.svg" class="h-8 w-8 absolute right-3 top-3 cursor-pointer" @click="handleMarkerClick">
+      <img src="@/assets/close.svg" class="h-8 w-8 absolute right-3 top-3 cursor-pointer" @click="handleCloseClick">
       <div class="flex  w-full h-[32%] bg-blue-200 ">
         <img src="@/assets/garden.png" class="object-cover w-full h-full">
       </div>
@@ -47,11 +47,12 @@
       </div>
 
       <div class="flex flex-row mt-[18%] justify-center" >
-        <div class="cursor-pointer border-[1px] border-[#EC6B6B] text-[#EC6B6B]  rounded-lg w-28 h-12 flex flex-row items-center justify-center ">
-          <img src="@/assets/heart.svg" class="h-6 w-6 mr-1.5">
+        <div class="cursor-pointer border-[1px] border-[#EC6B6B] text-[#EC6B6B]  rounded-lg w-28 h-12 flex flex-row items-center justify-center " @click="handleSaveClick">
+          <img v-if="!isSave" alt="" src="@/assets/heart.svg" class="h-6 w-6 mr-1.5">
+          <img v-else alt="" src="@/assets/fullheart.svg" class="h-6 w-6 mr-1.5" >
           찜하기
         </div>
-        <div class="cursor-pointer ml-6 w-36 h-12 bg-[#86BF60] text-white  rounded-lg flex items-center justify-center">상세정보</div>
+        <div class="cursor-pointer ml-6 w-36 h-12 bg-[#86BF60] text-white  rounded-lg flex items-center justify-center" @click="openNewWindow">상세정보</div>
       </div>
     </div>
   </div>
@@ -66,6 +67,7 @@ export default {
       markers: [],
       latitude: 0,
       longitude: 0,
+      isSave: false,
       isDivVisible: false
     };
   },
@@ -106,6 +108,7 @@ export default {
       this.map = new kakao.maps.Map(container, options);
       this.displayMarker([[this.latitude, this.longitude]]);
     },
+
     displayMarker(markerPositions) {
       if (this.markers.length > 0) {
         this.markers.forEach((marker) => marker.setMap(null));
@@ -170,8 +173,23 @@ export default {
       }
       this.map.setBounds(bounds);
     },
+
     handleMarkerClick() {
-      this.isDivVisible = !this.isDivVisible;
+      this.isDivVisible = true;
+    },
+    handleCloseClick() {
+      this.isDivVisible = false;
+    },
+    handleSaveClick() {
+      this.isSave = !this.isSave;
+    },
+    openNewWindow() {
+      // 새 창 열기
+      window.open(
+          'http://soil.rda.go.kr/geoweb/soilInfoPopup.do?soilsign=SqC',
+          'dialog',
+          'modal=yes,dialog=yes,width=1000,height=600'
+      );
     }
   },
 
