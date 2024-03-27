@@ -58,9 +58,6 @@
 
         </v-text-field>
       </div>
-      <div>
-        농작물 데이터 {{ cropData.length }} 종
-      </div>
       <div class="crop-container">
         <v-row>
           <v-col
@@ -146,7 +143,7 @@ const searchCheckBox = ref([
 const searchCheckBox2 = ref([
 { name: '초보자용', isActivate: false },
 { name: '빛이 적어도 되는', isActivate: false },
-{ name: '흙이 필요없는', isActivate: false },
+{ name: '수경재배가 되는', isActivate: false },
 { name: '물주기가 긴', isActivate: false },
 ])
 
