@@ -1,27 +1,36 @@
 import { localaxios } from "./BaseAxios";
 
-const local = localaxios()
+const local = localaxios();
 
 async function searchRecipes(value, success, fail) {
-    await local.post('/recipe/all', JSON.stringify(value))
-        .then(success)
-        .catch(fail)
+  await local
+    .post("/recipe/all", JSON.stringify(value))
+    .then(success)
+    .catch(fail);
 }
 
 async function getRecipeById(id, success, fail) {
-    await local.get(`/recipe/${id}`)
-        .then(success)
-        .catch(fail)
+  await local.get(`/recipe/${id}`).then(success).catch(fail);
 }
 
-async function likeRecipe(value, success, fail) {
-    await local.post(`/recipe/like`, JSON.stringify(value))
-        .then(success)
-        .catch(fail)
+async function likeRecipe(recipeId, email, success, fail) {
+  await local
+    .post(`/recipe/${recipeId}/favorites/${email}`)
+    .then(success)
+    .catch(fail);
 }
 
-export {
-    searchRecipes,
-    getRecipeById,
-    likeRecipe,
+async function recommendRecipe(value, success, fail) {
+  const queryParams = new URLSearchParams({
+    ingredients: value.ingredients,
+    cook: value.cook,
+    difficulty: value.difficulty,
+  });
+
+  await local
+    .get(`/recipe/search/option?${queryParams}`)
+    .then(success)
+    .catch(fail);
 }
+
+export { getRecipeById, likeRecipe, recommendRecipe, searchRecipes };

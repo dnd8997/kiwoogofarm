@@ -1,8 +1,8 @@
 <template>
   <div>
     <!--결과 화면-->
-    <div class="flex justify-center items-center flex-col">
-      <h2 class="text-3xl mt-40 font-Notosans font-medium">당신을 위한 농작물은</h2>
+    <div class="flex flex-col items-center justify-center">
+      <h2 class="mt-40 text-3xl font-medium font-Notosans">당신을 위한 농작물은</h2>
 
       <!--추천하는 농작물 리스트-->
       <swiper
@@ -21,9 +21,9 @@
           :spaceBetween="20"
       >
         <swiper-slide v-for="(crop, index) in result" :key="index">
-          <div class="slide-content flex flex-col items-center" @click="router.push(`/search/${crop.id}`)">
+          <div class="flex flex-col items-center slide-content" @click="router.push(`/search/${crop.id}`)">
             <img :src="crop.image_url" :alt="`Image ${index + 1}`" referrerpolicy="no-referrer" />
-            <div class="mt-5 font-Notosans font-normal text-xl ">{{crop.name}}</div>
+            <div class="mt-5 text-xl font-normal font-Notosans ">{{crop.name}}</div>
           </div>
         </swiper-slide>
       </swiper>
@@ -41,11 +41,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted} from 'vue';
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { useRoute, useRouter } from 'vue-router';
-import "swiper/swiper.min.css";
 import { useRecommendationStore } from '@/stores/recommend';
+import "swiper/swiper.min.css";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const recommendationStore = useRecommendationStore();
 const router = useRouter();
