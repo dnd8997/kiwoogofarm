@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:ssafy@j10b303.p.ss
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+
 # 데이터베이스 모델 정의
 class Crop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -95,6 +96,7 @@ def get_liked_crops_from_database(user_id):
                 "humidity": crop.humidity,
                 "grow_start": crop.grow_start,
                 "water_exit": crop.water_exit,
+                "likes": crop.likes,
             }
             liked_crops.append(crop_dict)
     return liked_crops
@@ -292,7 +294,8 @@ def post_euclidean_recommended_inside_crop():
             "grow_time": crop.grow_time,
             "humidity": crop.humidity,
             "grow_start": crop.grow_start,
-            "water_exit": crop.water_exit
+            "water_exit": crop.water_exit,
+            "likes": crop.likes
         }
         crops.append(crop.dict)
 
@@ -320,7 +323,8 @@ def post_euclidean_recommended_outside_crop():
             "grow_time": crop.grow_time,
             "humidity": crop.humidity,
             "grow_start": crop.grow_start,
-            "water_exit": crop.water_exit
+            "water_exit": crop.water_exit,
+            "likes": crop.likes
         }
         crops.append(crop.dict)
 
