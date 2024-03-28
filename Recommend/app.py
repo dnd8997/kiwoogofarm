@@ -27,7 +27,7 @@ class Crop(db.Model):
     humidity = db.Column(db.String(100), nullable=False)
     grow_start = db.Column(db.String(100), nullable=False)
     water_exit = db.Column(db.String(100), nullable=False)
-    likes = db.Column(db.Integer, primary_key=True)
+    likes = db.Column(db.Integer, nullable=False)
 
 
 class CropFavorite(db.Model):
