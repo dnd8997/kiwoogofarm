@@ -14,30 +14,13 @@
                         style="width: 100%; height: 100%; object-fit: cover;"
                     >
                 </div>
-<!--                <div class="mt-3">-->
-<!--                    <v-icon -->
-<!--                        v-if="heartCheck" -->
-<!--                        @click="checkcheck"-->
-<!--                        style="cursor: pointer; color: #FF4081;"-->
-<!--                        icon="mdi-heart"-->
-<!--                    >-->
-<!--                    </v-icon>-->
-
-<!--                    <v-icon -->
-<!--                        v-else -->
-<!--                        @click="checkcheck" -->
-<!--                        style="cursor: pointer; color: #FF4081;" -->
-<!--                        icon="mdi-heart-outline"-->
-<!--                    >-->
-<!--                    </v-icon>-->
-<!--                </div>-->
             </div>
             <div class="crop">
               <div class="flex flex-row">
                 <div class="crop-title">
                   {{ cropData.name }}
                 </div>
-                <div class="ml-2 mt-2">
+                <div class="mt-2 ml-2">
                   <v-icon
                       v-if="heartCheck"
                       @click="checkcheck"
@@ -147,7 +130,7 @@
 
 <script setup>
 import * as Crop from '@/js/Crop';
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute()
