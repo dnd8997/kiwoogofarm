@@ -2,12 +2,11 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { jwtDecode } from 'jwt-decode'
 import * as MyPage from '@/js/MyPage';
+import { useUserStore } from './user';
 
 export const useAuthStore = defineStore('auth', () => {
-    const email = ref(null)
-    const nickName = ref(null)
-    const userId = ref(null)
-    
+
+    const userStore = useUserStore()
     const isAuthenticated = ref(!!localStorage.getItem('accessToken'))
 
     function setToken(accessToken, refreshToken) {
@@ -18,10 +17,17 @@ export const useAuthStore = defineStore('auth', () => {
             localStorage.setItem('refreshToken',  refreshToken)
             isAuthenticated.value = !!localStorage.getItem('accessToken')
             MyPage.getUserinfo(
-                email.value,
+                token.email,
                 (success) => {
-                    nickName.value = success.data.nickname
-                    userId.value = success.data.Id
+                    localStorage.setItem('nickname', success.data.nickname)
+                    localStorage.setItem('id', success.data.id)
+                    localStorage.setItem('image', success.data.image_url)
+                    console.log('successData = ', success.data)
+                    const email = localStorage.getItem('email')
+                    const nickname = localStorage.getItem('nickname')
+                    const id = localStorage.getItem('id')
+                    const image = localStorage.getItem('image')
+                    userStore.updateInfo(email, nickname, id, image)
                 },
                 (error) => {
                     console.error(error)
@@ -34,16 +40,16 @@ export const useAuthStore = defineStore('auth', () => {
 
     function clearToken() {
         try {
-            email.value = null
-            nickName.value = null
-            userId.value = null
-            isAuthenticated.value = null
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
+            localStorage.removeItem('email')
+            localStorage.removeItem('id')
+            localStorage.removeItem('nickname')
+            localStorage.removeItem('image')
+            isAuthenticated.value = !!localStorage.getItem('accessToken')
         }   catch (error) {
             console.error(error)
         }
     }
-    
-    return { email, isAuthenticated, nickName, userId, setToken, clearToken, }
+    return { isAuthenticated, setToken, clearToken, }
 })

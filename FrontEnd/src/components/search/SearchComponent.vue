@@ -172,7 +172,7 @@ Crop.getCrops(
     cropData.value = success.data
   },
   (error) => {
-    console.log(error)
+    console.error(error)
   }
 )
 })
