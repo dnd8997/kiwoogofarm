@@ -14,10 +14,10 @@
     <div class="mt-3 text-lg font-medium font-Notosans">분석중입니다..</div>
   </div>
 
-  <div class="flex flex-row items-center justify-center mt-40">
+  <div v-else class="flex flex-row items-center justify-center mt-40">
     <!--왼쪽 이동 버튼-->
     <button @click="prevPage" v-if="currentPage > 1"
-      class="absolute w-40 h-40 font-medium font-bold left-button font-Notosans top-96 left-24">
+      class="fixed w-40 h-40 font-medium font-bold left-button font-Notosans top-96 left-8">
       <v-icon icon="mdi-arrow-left"></v-icon> 이전
     </button>
     
@@ -329,7 +329,7 @@
 
     <!--    오른쪽 이동버튼-->
     <button @click="nextPage" v-if="currentPage < 3"
-      class="absolute w-40 h-40 font-medium font-bold right-button font-Notosans top-96 right-24"> 다음
+      class="fixed  w-40 h-40 font-medium font-bold right-button font-Notosans top-96 right-8"> 다음
       <v-icon icon="mdi-arrow-right"></v-icon>
     </button>
   </div>

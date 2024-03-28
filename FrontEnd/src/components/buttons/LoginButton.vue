@@ -10,32 +10,24 @@
             :close-on-content-click="false"
         >
             <template v-slot:activator="{ props }">
-                <img :src="image" alt="">
-              <div v-bind="props">{{ nickname }}</div>
+              <div v-bind="props" class="flex flex-row">
+                <v-avatar size="40">
+                  <v-img :src="image" alt="" class="object-cover"></v-img>
+                </v-avatar>
+                <div class="font-Notosans  text-lg ml-3 mt-1.5">{{ nickname }}</div>
+              </div>
             </template>
 
-            <v-card min-width="200" style="border-radius: 10%;">
-                <v-list style="text-align: center;">
-                    <v-list-item
-                        :prepend-avatar="image"
-                    >
-                        <div style="text-align: center;">
-                            {{ nickname }}
-                        </div>
-                    </v-list-item>
-                </v-list>
-
-                <p style="border: solid 1px black;"></p>
-
-                <v-list style="text-align: center; cursor: pointer;">
+            <v-card min-width="100" style="border-radius: 10%; margin-top: 10px">
+                <v-list style="text-align: center;"  class="font-Notosans font-normal">
                     <v-list-item>
-                        <div @click="router.push({ name: 'mypage' }), menu = false">
-                            My Page
+                        <div @click="router.push({ name: 'mypage' }), menu = false" class="cursor-pointer">
+                           마이페이지
                         </div>
                     </v-list-item>
 
                     <v-list-item>
-                        <div @click="logout">
+                        <div @click="logout" class="cursor-pointer">
                             로그아웃
                         </div>
                     </v-list-item>
@@ -66,6 +58,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 import LoginModal from '@/components/modal/LoginModal.vue'
+
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const router = useRouter()
@@ -80,7 +73,7 @@ const image = ref(null)
 
 const logout = () => {
     authStore.clearToken()
-    router.push({ path: '/' })
+  router.push({ path: '/' })
 }
 
 const openLoginModal = () => {

@@ -1,11 +1,18 @@
 <template>
     <div id="recommendation" class="section">
         <div class="recommendation-box">
-            <div id="box-title">
+
+            <div v-if="userId!=null" id="box-title">
                 <p id="nickname">연우</p>
                 <p>님을 위한 농작물 추천</p>
             </div>
-            <div class="mb-16 text-[#8D8D8D]">좋아요를 누르신 농작물들과 유사한 농작물들입니다</div>
+            <div v-else id="box-title">
+              <p>좋아요 수 Top3 농작물</p>
+            </div>
+
+            <div v-if="userId!=null" class="mb-16 text-[#8D8D8D]">좋아요를 누르신 농작물들과 유사한 농작물들입니다</div>
+            <div v-else class="mb-16 text-[#8D8D8D]"></div>
+
             <v-row
                 cols="4"
                 class="recommendation-vegetable-list delay-animate"
@@ -17,7 +24,19 @@
                         <v-img :src="crop.image_url" alt="" class="object-cover"></v-img>
                       </v-avatar>
                     </div>
-                    <p class="font-Notosans font-medium text-xl mt-3">{{ crop.name }}</p>
+                    <div style="display: flex;  justify-content: center;" class="flex-col items-center">
+                      <p class="font-Notosans font-medium text-xl mt-3">{{ crop.name }}</p>
+                      <div class="flex flex-row mt-3">
+                        <v-icon
+                            @click="checkcheck"
+                            style="cursor: pointer; color: #FF4081;"
+                            icon="mdi-heart"
+                        >
+                        </v-icon>
+                        <span class="ml-1 font-normal"> {{ crop.likes }}</span>
+                      </div>
+                    </div>
+
                 </v-col>
             </v-row>
 
@@ -32,23 +51,26 @@
 import {onMounted, ref} from 'vue';
 import axios from "axios";
 import {useRouter} from "vue-router";
+import {useAuthStore} from "@/stores/auth.js";
 
 const router = useRouter()
-
+const authStore = useAuthStore();
+const userId = ref();
 const cropRecommends = ref([]);
 
-async function fetchCropRecommends() {
+async function fetchCropRecommends(userId) {
   try {
-    const response = await axios.get('https://j10b303.p.ssafy.io/recommendapi/crop/2');
+    if(userId===null) userId = 0;
+    const response = await axios.get(`https://j10b303.p.ssafy.io/recommendapi/crop/${userId}`);
     cropRecommends.value = response.data.recommended_crop;
-    console.log(cropRecommends.value);
   } catch (error) {
     console.error('Error fetching recipe favorites:', error);
   }
 }
 
 onMounted(() => {
-  fetchCropRecommends();
+  userId.value = authStore.userId;
+  fetchCropRecommends(userId.value);
 });
 
 

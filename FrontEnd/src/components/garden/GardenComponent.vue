@@ -41,8 +41,8 @@
           <span class="font-light text-[#696969] text-base ml-6">방문</span>
         </div>
         <div class="flex flex-row mt-4">
-          <span class="font-medium text-base">분양가격</span>
-          <span class="font-light text-[#696969] text-base ml-6">미정</span>
+          <span class="font-medium text-base">분양면적</span>
+          <span class="font-light text-[#696969] text-base ml-6">15평</span>
         </div>
       </div>
 

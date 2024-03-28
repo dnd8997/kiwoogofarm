@@ -13,6 +13,16 @@
                         :src="cropData.imageUrl" 
                         style="width: 100%; height: 100%; object-fit: cover;"
                     >
+                    <div class="flex flex-row mt-3">
+                      <v-icon
+                          @click="checkcheck"
+                          style="cursor: pointer; color: #FF4081;"
+                          icon="mdi-heart"
+                      >
+                      </v-icon>
+                      <span class="ml-1 font-normal"> {{ cropData.likes }}</span>
+                    </div>
+
                 </div>
 <!--                <div class="mt-3">-->
 <!--                    <v-icon -->

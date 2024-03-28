@@ -66,7 +66,7 @@ const loginWithKakao = () => {
 <style scoped>
 .login-card {
     width: 500px;
-    height: 420px;
+    height: 340px;
     
 }
 
@@ -75,8 +75,8 @@ const loginWithKakao = () => {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 26px;
     font-weight: 400;
-    margin-top: 15%;
-    margin-bottom: 15%;
+    margin-top: 10%;
+    margin-bottom: 12%;
 }
 
 </style>
