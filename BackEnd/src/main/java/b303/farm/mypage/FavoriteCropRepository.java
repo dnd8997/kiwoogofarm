@@ -14,5 +14,5 @@ public interface FavoriteCropRepository extends JpaRepository<CropFavorites,Long
         List<CropFavorites> findAllByUser(User user);
 
         List<CropFavorites> findAllByUserAndStatus(User user, boolean status);
-
-    }
+        CropFavorites findByCropAndUserAndStatus(Crop crop, User user, boolean status);
+        }

@@ -22,4 +22,6 @@ public interface CropService {
     List<Crop> getCropsWithLowSunshine();
     List<Crop> getCropsWithHighWaterPeriod();
     List<Crop> getHydroponicsCrops();
+
+    Boolean checkCropIsLiked(Long id, String email);
 }
