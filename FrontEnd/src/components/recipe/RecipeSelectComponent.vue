@@ -13,11 +13,14 @@
     </div>
     <div class="mt-3 text-lg font-medium font-Notosans">분석중입니다..</div>
   </div>
-  
+
   <div class="flex flex-row items-center justify-center mt-40">
     <!--왼쪽 이동 버튼-->
-    <button @click="prevPage" v-if="currentPage > 1" class="absolute w-40 h-40 left-12">&lt; </button>
-
+    <button @click="prevPage" v-if="currentPage > 1"
+      class="absolute w-40 h-40 font-medium font-bold left-button font-Notosans top-96 left-24">
+      <v-icon icon="mdi-arrow-left"></v-icon> 이전
+    </button>
+    
     <!-- 첫번째 질문 -->
     <div v-if="currentPage === 1" class="flex flex-col items-center justify-center" style="width: 1100px;">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(1/3)</span>
@@ -326,7 +329,7 @@
 
     <!--    오른쪽 이동버튼-->
     <button @click="nextPage" v-if="currentPage < 3"
-      class="absolute w-40 h-40 font-medium font-bold right-button font-Notosans right-24"> 다음
+      class="absolute w-40 h-40 font-medium font-bold right-button font-Notosans top-96 right-24"> 다음
       <v-icon icon="mdi-arrow-right"></v-icon>
     </button>
   </div>

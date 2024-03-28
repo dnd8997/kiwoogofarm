@@ -23,10 +23,12 @@
         좋아요 수
         <div>{{ recipeData.likes }}</div>
         <div class="mt-2 ml-2">
-            <v-icon v-if="heartCheck" @click="checkcheck(recipeData.id)" style="cursor: pointer; color: #FF4081;" icon="mdi-heart">
+            <v-icon v-if="heartCheck" @click="checkcheck()" style="cursor: pointer; color: #FF4081;"
+                icon="mdi-heart">
             </v-icon>
 
-            <v-icon v-else @click="checkcheck" style="cursor: pointer; color: #FF4081;" icon="mdi-heart-outline">
+            <v-icon v-else @click="checkcheck()" style="cursor: pointer; color: #FF4081;"
+                icon="mdi-heart-outline">
             </v-icon>
         </div>
 
@@ -57,7 +59,15 @@ function checkcheck() {
         (success) => {
             console.log("좋아요 설정/해제 성공")
             heartCheck.value = !heartCheck.value
-            //TODO 좋아요 요청이 성공적으로 처리된 후에 서버로부터 좋아요 수를 다시 가져와서 업데이트해야 함
+            Recipe.getRecipeById(
+                recipeId,
+                (success) => {
+                    recipeData.value = success.data;
+                },
+                (error) => {
+                    console.error(error);
+                }
+            );
     },
         (error) => {
             console.error(error)
