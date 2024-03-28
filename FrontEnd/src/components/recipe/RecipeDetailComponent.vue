@@ -79,13 +79,20 @@ onMounted(() => {
         route.params.recipeId,
         (success) => {
             recipeData.value = success.data
-            console.log("여기", recipeData.value)
-            //TODO 서버로부터 받은 레시피 정보에 좋아요 상태가 있는지 확인하여 heartCheck에 반영해야 함
+            console.log("레시피 정보", recipeData.value)
         },
         (error) => {
             console.error(error)
         }
     )
+    Recipe.isRecipeLiked(recipeId, email,
+        (success) => {
+            heartCheck.value = success.data
+            console.log("좋아요 여부", heartCheck.value)
+    },
+        (error) => {
+            console.error(error)
+        })
 })
 </script>
 
