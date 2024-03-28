@@ -1,7 +1,14 @@
 <template>
   <div>
     <!--결과 화면-->
-    <div class="flex flex-col items-center justify-center">
+    <div v-if="result.length === 0" class="flex flex-col justify-center items-center">
+      <h2 class="mt-[12%] text-3xl font-medium font-Notosans">죄송합니다. 조건에 맞는 레시피가 없습니다.</h2>
+      <img src="@/assets/NoResult.jpg" alt="" class="w-96 h-64 mt-12">
+      <router-link to="/recipeselect">
+        <div class="rounded-full bg-[#00B564] px-24 py-3 mt-16  text-lg font-Notosans font-normal text-white">다시 추천받기</div>
+      </router-link>
+    </div>
+    <div v-else class="flex flex-col items-center justify-center">
       <h2 class="mt-40 text-3xl font-medium font-Notosans">당신을 위한 레시피는</h2>
 
       <!--추천하는 레시피 리스트-->
