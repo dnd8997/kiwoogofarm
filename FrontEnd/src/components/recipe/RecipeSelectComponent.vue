@@ -292,7 +292,7 @@
         <div
           class="container h-72 cursor-pointer text-center font-Notosans font-medium text-base mx-5 rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_4px_15px_0px]"
           :class="isSelected['difficulty'].value === '초급' ? 'border-solid border-2 border-[#00B564]' : 'opacity-100'"
-          @click="handleClick('difficulty','쉬움')">
+          @click="handleClick('difficulty','초급')">
           <img src="../../assets/beginner.png" class="mt-2">
           <p class="my-6">초급</p>
         </div>
