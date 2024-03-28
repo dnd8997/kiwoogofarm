@@ -43,7 +43,7 @@ const cropRecommends = ref([]);
 
 async function fetchCropRecommends() {
   try {
-    const response = await axios.get('https://j10b303.p.ssafy.io/recommendapi/crop/1');
+    const response = await axios.get('https://j10b303.p.ssafy.io/recommendapi/crop/2');
     cropRecommends.value = response.data.recommended_crop;
     console.log(cropRecommends.value);
   } catch (error) {
