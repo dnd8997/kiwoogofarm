@@ -3,5 +3,5 @@
 </template>
 
 <script setup>
-import RecommendResultComponent from '@/components/recommendation/RecommendResultComponent.vue';
+import RecommendResultComponent from "@/components/recommendation/RecommendResultComponent.vue";
 </script>

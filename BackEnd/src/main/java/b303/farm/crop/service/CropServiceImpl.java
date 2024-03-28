@@ -90,20 +90,26 @@ public class CropServiceImpl implements CropService {
         if(cropFavorites == null){
             cropFavorites = CropFavorites.createCropFavorites(crop, currentUser);
             favoriteCropRepository.save(cropFavorites);
+            cropRepository.save(crop); // 엔티티 저장
+            crop.addLike(); // 좋아요 수 증가
+
             return "즐겨찾기 신규설정";  //다른 값?
         } else {
             //만약 존재한다면
             //그리고 status값이 true라면, status를 false로 바꾸고,연관관계도 끊고,좋아요수도 증감시킨다.
             if (cropFavorites.isStatus()){
                 cropFavorites.unFavoriteCrop();
-//                favoriteRecipeRepository.save(recipeFavorites);
+                favoriteCropRepository.save(cropFavorites);
+                crop.removeLike(); // 좋아요 수 감소
+                cropRepository.save(crop); // 엔티티 저장
 
                 log.info("리스트 확인 " + currentUser.getCropFavoritesList());//.get(0).getId()
                 return "즐겨찾기 취소";
             } else {
                 //status값이 false라면,status를 true로 바꾸고, 연관관계도 만들고, 좋아요 수도 증가시킨다.
-                cropFavorites.reFavoriteCrop();
-//                favoriteCropRepository.save(cropFavorites);
+                favoriteCropRepository.save(cropFavorites);
+                crop.addLike(); // 좋아요 수 증가
+                cropRepository.save(crop); // 엔티티 저장
                 log.info("리스트 확인" + currentUser.getCropFavoritesList());//.get(0).getId()
                 return "즐겨찾기 재설정";
             }

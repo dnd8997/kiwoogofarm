@@ -30,7 +30,7 @@ public class CropDto {
     private String effectInfo;
     private String link;
     private String growInfo;
-//    private int likes;
+    private int likes;
 
     @Builder
     public CropDto(Long id, String name, String thumbnailUrl, String imageUrl, String category, String temperature, String difficulty, String sunshine, String growTime, String height, String waterPeriod, String humidity, Boolean isHydroponics, String growStart, String waterExit, String cropInfo, String waterPeriodInfo, String sunshineInfo, String humidityInfo, String temperatureInfo, String effectInfo, String link, String growInfo, int likes) {
@@ -57,6 +57,6 @@ public class CropDto {
         this.effectInfo = effectInfo;
         this.link = link;
         this.growInfo = growInfo;
-//        this.likes = likes;
+        this.likes = likes;
     }
 }
