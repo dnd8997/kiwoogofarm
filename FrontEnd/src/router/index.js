@@ -107,7 +107,11 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-});
+})
+
+    
+
+
 
 router.afterEach((to, from) => {
   window.scrollTo(0, 0);

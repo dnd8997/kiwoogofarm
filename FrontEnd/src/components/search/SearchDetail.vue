@@ -179,7 +179,6 @@ onMounted(() => {
         route.params.cropId,
         (success) => {
             cropData.value = success.data
-            console.log(cropData.value)
         },
         (error) => {
             console.error(error)

@@ -21,7 +21,7 @@ public class MyPageService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
-        return new UserInfoDTO(user.getId(), user.getNickname());
+        return new UserInfoDTO(user.getId(), user.getNickname(), user.getImageUrl());
     }
 }
 

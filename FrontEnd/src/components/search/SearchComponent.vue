@@ -177,14 +177,6 @@ Crop.getCrops(
 )
 })
 
-// watch(() => searchCheckBox.value.map(item => item.isActivate), (newVal, oldVal) => {
-// console.log('searchCheckBox 변화 감지', newVal);
-// }, { deep: true });
-
-// watch(() => searchCheckBox2.value.map(item => item.isActivate), (newVal, oldVal) => {
-// console.log('searchCheckBox2 변화 감지', newVal);
-// }, { deep: true });
-
 </script>
 
 <style scoped>

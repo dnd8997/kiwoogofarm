@@ -5,14 +5,13 @@ import * as MyPage from '@/js/MyPage';
 import { useUserStore } from './user';
 
 export const useAuthStore = defineStore('auth', () => {
-
     const userStore = useUserStore()
     const isAuthenticated = ref(!!localStorage.getItem('accessToken'))
 
     function setToken(accessToken, refreshToken) {
         try {
             const token = jwtDecode(accessToken)
-            email.value = token.email
+            localStorage.setItem('email', token.email)
             localStorage.setItem('accessToken', accessToken)
             localStorage.setItem('refreshToken',  refreshToken)
             isAuthenticated.value = !!localStorage.getItem('accessToken')
@@ -22,7 +21,6 @@ export const useAuthStore = defineStore('auth', () => {
                     localStorage.setItem('nickname', success.data.nickname)
                     localStorage.setItem('id', success.data.id)
                     localStorage.setItem('image', success.data.image_url)
-                    console.log('successData = ', success.data)
                     const email = localStorage.getItem('email')
                     const nickname = localStorage.getItem('nickname')
                     const id = localStorage.getItem('id')
@@ -51,5 +49,6 @@ export const useAuthStore = defineStore('auth', () => {
             console.error(error)
         }
     }
+    
     return { isAuthenticated, setToken, clearToken, }
 })

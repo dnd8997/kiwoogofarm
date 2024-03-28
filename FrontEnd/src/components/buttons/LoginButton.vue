@@ -86,27 +86,29 @@ watch(() => authStore.isAuthenticated, (newVal, oldVal) => {
 })
 
 watch(() => userStore.email, (newVal) => {
-  email.value = newVal
+    email.value = newVal
 })
-
+ 
 watch(() => userStore.nickname, (newVal) => {
-  nickname.value = newVal
+    nickname.value = newVal
 })
-
+ 
 watch(() => userStore.id, (newVal) => {
-  id.value = newVal
+    id.value = newVal
 })
 
 watch(() => userStore.image_url, (newVal) => {
-  image.value = newVal
+    image.value = newVal
 })
+ 
+    
 
 onMounted(() => {
-  checkLogin.value = authStore.isAuthenticated
-  nickname.value = userStore.nickname
-  email.value = userStore.email
-  id.value = userStore.id
-  image.value = userStore.image_url
+    checkLogin.value = authStore.isAuthenticated
+    nickname.value = userStore.nickname
+    email.value = userStore.email
+    id.value = userStore.id
+    image.value = userStore.image_url
 })
 
 </script>
