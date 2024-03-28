@@ -48,8 +48,8 @@
 
       <div class="flex flex-row mt-[18%] justify-center" >
         <div class="cursor-pointer border-[1px] border-[#EC6B6B] text-[#EC6B6B]  rounded-lg w-28 h-12 flex flex-row items-center justify-center " @click="handleSaveClick">
-          <img v-if="!isSave" alt="" src="@/assets/heart.svg" class="h-6 w-6 mr-1.5">
-          <img v-else alt="" src="@/assets/fullheart.svg" class="h-6 w-6 mr-1.5" >
+          <img v-if="!isSave" alt="" src="@/assets/heart.svg" class="h-6 w-6 mr-1 ">
+          <img v-else alt="" src="@/assets/fullheart.svg" class="h-6 w-6 mr-1" >
           찜하기
         </div>
         <div class="cursor-pointer ml-6 w-36 h-12 bg-[#86BF60] text-white  rounded-lg flex items-center justify-center" @click="openNewWindow">상세정보</div>
