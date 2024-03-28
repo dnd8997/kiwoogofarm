@@ -172,18 +172,10 @@ Crop.getCrops(
     cropData.value = success.data
   },
   (error) => {
-    console.log(error)
+    console.error(error)
   }
 )
 })
-
-// watch(() => searchCheckBox.value.map(item => item.isActivate), (newVal, oldVal) => {
-// console.log('searchCheckBox 변화 감지', newVal);
-// }, { deep: true });
-
-// watch(() => searchCheckBox2.value.map(item => item.isActivate), (newVal, oldVal) => {
-// console.log('searchCheckBox2 변화 감지', newVal);
-// }, { deep: true });
 
 </script>
 

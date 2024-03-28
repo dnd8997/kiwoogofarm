@@ -10,23 +10,23 @@
             :close-on-content-click="false"
         >
             <template v-slot:activator="{ props }">
-              <div v-bind="props">연우</div>
+              <div v-bind="props">{{ nickname }}</div>
             </template>
 
             <v-card min-width="200" style="border-radius: 10%;">
                 <v-list style="text-align: center;">
                     <v-list-item
-                        prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
+                        :prepend-avatar="image"
                     >
                         <div style="text-align: center;">
-                            연우
+                            {{ nickname }}
                         </div>
                     </v-list-item>
                 </v-list>
 
                 <p style="border: solid 1px black;"></p>
 
-                <v-list style="text-align: center;">
+                <v-list style="text-align: center; cursor: pointer;">
                     <v-list-item>
                         <div @click="router.push({ name: 'mypage' }), menu = false">
                             My Page
@@ -62,18 +62,24 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth';
+import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 import LoginModal from '@/components/modal/LoginModal.vue'
 const authStore = useAuthStore()
+const userStore = useUserStore()
 const router = useRouter()
 
 const logins = ref(false)
 const menu = ref(false)
 const checkLogin = ref(false)
+const email = ref(null)
+const nickname = ref(null)
+const id = ref(null)
+const image = ref(null)
 
 const logout = () => {
     authStore.clearToken()
-    router.go(0)
+    router.push({ path: '/' })
 }
 
 const openLoginModal = () => {
@@ -85,8 +91,30 @@ watch(() => authStore.isAuthenticated, (newVal, oldVal) => {
     checkLogin.value = newVal
 })
 
+watch(() => userStore.email, (newVal) => {
+    email.value = newVal
+})
+ 
+watch(() => userStore.nickname, (newVal) => {
+    nickname.value = newVal
+})
+ 
+watch(() => userStore.id, (newVal) => {
+    id.value = newVal
+})
+
+watch(() => userStore.image, (newVal) => {
+    id.value = newVal
+})
+ 
+    
+
 onMounted(() => {
     checkLogin.value = authStore.isAuthenticated
+    nickname.value = userStore.nickname
+    email.value = userStore.email
+    id.value = userStore.id
+    image.value = userStore.image_url
 })
 
 </script>
