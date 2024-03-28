@@ -5,6 +5,7 @@
                 <p id="nickname">연우</p>
                 <p>님을 위한 농작물 추천</p>
             </div>
+            <div class="mb-16 text-[#8D8D8D]">좋아요를 누르신 농작물들과 유사한 농작물들입니다</div>
             <v-row
                 cols="4"
                 class="recommendation-vegetable-list delay-animate"
@@ -34,11 +35,6 @@ import {useRouter} from "vue-router";
 
 const router = useRouter()
 
-const vegetableList = ref([
-    { src: '/vegetable/vegetable_1.png', name: '청치마상추', introduction: "우리나라에서만 주로 재배되는'청치마상추'입니다. 맛이 순하고 잎이 부드러워서 어린이도 먹기 좋죠.우리 가족을 위한 건강한 쌈채소입니다."},
-    { src: '/vegetable/vegetable_2.png', name: '방울토마토', introduction: "방울토마토는 일반 토마토보다 당도가 높고 영양성분은 더 풍부하게 들어 있는 과채류 숙성채소예요. 토마토보다 먹기에 더 간편하고, 주식보다는 간식이나 후식으로 많이 이용합니다."},
-    { src: '/vegetable/vegetable_3.png', name: '겨자채', introduction: "톡 쏘는 매운맛이 그리울 때, 겨자채의 알싸한 향을 즐겨보세요.조금 부드럽게 맛보고 싶다면, 여린 잎일 때 먹는 것도 추천합니다."},
-])
 const cropRecommends = ref([]);
 
 async function fetchCropRecommends() {
@@ -70,7 +66,7 @@ onMounted(() => {
 .recommendation-box {
     display: flex;
     margin-left: 10%;
-    margin-top: 7%;
+    margin-top: 5%;
     width: 100vw;
     justify-content: center;
     align-items: center;
@@ -82,8 +78,8 @@ onMounted(() => {
 
 .recommendation-box #box-title {
     display: flex;
-    margin-bottom: 3%;
     font-size: 36px;
+    margin-bottom: 8px;
     font-weight: 600;
 }
 
