@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import random
 
 # Flask 애플리케이션 생성
 app = Flask(__name__)
@@ -230,6 +231,11 @@ def outside_calculate_euclidean_distance(liked_crops, crops):
     return recommended_crops
 
 
+def random_recommendation(crops):
+    random_recommendations = random.sample(crops, min(3, len(crops)))
+    return random_recommendations
+
+
 @app.route('/crop/<int:user_id>', methods=['GET'])
 def get_euclidean_recommended_crop(user_id):
 
@@ -253,7 +259,10 @@ def get_euclidean_recommended_crop(user_id):
         }
         crops.append(crop.dict)
 
-    recommended_crop = calculate_euclidean_distance(liked_crops, crops)
+    if not liked_crops:
+        recommended_crop = random_recommendation(crops)
+    else:
+        recommended_crop = calculate_euclidean_distance(liked_crops, crops)
 
     return jsonify({"recommended_crop": recommended_crop})
 
