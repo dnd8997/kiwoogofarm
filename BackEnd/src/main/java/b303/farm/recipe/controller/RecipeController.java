@@ -148,4 +148,9 @@ public class RecipeController {
         return ResponseEntity.ok().body(recipeDtoList);
     }
 
+    //해당 레시피가 로그인한 유저에게 좋아요 되어 있는지 여부
+    @GetMapping("/checkRecipeIsLiked/{recipeId}/{email}")
+    public Boolean IsRecipeLiked(@PathVariable final Long recipeId,@PathVariable final String email){
+        return recipeService.checkRecipeIsLiked(recipeId,email);
+    }
 }

@@ -16,5 +16,5 @@ public interface FavoriteRecipeRepository extends JpaRepository<RecipeFavorites,
     List<RecipeFavorites> findAllByUser(User user);
 
     List<RecipeFavorites> findAllByUserAndStatus(User user, boolean status);
-
+    RecipeFavorites findByRecipeAndUserAndStatus(Recipe recipe, User user,boolean status);
 }

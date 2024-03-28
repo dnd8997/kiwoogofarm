@@ -114,4 +114,12 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeRepository.findAll(spec);
     }
 
+    @Override
+    public Boolean checkRecipeIsLiked(Long recipeId,String email) {
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(RecipeNotFoundException::new);
+        User currentUser = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        RecipeFavorites recipeFavorite  = favoriteRecipeRepository.findByRecipeAndUserAndStatus(recipe,currentUser,true);
+        return recipeFavorite!=null;
+    }
+
 }
