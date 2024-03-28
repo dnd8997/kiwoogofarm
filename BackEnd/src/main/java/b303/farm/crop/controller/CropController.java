@@ -116,7 +116,7 @@ public class CropController {
                     .effectInfo(c.getEffectInfo())
                     .link(c.getLink())
                     .growInfo(c.getGrowInfo())
-//                    .likes(c.getLikes())
+                    .likes(c.getLikes())
                     .build();
             log.info("즐겨찾기한 농작물 정보: {}", cropDto);
             cropDtoList.add(cropDto);
