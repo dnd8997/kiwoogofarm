@@ -32,14 +32,17 @@
 import {onMounted, ref} from 'vue';
 import axios from "axios";
 import {useRouter} from "vue-router";
+import {useAuthStore} from "@/stores/auth.js";
 
+const authStore = useAuthStore();
 const router = useRouter()
-
+const userId = ref();
 const cropRecommends = ref([]);
 
-async function fetchCropRecommends() {
+async function fetchCropRecommends(userId) {
   try {
-    const response = await axios.get('https://j10b303.p.ssafy.io/recommendapi/crop/2');
+    if(userId===null) userId = 0;
+    const response = await axios.get(`https://j10b303.p.ssafy.io/recommendapi/crop/${userId}`);
     cropRecommends.value = response.data.recommended_crop;
     console.log(cropRecommends.value);
   } catch (error) {
@@ -47,8 +50,9 @@ async function fetchCropRecommends() {
   }
 }
 
-onMounted(() => {
-  fetchCropRecommends();
+onMounted(async () => {
+  userId.value = authStore.userId;
+  await fetchCropRecommends(userId.value);
 });
 
 
