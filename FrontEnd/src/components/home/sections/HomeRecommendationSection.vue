@@ -3,7 +3,7 @@
         <div class="recommendation-box">
 
             <div v-if="userId!=null" id="box-title">
-                <p id="nickname">연우</p>
+                <p id="nickname">{{nickname}}</p>
                 <p>님을 위한 농작물 추천</p>
             </div>
             <div v-else id="box-title">
@@ -48,14 +48,17 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue';
+import {onMounted,watch, ref} from 'vue';
 import axios from "axios";
 import {useRouter} from "vue-router";
 import {useAuthStore} from "@/stores/auth.js";
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
 const authStore = useAuthStore();
-const userId = ref();
+const userStore = useUserStore();
+const userId = ref(null);
+const nickname = ref(null);
 const cropRecommends = ref([]);
 
 async function fetchCropRecommends(userId) {
@@ -68,8 +71,18 @@ async function fetchCropRecommends(userId) {
   }
 }
 
+watch(() => userStore.id, (newVal) => {
+  userId.value = newVal
+})
+
+watch(() => userStore.nickname, (newVal) => {
+  nickname.value = newVal
+})
+
+
 onMounted(() => {
-  userId.value = authStore.userId;
+  userId.value = userStore.id;
+  nickname.value = userStore.nickname;
   fetchCropRecommends(userId.value);
 });
 

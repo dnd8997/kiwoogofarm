@@ -3,10 +3,10 @@
     <v-avatar size="80">
       <v-img
           alt="John"
-          src="https://cdn.vuetifyjs.com/images/john.jpg"
+          :src="image"
       ></v-img>
     </v-avatar>
-    <div class="font-medium text-2xl mt-3">연우</div>
+    <div class="font-medium text-2xl mt-3">{{nickname}}</div>
     <v-card class="h-full w-full mt-5">
       <v-tabs
           v-model="tab"
@@ -47,34 +47,29 @@
 </template>
 
 <script setup>
-import { ref,onMounted  } from 'vue';
+import { ref,onMounted,watch  } from 'vue';
 import axios from "axios";
 import {useRouter} from "vue-router";
+import { useUserStore } from '@/stores/user';
 
-const router = useRouter()
+const userStore = useUserStore();
+const router = useRouter();
 const tab = ref(1);
 
 
 const recipeFavorites = ref([]);
 const cropFavorites = ref([]);
+const nickname = ref(null);
+const email = ref(null);
+const image = ref(null);
 
-
-const itemsMap1 = [
-  { name: '완두콩', image: 'https://blog.kakaocdn.net/dn/0YuZx/btr0ilo7qUJ/LAVLvegbIKcGsxZkeSttz1/img.jpg' },
-  { name: '옥수수', image: 'https://dimg.donga.com/wps/NEWS/IMAGE/2021/07/06/107793926.5.jpg' },
-  { name: '토마토', image: 'https://lh3.googleusercontent.com/proxy/F7Q_AMMuhPfFmrdr7eQbeRLMuHB0igJZ4JNen7MdiKNBN20a_kfKoNWm445_hcxpPvNMoJa9YwvH1IuNCxrO8tsbvHie9o4Cmyk5693GZ6hWYCWg4wGqm8KJ3m4' },
-];
 const itemsMap2 = [
   { name: '디저트', image: 'https://lh5.googleusercontent.com/proxy/gOlu3d7Gw7g56kMaOAFhn9SRdP5VfXvc-tbI81byHtvcTFj-QKNHomEJKC76VEBksrCb0SO1d3L-zHskOlHkLb2-eFhee2SdmuWw' },
   { name: '떡볶이', image: 'https://img.freepik.com/free-photo/cheesy-tokbokki-korean-traditional-food-on-black-board-background-lunch-dish_1150-42986.jpg' },
   { name: '비빔밥', image: 'https://i.namu.wiki/i/b2U9ZGSKF76RyLb-E_jdaH9vlhgWqSohlyJlHD_J7eEllHhoO5C9OtQPwSOnEnyudRBn0XUHpS10SEnyZLUbUg.webp' },
   { name: '장어덮밥', image: 'https://d20aeo683mqd6t.cloudfront.net/ko/articles/title_images/000/039/267/medium/pixta_32269376_M.jpg?2019' }
 ];
-const itemsMap3 = [
-  { name: '콩', image: 'https://blog.kakaocdn.net/dn/0YuZx/btr0ilo7qUJ/LAVLvegbIKcGsxZkeSttz1/img.jpg' },
-  { name: '수', image: 'https://dimg.donga.com/wps/NEWS/IMAGE/2021/07/06/107793926.5.jpg' },
-  { name: '토', image: 'https://lh3.googleusercontent.com/proxy/F7Q_AMMuhPfFmrdr7eQbeRLMuHB0igJZ4JNen7MdiKNBN20a_kfKoNWm445_hcxpPvNMoJa9YwvH1IuNCxrO8tsbvHie9o4Cmyk5693GZ6hWYCWg4wGqm8KJ3m4' },
-];
+
 
 const items = ref({1: cropFavorites, 2: itemsMap2, 3: recipeFavorites});
 // 찜한 농작물 조회 API
@@ -90,16 +85,29 @@ async function fetchCropFavorites() {
 // 찜한 레시피 조회 API
 async function fetchRecipeFavorites() {
   try {
-    const response = await axios.get('https://j10b303.p.ssafy.io/api/recipe/myFavorites/jungyoanwoo@naver.com');
+    const response = await axios.get(`https://j10b303.p.ssafy.io/api/recipe/myFavorites/${email}`);
     recipeFavorites.value = response.data;
   } catch (error) {
     console.error('Error fetching recipe favorites:', error);
   }
 }
 
+watch(() => userStore.nickname, (newVal) => {
+  nickname.value = newVal
+})
+
+watch(() => userStore.email, (newVal) => {
+  email.value = newVal
+})
+
+watch(() => userStore.image_url, (newVal) => {
+  image.value = newVal
+})
 
 onMounted(() => {
-  // fetchCropFavorites();
+  nickname.value = userStore.nickname;
+  email.value = userStore.email;
+  image.value = userStore.image_url;
   fetchRecipeFavorites();
   fetchCropFavorites();
 });
