@@ -10,6 +10,7 @@
             :close-on-content-click="false"
         >
             <template v-slot:activator="{ props }">
+                <img :src="image" alt="">
               <div v-bind="props">{{ nickname }}</div>
             </template>
 
@@ -103,8 +104,8 @@ watch(() => userStore.id, (newVal) => {
     id.value = newVal
 })
 
-watch(() => userStore.image, (newVal) => {
-    id.value = newVal
+watch(() => userStore.image_url, (newVal) => {
+    image.value = newVal
 })
  
     

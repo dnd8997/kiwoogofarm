@@ -21,7 +21,6 @@ export const useAuthStore = defineStore('auth', () => {
                     localStorage.setItem('nickname', success.data.nickname)
                     localStorage.setItem('id', success.data.id)
                     localStorage.setItem('image', success.data.image_url)
-                    console.log('successData = ', success.data)
                     const email = localStorage.getItem('email')
                     const nickname = localStorage.getItem('nickname')
                     const id = localStorage.getItem('id')
