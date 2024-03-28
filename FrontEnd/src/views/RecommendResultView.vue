@@ -1,7 +1,7 @@
 <template>
-  <RecipeRecommendResultComponent />
+  <RecommendResultComponent />
 </template>
 
 <script setup>
-import RecipeRecommendResultComponent from '@/components/recommendation/RecipeRecommendResultComponent.vue';
+import RecommendResultComponent from "@/components/recommendation/RecommendResultComponent.vue";
 </script>
