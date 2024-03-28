@@ -1,9 +1,8 @@
 package b303.farm.crop.service;
 
-import b303.farm.crop.controller.CropController;
 import b303.farm.crop.entity.Crop;
 import b303.farm.crop.repository.CropRepository;
-import b303.farm.exception.RecipeNotFoundException;
+import b303.farm.exception.CropNotFoundException;
 import b303.farm.mypage.CropFavorites;
 import b303.farm.mypage.FavoriteCropRepository;
 import b303.farm.user.User;
@@ -12,7 +11,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,7 +79,7 @@ public class CropServiceImpl implements CropService {
     @Override
 //    @Transactional  //class단위로 넣어야 되는지?
     public String favoriteCrop(Long id,String email){
-        Crop crop = cropRepository.findById(id).orElseThrow(RecipeNotFoundException::new);
+        Crop crop = cropRepository.findById(id).orElseThrow(CropNotFoundException::new);
         User currentUser = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         //db에서 crop,user가 둘다 같은 데이터가 있는지 조회한다(true,false불문)
@@ -129,4 +127,11 @@ public class CropServiceImpl implements CropService {
         return myFavoriteCrops;
     }
 
+    @Override
+    public Boolean checkCropIsLiked(Long cropId,String email) {
+        Crop crop = cropRepository.findById(cropId).orElseThrow(CropNotFoundException::new);
+        User currentUser = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        CropFavorites cropFavorite  = favoriteCropRepository.findByCropAndUserAndStatus(crop,currentUser,true);
+        return cropFavorite!=null;
+    }
 }

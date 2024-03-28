@@ -124,4 +124,9 @@ public class CropController {
         return ResponseEntity.ok().body(cropDtoList);
     }
 
+    //해당 농작물이 로그인한 유저에게 좋아요 되어 있는지 여부
+    @GetMapping("/checkCropIsLiked/{id}/{email}")
+    public Boolean IsCropLiked(@PathVariable("id") final Long id,@PathVariable("email") final String email){
+        return cropService.checkCropIsLiked(id,email);
+    }
 }
