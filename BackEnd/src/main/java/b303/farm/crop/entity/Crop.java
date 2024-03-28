@@ -70,19 +70,19 @@ public class Crop {
     @Column(name = "grow_info")
     private String growInfo;
 
-//    private int likes;   //찜_만개의 레시피(default)+우리사이트즐겨찾기
-//
-//    //==비즈니스 로직==// 데이터가 있는 엔티티에서 직접 관리하는 게 좋다.
-//    /**likes증가(favorite)**/
-//    public void addLike(){
-//        this.likes++;
-//    }
-//    /**likes감소(favorite)**/
-//    public void removeLike(){
-//        if (this.likes > 0) {
-//            this.likes--;
-//        }
-//    }
+    private int likes;   //찜_만개의 레시피(default)+우리사이트즐겨찾기
+
+    //==비즈니스 로직==// 데이터가 있는 엔티티에서 직접 관리하는 게 좋다.
+    /**likes증가(favorite)**/
+    public void addLike(){
+        this.likes++;
+    }
+    /**likes감소(favorite)**/
+    public void removeLike(){
+        if (this.likes > 0) {
+            this.likes--;
+        }
+    }
 
 
 }
