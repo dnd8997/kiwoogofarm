@@ -9,8 +9,9 @@
         조리 방법
         <div> {{ recipeData.cook }}</div>
         재료
-        <div>{{ recipeData.ingredients }}</div>
-
+        <div v-for="(ingredient,index) in ingredients" :key="index">
+            <div>{{ ingredient }}</div>
+        </div>
 
 
         조리 순서
@@ -23,12 +24,10 @@
         좋아요 수
         <div>{{ recipeData.likes }}</div>
         <div class="mt-2 ml-2">
-            <v-icon v-if="heartCheck" @click="checkcheck()" style="cursor: pointer; color: #FF4081;"
-                icon="mdi-heart">
+            <v-icon v-if="heartCheck" @click="checkcheck()" style="cursor: pointer; color: #FF4081;" icon="mdi-heart">
             </v-icon>
 
-            <v-icon v-else @click="checkcheck()" style="cursor: pointer; color: #FF4081;"
-                icon="mdi-heart-outline">
+            <v-icon v-else @click="checkcheck()" style="cursor: pointer; color: #FF4081;" icon="mdi-heart-outline">
             </v-icon>
         </div>
 
@@ -43,6 +42,7 @@ import { useRoute, useRouter } from 'vue-router';
 const route = useRoute()
 const router = useRouter()
 const recipeData = ref([])
+const ingredients = ref([]);
 const token = jwtDecode(localStorage.getItem('accessToken'))
 const email = token.email
 const recipeId = route.params.recipeId;
@@ -74,11 +74,14 @@ function checkcheck() {
         })
 }
 
+
 onMounted(() => {
     Recipe.getRecipeById(
         route.params.recipeId,
         (success) => {
             recipeData.value = success.data
+            console.log(recipeData.value.ingredients?.replace(/\[([^\]]+)\]/g, '|'))
+            ingredients.value = recipeData.value.ingredients?.replace(/\[([^\]]+)\]/g, '|').split("|")
             console.log("레시피 정보", recipeData.value)
         },
         (error) => {
