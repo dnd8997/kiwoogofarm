@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -43,12 +43,6 @@ const items = ([
 { item: '요리 추천', name: 'recipe'},
 { item: '내 주변 텃밭', name: 'garden'},
 ])
-
-
-watch( checkHeader, ( newVal, oldVal ) => {
-console.log(checkHeader.value)
-})
-
 
 </script>
 

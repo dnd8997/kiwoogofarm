@@ -26,10 +26,16 @@ async function cropRecommend(value, success, fail) {
         .catch(fail)
 }
 
+async function cropLike(value, success, fail) {
+    await local.post(`/crop/like`, JSON.stringify(value))
+        .then(success)
+        .catch(fail)
+}
+
 export {
     getCrops,
     getCropById,
     getCropBySearch,
     cropRecommend,
-    
+    cropLike,
 }

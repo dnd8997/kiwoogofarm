@@ -89,11 +89,15 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const authStore = useAuthStore();
-  const { accessToken, refreshToken } = to.query;
-  if (to.name === "success" && accessToken && refreshToken) {
-    authStore.setToken(accessToken, refreshToken);
-    next("/");
+  if ( to.name === 'success') {
+    const authStore = useAuthStore()
+    const { accessToken, refreshToken } = to.query
+    if ( accessToken && refreshToken ) {
+      authStore.setToken( accessToken, refreshToken )
+      next('/')
+    } else {
+      next('/')
+    }
   } else {
     next();
   }

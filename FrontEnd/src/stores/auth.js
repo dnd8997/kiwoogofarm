@@ -8,7 +8,7 @@ export const useAuthStore = defineStore('auth', () => {
     const nickName = ref(null)
     const userId = ref(null)
     
-    const isAuthenticated = computed(() => !!accessToken.value)
+    const isAuthenticated = ref(!!localStorage.getItem('accessToken'))
 
     function setToken(accessToken, refreshToken) {
         try {
@@ -16,6 +16,7 @@ export const useAuthStore = defineStore('auth', () => {
             email.value = token.email
             localStorage.setItem('accessToken', accessToken)
             localStorage.setItem('refreshToken',  refreshToken)
+            isAuthenticated.value = !!localStorage.getItem('accessToken')
             MyPage.getUserinfo(
                 email.value,
                 (success) => {
@@ -36,6 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
             email.value = null
             nickName.value = null
             userId.value = null
+            isAuthenticated.value = null
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
         }   catch (error) {
@@ -43,5 +45,5 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
     
-    return { email, isAuthenticated, nickName, setToken, clearToken, }
+    return { email, isAuthenticated, nickName, userId, setToken, clearToken, }
 })

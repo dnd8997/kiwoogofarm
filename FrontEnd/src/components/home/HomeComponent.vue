@@ -55,8 +55,8 @@ const currentState = ref({
 });
 
 const navItems = ref([
-  { id: 'search', title: '식물 검색' },
-  { id: 'recommendation', title: '식물 추천 받기' },
+  { id: 'search', title: '농작물 검색' },
+  { id: 'recommendation', title: '농작물 추천 받기' },
   { id: 'recipes', title: '레시피' },
   { id: 'gardens', title: '내 주변 텃밭' },
 ])
@@ -161,7 +161,7 @@ onUnmounted(() => {
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
   font-size: 15px;
-  width: 150px;
+  width: 165px;
   overflow-y: auto;
   z-index: 1000;
   padding: 1em;
