@@ -1,11 +1,15 @@
 <template>
     <div id="recommendation" class="section">
         <div class="recommendation-box">
-            <div id="box-title">
+            <div v-if="userId!=null" id="box-title">
                 <p id="nickname">연우</p>
                 <p>님을 위한 농작물 추천</p>
             </div>
-            <div class="mb-16 text-[#8D8D8D]">좋아요를 누르신 농작물들과 유사한 농작물들입니다</div>
+            <div v-else id="box-title">
+              <p>이런 농작물들은 어떠신가요?</p>
+            </div>
+            <div v-if="userId!=null" class="mb-16 text-[#8D8D8D]">좋아요를 누르신 농작물들과 유사한 농작물들입니다</div>
+            <div v-else class="mb-16 text-[#8D8D8D]"></div>
             <v-row
                 cols="4"
                 class="recommendation-vegetable-list delay-animate"
