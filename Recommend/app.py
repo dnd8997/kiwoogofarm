@@ -26,6 +26,7 @@ class Crop(db.Model):
     humidity = db.Column(db.String(100), nullable=False)
     grow_start = db.Column(db.String(100), nullable=False)
     water_exit = db.Column(db.String(100), nullable=False)
+    likes = db.Column(db.Integer, primary_key=True)
 
 
 class CropFavorite(db.Model):
@@ -231,9 +232,13 @@ def outside_calculate_euclidean_distance(liked_crops, crops):
     return recommended_crops
 
 
-def random_recommendation(crops):
-    random_recommendations = random.sample(crops, min(3, len(crops)))
-    return random_recommendations
+def top_recommend(crops):
+    sorted_crops = sorted(crops, key=lambda x: x['likes'], reverse=True)
+
+    # 상위 3개의 요소 선택
+    top_recommendations = sorted_crops[:3]
+
+    return top_recommendations
 
 
 @app.route('/crop/<int:user_id>', methods=['GET'])
@@ -255,12 +260,13 @@ def get_euclidean_recommended_crop(user_id):
             "grow_time": crop.grow_time,
             "humidity": crop.humidity,
             "grow_start": crop.grow_start,
-            "water_exit": crop.water_exit
+            "water_exit": crop.water_exit,
+            "likes": crop.likes
         }
         crops.append(crop.dict)
 
     if not liked_crops:
-        recommended_crop = random_recommendation(crops)
+        recommended_crop = top_recommend(crops)
     else:
         recommended_crop = calculate_euclidean_distance(liked_crops, crops)
 
