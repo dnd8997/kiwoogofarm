@@ -7,7 +7,7 @@
                 <p>님을 위한 농작물 추천</p>
             </div>
             <div v-else id="box-title">
-              <p>이런 농작물들은 어떠신가요?</p>
+              <p>좋아요 수 Top3 농작물</p>
             </div>
 
             <div v-if="userId!=null" class="mb-16 text-[#8D8D8D]">좋아요를 누르신 농작물들과 유사한 농작물들입니다</div>
@@ -24,7 +24,19 @@
                         <v-img :src="crop.image_url" alt="" class="object-cover"></v-img>
                       </v-avatar>
                     </div>
-                    <p class="font-Notosans font-medium text-xl mt-3">{{ crop.name }}</p>
+                    <div style="display: flex;  justify-content: center;" class="flex-col items-center">
+                      <p class="font-Notosans font-medium text-xl mt-3">{{ crop.name }}</p>
+                      <div class="flex flex-row mt-3">
+                        <v-icon
+                            @click="checkcheck"
+                            style="cursor: pointer; color: #FF4081;"
+                            icon="mdi-heart"
+                        >
+                        </v-icon>
+                        <span class="ml-1 font-normal"> {{ crop.likes }}</span>
+                      </div>
+                    </div>
+
                 </v-col>
             </v-row>
 
