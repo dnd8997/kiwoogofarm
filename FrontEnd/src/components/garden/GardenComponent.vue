@@ -23,26 +23,26 @@
       </div>
 
       <div class="flex flex-col items-center">
-        <span class="font-bold text-xl mt-6">{{ farmName }}</span>
-        <span class="font-light text-base text-[#696969] mt-3">{{ farmAddress }}</span>
+        <span class="font-bold text-xl mt-6">{{ gardenName }}</span>
+        <span class="font-light text-base text-[#696969] mt-3">{{ gardenAddress }}</span>
       </div>
 
       <div class="flex flex-col ml-[15%]">
         <div class="flex flex-row mt-10">
           <span class="font-medium text-base">운영주체</span>
-          <span class="font-light text-[#696969] text-base ml-6">{{ farmOwner }}</span>
+          <span class="font-light text-[#696969] text-base ml-6">{{ gardenOwner }}</span>
         </div>
         <div class="flex flex-row mt-4">
           <span class="font-medium text-base">부대시설</span>
-          <span class="font-light text-[#696969] text-base ml-6">{{ farmExtra }}</span>
+          <span class="font-light text-[#696969] text-base ml-6">{{ gardenExtra }}</span>
         </div>
         <div class="flex flex-row mt-4">
           <span class="font-medium text-base">신청방법</span>
-          <span class="font-light text-[#696969] text-base ml-6">{{ farmApply }}</span>
+          <span class="font-light text-[#696969] text-base ml-6">{{ gardenApply }}</span>
         </div>
         <div class="flex flex-row mt-4">
           <span class="font-medium text-base">분양면적</span>
-          <span class="font-light text-[#696969] text-base ml-6">{{ `${farmSize}평` }}</span>
+          <span class="font-light text-[#696969] text-base ml-6">{{ `${gardenSize}평` }}</span>
         </div>
       </div>
 
@@ -71,12 +71,13 @@ export default {
       longitude: 0,
       isSave: false,
       isDivVisible: false,
-      farmId : 0,
-      farmName : "",
-      farmOwner : "",
-      farmExtra : "",
-      farmApply : "",
-      farmSize : 0,
+      gardenId : 0,
+      gardenName : "",
+      gardenOwner : "",
+      gardenExtra : "",
+      gardenAddress : "",
+      gardenApply : "",
+      gardenSize : 0,
       searchQuery: '',
     };
   },
@@ -113,7 +114,7 @@ export default {
       axios.get('https://j10b303.p.ssafy.io/api/garden/all')
           .then(response => {
             this.newMarkers = response.data;
-            this.displayMarker(this.newMarkers.map(marker => [marker.farm_lat, marker.farm_long]));
+            this.displayMarker(this.newMarkers.map(marker => [marker.garden_lat, marker.garden_long]));
           })
           .catch(error => {
             console.error('Error fetching data:', error);
@@ -188,7 +189,7 @@ export default {
       for (let i = 0; i < this.newMarkers.length; i++) {
         let imageSize = new kakao.maps.Size(40, 54);
         let markerImage;
-        if(this.newMarkers[i].farm_name==="죽동"){
+        if(this.newMarkers[i].garden_name==="죽동"){
           markerImage = new kakao.maps.MarkerImage(likedimageSrc, imageSize);
         }
         else{
@@ -196,8 +197,8 @@ export default {
         }
         let marker = new kakao.maps.Marker({
           map: this.map,
-          position: new kakao.maps.LatLng(this.newMarkers[i].farm_lat, this.newMarkers[i].farm_long),
-          title: this.newMarkers[i].farm_name,
+          position: new kakao.maps.LatLng(this.newMarkers[i].garden_lat, this.newMarkers[i].garden_long),
+          title: this.newMarkers[i].garden_name,
           image: markerImage,
         });
 
@@ -211,13 +212,13 @@ export default {
 
     handleMarkerClick(i) {
       this.isDivVisible = true;
-      this.farmId = this.newMarkers[i].farm_id;
-      this.farmName = this.newMarkers[i].farm_name;
-      this.farmAddress = this.newMarkers[i].farm_address;
-      this.farmOwner = this.newMarkers[i].farm_owner;
-      this.farmExtra = this.newMarkers[i].farm_extra;
-      this.farmApply = this.newMarkers[i].farm_apply;
-      this.farmSize = this.newMarkers[i].farm_size;
+      this.gardenId = this.newMarkers[i].garden_id;
+      this.gardenName = this.newMarkers[i].garden_name;
+      this.gardenAddress = this.newMarkers[i].garden_address;
+      this.gardenOwner = this.newMarkers[i].garden_owner;
+      this.gardenExtra = this.newMarkers[i].garden_extra;
+      this.gardenApply = this.newMarkers[i].garden_apply;
+      this.gardenSize = this.newMarkers[i].garden_size;
     },
     handleCloseClick() {
       this.isDivVisible = false;
