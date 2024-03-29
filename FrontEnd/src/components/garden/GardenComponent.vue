@@ -1,19 +1,19 @@
 <template>
   <div class="section">
 
-<!--    <div class="mb-8 flex flex-row font-Notosans">-->
-<!--      <div class="pt-[132px]  text-sm">운영주체</div>-->
-<!--      <div class="pt-32 text-xl text-[#8F8F8D] ml-3">지자체</div>-->
-<!--      <div class="pt-32 text-xl text-[#8F8F8D] ml-3">민간단체</div>-->
-<!--      <div class="pt-32 text-xl text-[#8F8F8D] ml-3">개인</div>-->
-<!--      <div class="pt-32 text-xl ml-3">모두 표시</div>-->
-<!--      <div class="pt-32 text-xl ml-8">-->
-<!--        <input type="text" class="w-56 h-8 bg-[#F0F0F0] rounded-md text-sm pl-3" placeholder="지역명 검색" />-->
-<!--      </div>-->
-<!--    </div>-->
+      <div class="flex flex-row pt-[10%] text-xl ml-8 font-Notosans">
+        <input @keyup.enter="searchLocation" type="text" v-model="searchQuery" class="w-56 h-8 bg-[#F0F0F0] rounded-md text-sm pl-3" placeholder="지역명 검색" />
+        <div class="flex flex-row text-sm cursor-pointer ml-8 mt-0.5 " @click="moveToSavedLocation">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+          </svg>
+          <span class="mt-0.5 ml-1">내 위치</span>
+        </div>
+      </div>
 
     <!--지도-->
-    <div id="map" class="absolute left-0 top-32 w-full h-[80%] z-10"></div>
+    <div id="map" class="absolute left-0 top-[25%] w-full h-[75%] z-10"></div>
 
     <!--정보창-->
     <div v-if="isDivVisible" class="absolute top-32 right-0 w-[23%] h-[80%] bg-white z-20 font-Notosans">
@@ -77,6 +77,7 @@ export default {
       farmExtra : "",
       farmApply : "",
       farmSize : 0,
+      searchQuery: '',
     };
   },
   mounted() {
@@ -96,7 +97,7 @@ export default {
             const script = document.createElement("script");
             script.onload = () => kakao.maps.load(this.initMap);
             script.src =
-                "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=7d1ba57eb57e1922b3275d2bcb6791e8";
+                "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=7d1ba57eb57e1922b3275d2bcb6791e8&libraries=services";
             document.head.appendChild(script);
           }
         },
@@ -126,7 +127,32 @@ export default {
         level: 6,
       };
       this.map = new kakao.maps.Map(container, options);
+
       this.displayMarker([[this.latitude, this.longitude]]);
+
+
+    },
+
+    moveToSavedLocation() {
+      const center = new kakao.maps.LatLng(this.latitude, this.longitude);
+      this.map.panTo(center); // 저장된 위치로 지도 이동
+    },
+
+    searchLocation() {
+      console.log(this.searchQuery);
+      if (this.searchQuery.trim() === '') {
+        return;
+      }
+
+      const geocoder = new kakao.maps.services.Geocoder();
+      geocoder.addressSearch(this.searchQuery, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          this.map.setCenter(coords); // 검색된 위치로 지도 이동
+        } else {
+          alert('검색 결과가 없습니다.');
+        }
+      });
     },
 
     displayMarker(markerPositions) {
@@ -156,12 +182,20 @@ export default {
 
       const imageSrc =
           "https://i.ibb.co/ch1GjBH/marker.png";
+      const likedimageSrc =
+           "https://i.ibb.co/GJqJz3T/marker.png";
 
       for (let i = 0; i < this.newMarkers.length; i++) {
         let imageSize = new kakao.maps.Size(40, 54);
-        let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+        let markerImage;
+        if(this.newMarkers[i].farm_name==="죽동"){
+          markerImage = new kakao.maps.MarkerImage(likedimageSrc, imageSize);
+        }
+        else{
+          markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+        }
         let marker = new kakao.maps.Marker({
-          map: this.map, // 수정: this.map으로 변경
+          map: this.map,
           position: new kakao.maps.LatLng(this.newMarkers[i].farm_lat, this.newMarkers[i].farm_long),
           title: this.newMarkers[i].farm_name,
           image: markerImage,
