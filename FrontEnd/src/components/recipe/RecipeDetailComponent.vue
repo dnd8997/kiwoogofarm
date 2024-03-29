@@ -7,7 +7,7 @@
         <!-- 조리순서 제외한 정보 -->
         <div class="flex flex-row w-full" style="padding-left: 10%; margin-top: 2%;">
             <!-- //TODO 이미지 높이 설정 -->
-            <img referrerpolicy="no-referrer" :src="recipeData.image" style="width: 360px; height: 300px;">
+            <img referrerpolicy="no-referrer" :src="recipeData.imageUrl" style="width: 360px; height: 300px;">
             <!-- 이미지 제외한 정보 -->
             <div class="ml-[8%] w-full flex flex-col">
                 <div class="flex flex-row justify-between w-full">

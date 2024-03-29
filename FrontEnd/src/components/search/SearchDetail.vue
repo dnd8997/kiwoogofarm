@@ -117,19 +117,25 @@
                 <a :href="cropData.link" style="font-weight: bold; border-bottom: solid 1px black;">{{ cropData.link
                     }}</a>
             </div>
+            <div>
+                <div>추천 레시피</div>
+
+            </div>
+
         </div>
     </div>
 </template>
 
 <script setup>
 import * as Crop from '@/js/Crop';
+import * as Recipe from '@/js/Recipe';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute()
 const router = useRouter()
 const cropData = ref([])
-
+const recipeAboutCrop = ref([])
 const heartCheck = ref(false)
 
 const goBack = () => {
@@ -146,6 +152,18 @@ onMounted(() => {
         (success) => {
             cropData.value = success.data
             console.log(cropData.value)
+        },
+        (error) => {
+            console.error(error)
+        }
+    )
+    console.log("여기", cropData.value.name)
+    Recipe.getRecipeAboutCrop(
+        "대파",
+        // cropData.value.name,
+        (success) => {
+            recipeAboutCrop.value = success.data
+            console.log(success.data)
         },
         (error) => {
             console.error(error)
