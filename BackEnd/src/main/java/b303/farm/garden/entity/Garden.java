@@ -1,9 +1,6 @@
 package b303.farm.garden.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,13 +10,29 @@ import lombok.NoArgsConstructor;
 public class Garden {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long farm_id;
-    private String farm_owner;
-    private String farm_name;
-    private String farm_address;
-    private Long farm_size;
-    private String farm_extra;
-    private String farm_apply;
-    private Double farm_lat;
-    private Double farm_long;
+    private Long id;
+
+    @Column(name = "garden_owner")
+    private String gardenOwner;
+
+    @Column(name = "garden_name")
+    private String gardenName;
+
+    @Column(name = "garden_address")
+    private String gardenAddress;
+
+    @Column(name = "garden_size")
+    private Long gardenSize;
+
+    @Column(name = "garden_extra")
+    private String gardenExtra;
+
+    @Column(name = "garden_apply")
+    private String gardenApply;
+
+    @Column(name = "garden_lat")
+    private Double gardenLat;
+
+    @Column(name = "garden_long")
+    private Double gardenLong;
 }
