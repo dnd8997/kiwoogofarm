@@ -40,7 +40,12 @@ async function isRecipeLiked(recipeId, email, success, fail) {
     .catch(fail);
 }
 
+async function getRecipeAboutCrop(cropId, success, fail) {
+  await local.get(`/recipe/searchByCropId/${cropId}`).then(success).catch(fail);
+}
+
 export {
+  getRecipeAboutCrop,
   getRecipeById,
   isRecipeLiked,
   likeRecipe,
