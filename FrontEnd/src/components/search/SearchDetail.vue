@@ -157,13 +157,12 @@ onMounted(() => {
             console.error(error)
         }
     )
-    console.log("여기", cropData.value.name)
+    // console.log("여기", route.params.cropId)
     Recipe.getRecipeAboutCrop(
-        "대파",
-        // cropData.value.name,
+        route.params.cropId,
         (success) => {
             recipeAboutCrop.value = success.data
-            console.log(success.data)
+            console.log(recipeAboutCrop.value)
         },
         (error) => {
             console.error(error)
