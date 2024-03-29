@@ -24,4 +24,6 @@ public interface CropService {
     List<Crop> getHydroponicsCrops();
 
     Boolean checkCropIsLiked(Long id, String email);
+
+    Crop save(Crop crop);
 }
