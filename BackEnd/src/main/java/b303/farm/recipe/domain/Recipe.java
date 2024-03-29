@@ -28,6 +28,8 @@ public class Recipe {
     private String image_url;
     private String difficulty;
     private int likes;   //찜_만개의 레시피(default)+우리사이트즐겨찾기
+    private String servings;
+    private String cookTime;
 
     @OneToMany(mappedBy = "recipe")
     @JsonManagedReference
@@ -48,7 +50,7 @@ public class Recipe {
     }
 
     @Builder(toBuilder = true)
-    public Recipe(Long id, Long serialnum, String name, String info, String ingredients, String cook, String image_url, String difficulty, int likes, List<RecipeDetail> recipeDetailList) {
+    public Recipe(Long id, Long serialnum, String name, String info, String ingredients, String cook, String image_url, String difficulty, int likes, String servings, String cookTime, List<RecipeDetail> recipeDetailList) {
         this.id = id;
         this.serialnum = serialnum;
         this.name = name;
@@ -58,6 +60,8 @@ public class Recipe {
         this.image_url = image_url;
         this.difficulty = difficulty;
         this.likes = likes;
+        this.servings = servings;
+        this.cookTime = cookTime;
         this.recipeDetailList = recipeDetailList;
     }
 }
