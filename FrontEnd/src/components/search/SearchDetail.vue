@@ -24,24 +24,8 @@
                     </div>
 
                 </div>
-<!--                <div class="mt-3">-->
-<!--                    <v-icon -->
-<!--                        v-if="heartCheck" -->
-<!--                        @click="checkcheck"-->
-<!--                        style="cursor: pointer; color: #FF4081;"-->
-<!--                        icon="mdi-heart"-->
-<!--                    >-->
-<!--                    </v-icon>-->
-
-<!--                    <v-icon -->
-<!--                        v-else -->
-<!--                        @click="checkcheck" -->
-<!--                        style="cursor: pointer; color: #FF4081;" -->
-<!--                        icon="mdi-heart-outline"-->
-<!--                    >-->
-<!--                    </v-icon>-->
-<!--                </div>-->
             </div>
+
             <div class="crop">
               <div class="flex flex-row">
                 <div class="crop-title">
@@ -157,28 +141,64 @@
 
 <script setup>
 import * as Crop from '@/js/Crop';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user';
+
+const userStore = useUserStore()
 
 const route = useRoute()
 const router = useRouter()
 const cropData = ref([])
+const email = ref(null)
 
 const heartCheck = ref(false)
+
+const infoData = computed(() => ({
+    cropId: route.params.cropId,
+    like: heartCheck.value,
+    email: email.value,
+}))
 
 const goBack = () => {
   router.back();
 }
 
 function checkcheck () {
-    heartCheck.value = !heartCheck.value
+    Crop.cropLike(
+        route.params.cropId,
+        email.value,
+        (success) => {
+            heartCheck.value = !heartCheck.value
+        },
+        (error) => {
+            console.error(error)
+        }
+    )
 }
 
+watch(() => userStore.email, (newVal) => {
+    email.value = newVal
+})
+
 onMounted(() => {
+    email.value = userStore.email
+
     Crop.getCropById(
         route.params.cropId,
         (success) => {
             cropData.value = success.data
+        },
+        (error) => {
+            console.error(error)
+        }
+    )
+
+    Crop.cropLikedCheck(
+        route.params.cropId,
+        email.value,
+        (success) => {
+            heartCheck.value = success.data
         },
         (error) => {
             console.error(error)

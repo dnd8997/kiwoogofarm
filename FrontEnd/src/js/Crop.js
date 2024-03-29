@@ -26,8 +26,14 @@ async function cropRecommend(value, success, fail) {
         .catch(fail)
 }
 
-async function cropLike(value, success, fail) {
-    await local.post(`/crop/like`, JSON.stringify(value))
+async function cropLikedCheck(cropId, email, success, fail) {
+    await local.get(`/crop/checkCropIsLiked/${cropId}/${email}`)
+        .then(success)
+        .catch(fail)
+}
+
+async function cropLike(cropId, email, success, fail) {
+    await local.post(`/crop/${cropId}/favorites/${email}`)
         .then(success)
         .catch(fail)
 }
@@ -37,5 +43,6 @@ export {
     getCropById,
     getCropBySearch,
     cropRecommend,
+    cropLikedCheck,
     cropLike,
 }
