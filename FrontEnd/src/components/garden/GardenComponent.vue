@@ -114,7 +114,7 @@ export default {
       axios.get('https://j10b303.p.ssafy.io/api/garden/all')
           .then(response => {
             this.newMarkers = response.data;
-            this.displayMarker(this.newMarkers.map(marker => [marker.garden_lat, marker.garden_long]));
+            this.displayMarker(this.newMarkers.map(marker => [marker.gardenLat, marker.gardenLong]));
           })
           .catch(error => {
             console.error('Error fetching data:', error);
@@ -189,7 +189,7 @@ export default {
       for (let i = 0; i < this.newMarkers.length; i++) {
         let imageSize = new kakao.maps.Size(40, 54);
         let markerImage;
-        if(this.newMarkers[i].garden_name==="죽동"){
+        if(this.newMarkers[i].gardenName==="죽동"){
           markerImage = new kakao.maps.MarkerImage(likedimageSrc, imageSize);
         }
         else{
@@ -197,8 +197,8 @@ export default {
         }
         let marker = new kakao.maps.Marker({
           map: this.map,
-          position: new kakao.maps.LatLng(this.newMarkers[i].garden_lat, this.newMarkers[i].garden_long),
-          title: this.newMarkers[i].garden_name,
+          position: new kakao.maps.LatLng(this.newMarkers[i].gardenLat, this.newMarkers[i].gardenLong),
+          title: this.newMarkers[i].gardenName,
           image: markerImage,
         });
 
