@@ -19,6 +19,8 @@
     "vue": "^3.4.15",
     "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.3.0",
+    "vue3-draggable": "^2.0.9",
+    "vuedraggable": "^2.24.3",
     "vuetify": "^3.5.8"
   },
   "devDependencies": {
@@ -33,5 +35,4 @@
       "kakao": false
     }
   }
-
 }
