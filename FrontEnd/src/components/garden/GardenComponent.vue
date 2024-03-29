@@ -17,32 +17,32 @@
 
     <!--정보창-->
     <div v-if="isDivVisible" class="absolute top-32 right-0 w-[23%] h-[80%] bg-white z-20 font-Notosans">
-      <img src="@/assets/close.svg" class="h-8 w-8 absolute right-3 top-3 cursor-pointer" @click="handleCloseClick">
+      <img alt="" src="@/assets/close.svg" class="h-8 w-8 absolute right-3 top-3 cursor-pointer" @click="handleCloseClick">
       <div class="flex  w-full h-[32%] bg-blue-200 ">
-        <img src="@/assets/garden.png" class="object-cover w-full h-full">
+        <img alt="" src="@/assets/garden.png" class="object-cover w-full h-full">
       </div>
 
       <div class="flex flex-col items-center">
-        <span class="font-bold text-xl mt-6">동구행복나눔텃밭</span>
-        <span class="font-light text-base text-[#696969] mt-3">대구광역시 동구 불로동 823-12</span>
+        <span class="font-bold text-xl mt-6">{{ farmName }}</span>
+        <span class="font-light text-base text-[#696969] mt-3">{{ farmAddress }}</span>
       </div>
 
       <div class="flex flex-col ml-[15%]">
         <div class="flex flex-row mt-10">
           <span class="font-medium text-base">운영주체</span>
-          <span class="font-light text-[#696969] text-base ml-6">지자체</span>
+          <span class="font-light text-[#696969] text-base ml-6">{{ farmOwner }}</span>
         </div>
         <div class="flex flex-row mt-4">
           <span class="font-medium text-base">부대시설</span>
-          <span class="font-light text-[#696969] text-base ml-6">주차장, 화장실</span>
+          <span class="font-light text-[#696969] text-base ml-6">{{ farmExtra }}</span>
         </div>
         <div class="flex flex-row mt-4">
           <span class="font-medium text-base">신청방법</span>
-          <span class="font-light text-[#696969] text-base ml-6">방문</span>
+          <span class="font-light text-[#696969] text-base ml-6">{{ farmApply }}</span>
         </div>
         <div class="flex flex-row mt-4">
           <span class="font-medium text-base">분양면적</span>
-          <span class="font-light text-[#696969] text-base ml-6">15평</span>
+          <span class="font-light text-[#696969] text-base ml-6">{{ `${farmSize}평` }}</span>
         </div>
       </div>
 
@@ -59,19 +59,27 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "test",
   data() {
     return {
       map: null,
       markers: [],
+      newMarkers: [],
       latitude: 0,
       longitude: 0,
       isSave: false,
-      isDivVisible: false
+      isDivVisible: false,
+      farmId : 0,
+      farmName : "",
+      farmOwner : "",
+      farmExtra : "",
+      farmApply : "",
+      farmSize : 0,
     };
   },
-  created() {
+  mounted() {
     if (!("geolocation" in navigator)) {
       return;
     }
@@ -96,8 +104,20 @@ export default {
           alert(err.message);
         }
     );
+
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      axios.get('https://j10b303.p.ssafy.io/api/garden/all')
+          .then(response => {
+            this.newMarkers = response.data;
+            this.displayMarker(this.newMarkers.map(marker => [marker.farm_lat, marker.farm_long]));
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+    },
 
     initMap() {
       const container = document.getElementById("map");
@@ -110,10 +130,10 @@ export default {
     },
 
     displayMarker(markerPositions) {
-      if (this.markers.length > 0) {
-        this.markers.forEach((marker) => marker.setMap(null));
-        this.markers = [];
-      }
+      // if (this.markers.length > 0) {
+      //   this.markers.forEach((marker) => marker.setMap(null));
+      //   this.markers = [];
+      // }
 
       const positions = markerPositions.map(
           (position) => new kakao.maps.LatLng(...position)
@@ -133,49 +153,37 @@ export default {
         );
 
       }
-      const newMarkers = [
-        {
-          title: "카카오",
-          latlng: new kakao.maps.LatLng(36.3744745, 127.2965807),
-        },
-        {
-          title: "생태연못",
-          latlng: new kakao.maps.LatLng(36.3331874, 127.2967792),
-        },
-        {
-          title: "텃밭",
-          latlng: new kakao.maps.LatLng(36.3387924, 127.2849865),
-        },
-        {
-          title: "근린공원",
-          latlng: new kakao.maps.LatLng(33.451393, 126.570738),
-        },
-      ];
 
       const imageSrc =
           "https://i.ibb.co/ch1GjBH/marker.png";
 
-      for (let i = 0; i < newMarkers.length; i++) {
+      for (let i = 0; i < this.newMarkers.length; i++) {
         let imageSize = new kakao.maps.Size(40, 54);
         let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
         let marker = new kakao.maps.Marker({
           map: this.map, // 수정: this.map으로 변경
-          position: newMarkers[i].latlng,
-          title: newMarkers[i].title,
+          position: new kakao.maps.LatLng(this.newMarkers[i].farm_lat, this.newMarkers[i].farm_long),
+          title: this.newMarkers[i].farm_name,
           image: markerImage,
         });
 
         kakao.maps.event.addListener(marker, "click", () => {
           // 클릭된 마커에 대한 처리를 수행하는 함수 호출
-          this.handleMarkerClick(newMarkers[i]);
+          this.handleMarkerClick(i);
         });
       }
-      this.map.setBounds(bounds);
+      // this.map.setBounds(bounds);
     },
 
-    handleMarkerClick() {
+    handleMarkerClick(i) {
       this.isDivVisible = true;
+      this.farmId = this.newMarkers[i].farm_id;
+      this.farmName = this.newMarkers[i].farm_name;
+      this.farmAddress = this.newMarkers[i].farm_address;
+      this.farmOwner = this.newMarkers[i].farm_owner;
+      this.farmExtra = this.newMarkers[i].farm_extra;
+      this.farmApply = this.newMarkers[i].farm_apply;
+      this.farmSize = this.newMarkers[i].farm_size;
     },
     handleCloseClick() {
       this.isDivVisible = false;
