@@ -86,13 +86,13 @@
         <div class="pl-[10%] w-full mt-20">
             <div class="font-semibold text-[28px] text-center m-10">조리 순서</div>
             <div v-for="step in recipeData.recipeDetailList" :key="step.id" class="w-full">
-                <div class="flex flex-row items-center justify-between w-full my-10">
+                <div class="flex flex-row items-center justify-between my-10">
                     <div class="flex flex-row items-center w-2/3">
                         <div
                             class="font-semibold text-[18px] text-center bg-lime-500 w-[40px] h-[40px] rounded-full flex justify-center items-center">
                             {{ step.recipe_order }}
                         </div>
-                        <div class="font-medium text-[18px] mx-3 text-pretty w-full">
+                        <div class="font-medium text-[18px] ml-3 text-pretty w-[660px]">
                             {{ step.info }}
                             <!-- 가지의 꼭지 부분은 자르고 통으로 두께 1~2cm 크기로 자른다.가지의 꼭지 부분은 자르고 통으로 두께 1~2cm 크기로 자른다. -->
                         </div>
