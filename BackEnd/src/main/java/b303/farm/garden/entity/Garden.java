@@ -35,4 +35,6 @@ public class Garden {
 
     @Column(name = "garden_long")
     private Double gardenLong;
+
+
 }
