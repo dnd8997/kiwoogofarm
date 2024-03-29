@@ -12,6 +12,7 @@
                         style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
             </div>
+
             <div class="crop">
                 <div class="flex flex-row">
                     <div class="crop-title">
@@ -128,25 +129,49 @@
 
 <script setup>
 import * as Crop from '@/js/Crop';
-import * as Recipe from '@/js/Recipe';
-import { onMounted, ref } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user';
+
+const userStore = useUserStore()
 
 const route = useRoute()
 const router = useRouter()
 const cropData = ref([])
-const recipeAboutCrop = ref([])
+const email = ref(null)
+
 const heartCheck = ref(false)
+
+const infoData = computed(() => ({
+    cropId: route.params.cropId,
+    like: heartCheck.value,
+    email: email.value,
+}))
 
 const goBack = () => {
     router.back();
 }
 
-function checkcheck() {
-    heartCheck.value = !heartCheck.value
+function checkcheck () {
+    Crop.cropLike(
+        route.params.cropId,
+        email.value,
+        (success) => {
+            heartCheck.value = !heartCheck.value
+        },
+        (error) => {
+            console.error(error)
+        }
+    )
 }
 
+watch(() => userStore.email, (newVal) => {
+    email.value = newVal
+})
+
 onMounted(() => {
+    email.value = userStore.email
+
     Crop.getCropById(
         route.params.cropId,
         (success) => {
@@ -163,6 +188,17 @@ onMounted(() => {
         (success) => {
             recipeAboutCrop.value = success.data
             console.log(recipeAboutCrop.value)
+        },
+        (error) => {
+            console.error(error)
+        }
+    )
+
+    Crop.cropLikedCheck(
+        route.params.cropId,
+        email.value,
+        (success) => {
+            heartCheck.value = success.data
         },
         (error) => {
             console.error(error)
