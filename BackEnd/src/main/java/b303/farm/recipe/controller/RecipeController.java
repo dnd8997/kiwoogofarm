@@ -41,6 +41,8 @@ public class RecipeController {
                     .image(r.getImage_url())
                     .difficulty(r.getDifficulty())
                     .likes(r.getLikes())
+                    .cookTime(r.getCookTime())
+                    .servings(r.getServings())
                     .build();
             log.info("레시피 정보: {}", recipeDto);
             recipeDtoList.add(recipeDto);
@@ -61,8 +63,10 @@ public class RecipeController {
                 .image(recipe.getImage_url())
                 .difficulty(recipe.getDifficulty())
                 .likes(recipe.getLikes())
-//                .recipeDetailList(recipe.getRecipeDetailList())
-                .recipeDetailList(recipeService.getRecipeDetailList(recipe.getId()))
+                .cookTime(recipe.getCookTime())
+                .servings(recipe.getServings())
+                .recipeDetailList(recipe.getRecipeDetailList())
+//                .recipeDetailList(recipeService.getRecipeDetailList(recipe.getId()))
                 .build();
         log.info("레시피 상세 정보: {}", recipeDto);
         return ResponseEntity.ok().body(recipeDto);
@@ -94,6 +98,8 @@ public class RecipeController {
                     .image(r.getImage_url())
                     .difficulty(r.getDifficulty())
                     .likes(r.getLikes())
+                    .cookTime(r.getCookTime())
+                    .servings(r.getServings())
                     .build();
             log.info("즐겨찾기한 레시피 정보: {}", recipeDto);
             recipeDtoList.add(recipeDto);
@@ -118,6 +124,8 @@ public class RecipeController {
                     .image(r.getImage_url())
                     .difficulty(r.getDifficulty())
                     .likes(r.getLikes())
+                    .cookTime(r.getCookTime())
+                    .servings(r.getServings())
                     .build();
             log.info("레시피 정보: {}", recipeDto);
             recipeDtoList.add(recipeDto);
@@ -141,6 +149,8 @@ public class RecipeController {
                     .image(r.getImage_url())
                     .difficulty(r.getDifficulty())
                     .likes(r.getLikes())
+                    .cookTime(r.getCookTime())
+                    .servings(r.getServings())
                     .build();
             log.info("레시피 정보: {}", recipeDto);
             recipeDtoList.add(recipeDto);
