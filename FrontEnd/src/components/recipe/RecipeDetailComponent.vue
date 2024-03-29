@@ -5,11 +5,11 @@
             </v-icon>
         </div>
         <!-- 조리순서 제외한 정보 -->
-        <div class="flex flex-row w-full" style="margin-left: 10%; margin-top: 2%;">
+        <div class="flex flex-row w-full" style="padding-left: 10%; margin-top: 2%;">
             <!-- //TODO 이미지 높이 설정 -->
             <img referrerpolicy="no-referrer" :src="recipeData.image" style="width: 360px; height: 300px;">
             <!-- 이미지 제외한 정보 -->
-            <div class="ml-[8%] w-full">
+            <div class="ml-[8%] w-full flex flex-col">
                 <div class="flex flex-row justify-between w-full">
                     <div class="font-extrabold text-[28px]">{{ recipeData.name }}</div>
                     <div class="flex flex-col items-center">
@@ -24,7 +24,7 @@
                         <div class="text-center text-[14px]">{{ recipeData.likes }}</div>
                     </div>
                 </div>
-                <div class="whitespace-pre-wrap mt-6 text-[#4F4F4F] ">{{ recipeData.info }}</div>
+                <div class="whitespace-pre-wrap mt-6 text-[#4F4F4F] w-full">{{ recipeData.info }}</div>
 
                 <div class="window-frame">
                     <!-- 재료 제외한 정보 -->
@@ -83,10 +83,26 @@
         </div>
 
         <!-- 조리 순서 -->
-        <div v-for="step in recipeData.recipeDetailList" :key="step.id">
-            <div>{{ step.recipe_order }}</div>
-            <img :src="step.image_url" alt="Recipe Image" />
-            <div>{{ step.info }}</div>
+        <div class="pl-[10%] w-full mt-20">
+            <div class="font-semibold text-[28px] text-center m-10">조리 순서</div>
+            <div v-for="step in recipeData.recipeDetailList" :key="step.id" class="w-full">
+                <div class="flex flex-row items-center justify-between w-full my-10">
+                    <div class="flex flex-row items-center w-2/3">
+                        <div
+                            class="font-semibold text-[18px] text-center bg-lime-500 w-[40px] h-[40px] rounded-full flex justify-center items-center">
+                            {{ step.recipe_order }}
+                        </div>
+                        <div class="font-medium text-[18px] mx-3 text-pretty w-full">
+                            {{ step.info }}
+                            <!-- 가지의 꼭지 부분은 자르고 통으로 두께 1~2cm 크기로 자른다.가지의 꼭지 부분은 자르고 통으로 두께 1~2cm 크기로 자른다. -->
+                        </div>
+                    </div>
+                    <div class="flex justify-end w-1/3">
+                        <img referrerpolicy="no-referrer" :src="step.image_url" alt="Recipe Image"
+                            style="width: 300px; height: 200px;" class="rounded-md" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -160,7 +176,7 @@ onMounted(() => {
 .section {
     display: flex;
     justify-content: left;
-    height: 100vh;
+    /* height: 100vh; */
     width: 1168px;
     margin-top: 15%;
     white-space: nowrap;
