@@ -212,7 +212,7 @@ export default {
 
     handleMarkerClick(i) {
       this.isDivVisible = true;
-      this.gardenId = this.newMarkers[i].garden_id;
+      this.gardenId = this.newMarkers[i].id;
       this.gardenName = this.newMarkers[i].garden_name;
       this.gardenAddress = this.newMarkers[i].garden_address;
       this.gardenOwner = this.newMarkers[i].garden_owner;
