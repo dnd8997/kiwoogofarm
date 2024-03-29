@@ -1,54 +1,33 @@
 <template>
     <div class="section">
         <div>
-          <v-icon icon="mdi-chevron-left" style="font-size: 50px; cursor: pointer;" @click="goBack">
-          </v-icon>
+            <v-icon icon="mdi-chevron-left" style="font-size: 50px; cursor: pointer;" @click="goBack">
+            </v-icon>
         </div>
         <div class="section-1" style="margin-left: 10%; margin-top: 2%;">
             <div>
                 <div style="width: 360px; height: 300px;">
 
-                    <img 
-                        referrerpolicy="no-referrer" 
-                        :src="cropData.imageUrl" 
-                        style="width: 100%; height: 100%; object-fit: cover;"
-                    >
-                    <div class="flex flex-row mt-3">
-                      <v-icon
-                          @click="checkcheck"
-                          style="cursor: pointer; color: #FF4081;"
-                          icon="mdi-heart"
-                      >
-                      </v-icon>
-                      <span class="ml-1 font-normal"> {{ cropData.likes }}</span>
-                    </div>
-
+                    <img referrerpolicy="no-referrer" :src="cropData.imageUrl"
+                        style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
             </div>
 
             <div class="crop">
-              <div class="flex flex-row">
-                <div class="crop-title">
-                  {{ cropData.name }}
-                </div>
-                <div class="ml-2 mt-2">
-                  <v-icon
-                      v-if="heartCheck"
-                      @click="checkcheck"
-                      style="cursor: pointer; color: #FF4081;"
-                      icon="mdi-heart"
-                  >
-                  </v-icon>
+                <div class="flex flex-row">
+                    <div class="crop-title">
+                        {{ cropData.name }}
+                    </div>
+                    <div class="mt-2 ml-2">
+                        <v-icon v-if="heartCheck" @click="checkcheck" style="cursor: pointer; color: #FF4081;"
+                            icon="mdi-heart">
+                        </v-icon>
 
-                  <v-icon
-                      v-else
-                      @click="checkcheck"
-                      style="cursor: pointer; color: #FF4081;"
-                      icon="mdi-heart-outline"
-                  >
-                  </v-icon>
+                        <v-icon v-else @click="checkcheck" style="cursor: pointer; color: #FF4081;"
+                            icon="mdi-heart-outline">
+                        </v-icon>
+                    </div>
                 </div>
-              </div>
                 <div class="whitespace-pre-wrap mt-6 text-[#4F4F4F] ">
                     <div>
 
@@ -59,7 +38,8 @@
                 <div class="window-frame">
                     <div class="quadrant top-left">
                         <div>
-                            <v-icon icon="mdi-watering-can-outline" style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
+                            <v-icon icon="mdi-watering-can-outline"
+                                style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
                             </v-icon>
                         </div>
                         <div class="frame-title">
@@ -71,7 +51,8 @@
                     </div>
                     <div class="quadrant top-right">
                         <div>
-                            <v-icon icon="mdi-white-balance-sunny" style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
+                            <v-icon icon="mdi-white-balance-sunny"
+                                style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
                             </v-icon>
                         </div>
                         <div class="frame-title">
@@ -95,7 +76,8 @@
                     </div>
                     <div class="quadrant bottom-right">
                         <div>
-                            <v-icon icon="mdi-thermometer-lines" style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
+                            <v-icon icon="mdi-thermometer-lines"
+                                style="font-size: 30px; margin-bottom: 3px; margin-top: 3px">
                             </v-icon>
                         </div>
                         <div class="frame-title">
@@ -109,7 +91,7 @@
             </div>
         </div>
 
-        
+
         <div class="healthy-section">
             <div class="healthy-section-subtitle">
                 기능성
@@ -133,8 +115,14 @@
                 자세히 알아보기
             </div>
             <div style="font-size: 17px; margin-top: 5%; margin-bottom: 5%; white-space: wrap; text-align: center;">
-                <a :href="cropData.link" style="font-weight: bold; border-bottom: solid 1px black;">{{ cropData.link }}</a>
+                <a :href="cropData.link" style="font-weight: bold; border-bottom: solid 1px black;">{{ cropData.link
+                    }}</a>
             </div>
+            <div>
+                <div>추천 레시피</div>
+
+            </div>
+
         </div>
     </div>
 </template>
@@ -161,7 +149,7 @@ const infoData = computed(() => ({
 }))
 
 const goBack = () => {
-  router.back();
+    router.back();
 }
 
 function checkcheck () {
@@ -188,6 +176,18 @@ onMounted(() => {
         route.params.cropId,
         (success) => {
             cropData.value = success.data
+            console.log(cropData.value)
+        },
+        (error) => {
+            console.error(error)
+        }
+    )
+    // console.log("여기", route.params.cropId)
+    Recipe.getRecipeAboutCrop(
+        route.params.cropId,
+        (success) => {
+            recipeAboutCrop.value = success.data
+            console.log(recipeAboutCrop.value)
         },
         (error) => {
             console.error(error)
@@ -210,13 +210,13 @@ onMounted(() => {
 
 <style scoped>
 .section {
-  display: flex;
-  justify-content: left;
-  height: 100vh;
-  margin-top: 15%;
-  white-space: nowrap;
-  flex-direction: column;
-  font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: left;
+    height: 100vh;
+    margin-top: 15%;
+    white-space: nowrap;
+    flex-direction: column;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .section-1 {
@@ -224,19 +224,22 @@ onMounted(() => {
 }
 
 .healthy-section {
-    margin-top: 10%; 
-    display: flex; 
-    justify-content: center; 
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
 .healthy-section-subtitle {
-    font-size: 12px; color: #00B564;
+    font-size: 12px;
+    color: #00B564;
 }
 
 .healthy-section-title {
-    margin-top: 1%; font-size: 20px; font-weight: 500;
+    margin-top: 1%;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .crop {
@@ -256,7 +259,8 @@ onMounted(() => {
     border-block: 1px solid #E0E0E0;
 }
 
-.window-frame::before, .window-frame::after {
+.window-frame::before,
+.window-frame::after {
     content: '';
     position: absolute;
     background: #E0E0E0;
@@ -312,5 +316,4 @@ onMounted(() => {
     font-weight: bold;
     margin-bottom: 5px;
 }
-
 </style>

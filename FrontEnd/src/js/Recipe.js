@@ -33,4 +33,22 @@ async function recommendRecipe(value, success, fail) {
     .catch(fail);
 }
 
-export { getRecipeById, likeRecipe, recommendRecipe, searchRecipes };
+async function isRecipeLiked(recipeId, email, success, fail) {
+  await local
+    .get(`/recipe/checkRecipeIsLiked/${recipeId}/${email}`)
+    .then(success)
+    .catch(fail);
+}
+
+async function getRecipeAboutCrop(cropId, success, fail) {
+  await local.get(`/recipe/searchByCropId/${cropId}`).then(success).catch(fail);
+}
+
+export {
+  getRecipeAboutCrop,
+  getRecipeById,
+  isRecipeLiked,
+  likeRecipe,
+  recommendRecipe,
+  searchRecipes,
+};
