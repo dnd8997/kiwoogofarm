@@ -134,4 +134,9 @@ public class CropServiceImpl implements CropService {
         CropFavorites cropFavorite  = favoriteCropRepository.findByCropAndUserAndStatus(crop,currentUser,true);
         return cropFavorite!=null;
     }
+
+    @Override
+    public Crop save(Crop crop) {
+        return cropRepository.save(crop);
+    }
 }
