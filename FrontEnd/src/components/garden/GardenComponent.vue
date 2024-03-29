@@ -213,12 +213,12 @@ export default {
     handleMarkerClick(i) {
       this.isDivVisible = true;
       this.gardenId = this.newMarkers[i].id;
-      this.gardenName = this.newMarkers[i].garden_name;
-      this.gardenAddress = this.newMarkers[i].garden_address;
-      this.gardenOwner = this.newMarkers[i].garden_owner;
-      this.gardenExtra = this.newMarkers[i].garden_extra;
-      this.gardenApply = this.newMarkers[i].garden_apply;
-      this.gardenSize = this.newMarkers[i].garden_size;
+      this.gardenName = this.newMarkers[i].gardenName;
+      this.gardenAddress = this.newMarkers[i].gardenAddress;
+      this.gardenOwner = this.newMarkers[i].gardenOwner;
+      this.gardenExtra = this.newMarkers[i].gardenExtra;
+      this.gardenApply = this.newMarkers[i].gardenApply;
+      this.gardenSize = this.newMarkers[i].gardenSize;
     },
     handleCloseClick() {
       this.isDivVisible = false;
