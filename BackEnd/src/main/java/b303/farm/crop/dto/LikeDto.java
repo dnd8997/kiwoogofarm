@@ -12,5 +12,5 @@ import lombok.ToString;
 public class LikeDto {
     private Long id;
     private boolean like; // true면 좋아요, false면 좋아요 취소
-
+    private String email;
 }

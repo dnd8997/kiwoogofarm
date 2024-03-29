@@ -141,12 +141,16 @@ public class CropController {
             return ResponseEntity.notFound().build();
         }
 
+        // LikeDto에서 이메일을 가져옴
+        String email = likeDto.getEmail();
+
         if (likeDto.isLike()) {
-            crop.addLike();
+            cropService.addLike(crop.getId(), email); // 좋아요 추가
         } else {
-            crop.removeLike();
+            cropService.removeLike(crop.getId(), email); // 좋아요 제거
         }
-        cropService.save(crop); // CropService 내에 save 메서드 구현 필요
+
+        // Crop 엔티티의 상태가 이미 변경되었으므로 별도의 저장이 필요하지 않음
 
         return ResponseEntity.ok("좋아요 상태가 업데이트 되었습니다.");
     }
