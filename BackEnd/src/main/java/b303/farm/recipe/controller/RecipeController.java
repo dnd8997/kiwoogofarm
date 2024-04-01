@@ -106,10 +106,37 @@ public class RecipeController {
         }
         return ResponseEntity.ok().body(recipeDtoList);
     }
+//지우지 마세요!!
+//    @GetMapping("/search/{keyword}")
+//    public ResponseEntity<List<RecipeDto>> getRecipeByKeyword(@PathVariable String keyword) {
+//        List<Recipe> recipeList = recipeService.getRecipeListByKeyword(keyword);
+//        List<RecipeDto> recipeDtoList = new ArrayList<>();
+//
+//        log.info("해당 제목을 포함한 레시피 정보");
+//        for(Recipe r : recipeList) {
+//            RecipeDto recipeDto = RecipeDto.builder()
+//                    .id(r.getId())
+//                    .serialNum(r.getSerialnum())
+//                    .name(r.getName())
+//                    .info(r.getInfo())
+//                    .ingredients(r.getIngredients())
+//                    .cook(r.getCook())
+//                    .imageUrl(r.getImage_url())
+//                    .difficulty(r.getDifficulty())
+//                    .likes(r.getLikes())
+//                    .cookTime(r.getCookTime())
+//                    .servings(r.getServings())
+//                    .build();
+//            log.info("레시피 정보: {}", recipeDto);
+//            recipeDtoList.add(recipeDto);
+//        }
+//        return ResponseEntity.ok().body(recipeDtoList);
+//    }
 
-    @GetMapping("/search/{keyword}")
-    public ResponseEntity<List<RecipeDto>> getRecipeByKeyword(@PathVariable String keyword) {
-        List<Recipe> recipeList = recipeService.getRecipeListByKeyword(keyword);
+    //수지 테스트
+    @GetMapping("/searchByCropId/{cropId}")
+    public ResponseEntity<List<RecipeDto>> getRecipeByCropId(@PathVariable Long cropId) {
+        List<Recipe> recipeList = recipeService.getRecipeListByKeyword(cropId);
         List<RecipeDto> recipeDtoList = new ArrayList<>();
 
         log.info("해당 제목을 포함한 레시피 정보");

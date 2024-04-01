@@ -1,5 +1,7 @@
 package b303.farm.recipe.service;
 
+import b303.farm.crop.entity.Crop;
+import b303.farm.crop.repository.CropRepository;
 import b303.farm.recipe.domain.RecipeDetailRepository;
 import b303.farm.exception.RecipeNotFoundException;
 import b303.farm.user.User;
@@ -21,7 +23,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import b303.farm.recipe.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 @Transactional
@@ -33,7 +38,7 @@ public class RecipeServiceImpl implements RecipeService {
     private final RecipeDetailRepository recipeDetailRepository;
     private final UserRepository userRepository;
     private final FavoriteRecipeRepository favoriteRecipeRepository;
-
+    private final CropRepository cropRepository;
     private Logger log = LoggerFactory.getLogger(RecipeController.class);
     @Override
     public List<Recipe> getAllRecipes() {
@@ -100,8 +105,15 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeDetailRepository.findAllByRecipeId(recipeId);
     }
 
-    public List<Recipe> getRecipeListByKeyword(String keyword) {
-        return recipeRepository.findAllByNameContaining(keyword);
+    public List<Recipe> getRecipeListByKeyword(Long cropId) {
+        Optional<Crop> cropOptional = cropRepository.findById(cropId);
+        if (cropOptional.isPresent()) {
+            Crop crop = cropOptional.get();
+            log.info("crop 확인 " + crop.getName());
+            return recipeRepository.findAllByNameContaining(crop.getName());
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     public List<Recipe> getRecipeListByOption(List<String> ingredients, String cook, String difficulty) {
