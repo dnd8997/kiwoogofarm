@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import random
 
 # Flask 애플리케이션 생성
 app = Flask(__name__)
@@ -12,9 +13,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:ssafy@j10b303.p.ss
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+
 # 데이터베이스 모델 정의
 class Crop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    image_url = db.Column(db.Text, nullable=False)
     name = db.Column(db.String(100), nullable=False)
     temperature = db.Column(db.String(100), nullable=False)
     sunshine = db.Column(db.String(100), nullable=False)
@@ -24,6 +27,7 @@ class Crop(db.Model):
     humidity = db.Column(db.String(100), nullable=False)
     grow_start = db.Column(db.String(100), nullable=False)
     water_exit = db.Column(db.String(100), nullable=False)
+    likes = db.Column(db.Integer, nullable=False)
 
 
 class CropFavorite(db.Model):
@@ -60,7 +64,7 @@ def difficulty_to_number(value):
 
 def season_to_number(value):
     if value == "봄, 가을":
-        return 3
+        return 2.9
     elif value == "봄":
         return 4
     elif value == "여름":
@@ -91,7 +95,8 @@ def get_liked_crops_from_database(user_id):
                 "grow_time": crop.grow_time,
                 "humidity": crop.humidity,
                 "grow_start": crop.grow_start,
-                "water_exit": crop.water_exit
+                "water_exit": crop.water_exit,
+                "likes": crop.likes,
             }
             liked_crops.append(crop_dict)
     return liked_crops
@@ -172,15 +177,14 @@ def calculate_euclidean_distance(liked_crops, crops):
 
     return recommended_crops
 
-def survey_calculate_euclidean_distance(liked_crops, crops):
+
+def inside_calculate_euclidean_distance(liked_crops, crops):
     liked_crop_features = np.array([[string_to_number(liked_crop["temperature"]),
                                      string_to_number(liked_crop["sunshine"]),
                                      string_to_number(liked_crop["water_period"]),
                                      difficulty_to_number(liked_crop["difficulty"]),
                                      string_to_number(liked_crop["grow_time"]),
-                                     string_to_number(liked_crop["humidity"]),
-                                     season_to_number(liked_crop["grow_start"]),
-                                     string_to_number(liked_crop["water_exit"])]
+                                     string_to_number(liked_crop["humidity"])]
                                     for liked_crop in liked_crops])
 
     euclidean_distances = []
@@ -191,8 +195,34 @@ def survey_calculate_euclidean_distance(liked_crops, crops):
                                     string_to_number(crop["water_period"]),
                                     difficulty_to_number(crop["difficulty"]),
                                     string_to_number(crop["grow_time"]),
-                                    string_to_number(crop["humidity"]),
-                                    season_to_number(crop["grow_start"]),
+                                    string_to_number(crop["humidity"])])
+
+            distance = np.linalg.norm(liked_crop_features - crop_vector)
+            euclidean_distances.append((crop, distance))
+
+    sorted_distances = sorted(euclidean_distances, key=lambda x: x[1])
+    recommended_crops = [crop for crop, _ in sorted_distances[:10]]
+
+    return recommended_crops
+
+
+def outside_calculate_euclidean_distance(liked_crops, crops):
+    liked_crop_features = np.array([[season_to_number(liked_crop["grow_start"]),
+                                     string_to_number(liked_crop["sunshine"]),
+                                     string_to_number(liked_crop["water_period"]),
+                                     difficulty_to_number(liked_crop["difficulty"]),
+                                     string_to_number(liked_crop["grow_time"]),
+                                     string_to_number(liked_crop["water_exit"])]
+                                    for liked_crop in liked_crops])
+
+    euclidean_distances = []
+
+    for crop in crops:
+            crop_vector = np.array([season_to_number(crop["grow_start"]),
+                                    string_to_number(crop["sunshine"]),
+                                    string_to_number(crop["water_period"]),
+                                    difficulty_to_number(crop["difficulty"]),
+                                    string_to_number(crop["grow_time"]),
                                     string_to_number(crop["water_exit"])])
 
             distance = np.linalg.norm(liked_crop_features - crop_vector)
@@ -202,6 +232,15 @@ def survey_calculate_euclidean_distance(liked_crops, crops):
     recommended_crops = [crop for crop, _ in sorted_distances[:10]]
 
     return recommended_crops
+
+
+def top_recommend(crops):
+    sorted_crops = sorted(crops, key=lambda x: x['likes'], reverse=True)
+
+    # 상위 3개의 요소 선택
+    top_recommendations = sorted_crops[:3]
+
+    return top_recommendations
 
 
 @app.route('/crop/<int:user_id>', methods=['GET'])
@@ -215,6 +254,7 @@ def get_euclidean_recommended_crop(user_id):
         crop.dict ={
             "id": crop.id,
             "name": crop.name,
+            "image_url": crop.image_url,
             "temperature": crop.temperature,
             "sunshine": crop.sunshine,
             "water_period": crop.water_period,
@@ -222,17 +262,21 @@ def get_euclidean_recommended_crop(user_id):
             "grow_time": crop.grow_time,
             "humidity": crop.humidity,
             "grow_start": crop.grow_start,
-            "water_exit": crop.water_exit
+            "water_exit": crop.water_exit,
+            "likes": crop.likes
         }
         crops.append(crop.dict)
 
-    recommended_crop = calculate_euclidean_distance(liked_crops, crops)
+    if not liked_crops:
+        recommended_crop = top_recommend(crops)
+    else:
+        recommended_crop = calculate_euclidean_distance(liked_crops, crops)
 
     return jsonify({"recommended_crop": recommended_crop})
 
 
-@app.route('/crop', methods=['POST'])
-def post_euclidean_recommended_crop():
+@app.route('/insideCrop', methods=['POST'])
+def post_euclidean_recommended_inside_crop():
 
     liked_crops = request.json.get('liked_crops')
 
@@ -242,6 +286,7 @@ def post_euclidean_recommended_crop():
         crop.dict ={
             "id": crop.id,
             "name": crop.name,
+            "image_url": crop.image_url,
             "temperature": crop.temperature,
             "sunshine": crop.sunshine,
             "water_period": crop.water_period,
@@ -249,11 +294,41 @@ def post_euclidean_recommended_crop():
             "grow_time": crop.grow_time,
             "humidity": crop.humidity,
             "grow_start": crop.grow_start,
-            "water_exit": crop.water_exit
+            "water_exit": crop.water_exit,
+            "likes": crop.likes
         }
         crops.append(crop.dict)
 
-    recommended_crop = survey_calculate_euclidean_distance(liked_crops, crops)
+    recommended_crop = inside_calculate_euclidean_distance(liked_crops, crops)
+
+    return jsonify({"recommended_crop": recommended_crop})
+
+
+@app.route('/outsideCrop', methods=['POST'])
+def post_euclidean_recommended_outside_crop():
+
+    liked_crops = request.json.get('liked_crops')
+
+    all_crops = Crop.query.all()
+    crops = []
+    for crop in all_crops:
+        crop.dict ={
+            "id": crop.id,
+            "name": crop.name,
+            "image_url": crop.image_url,
+            "temperature": crop.temperature,
+            "sunshine": crop.sunshine,
+            "water_period": crop.water_period,
+            "difficulty": crop.difficulty,
+            "grow_time": crop.grow_time,
+            "humidity": crop.humidity,
+            "grow_start": crop.grow_start,
+            "water_exit": crop.water_exit,
+            "likes": crop.likes
+        }
+        crops.append(crop.dict)
+
+    recommended_crop = outside_calculate_euclidean_distance(liked_crops, crops)
 
     return jsonify({"recommended_crop": recommended_crop})
 
