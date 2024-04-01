@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecificationExecutor<Recipe> {
     List<Recipe> findAllByNameContaining(String keyword);
+    List<Recipe> findAllByOrderByLikesDesc();
 }
