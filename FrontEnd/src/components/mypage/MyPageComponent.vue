@@ -118,12 +118,11 @@ function handleChangeTab(newTab) {
 
 //router주소가 달라서 분기처리함
 function handleClick(n, id) {
-  if (n == 1) {
+  if (n === 1) {
     route.value = `/search/${id}`
-  } else if (n == 2) {
+  } else if (n === 2) {
     route.value = `/recipedetail/${id}`
   } else {
-    route.value = `/search/${id}`
   }
   router.push(route.value);
 }
