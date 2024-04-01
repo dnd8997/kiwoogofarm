@@ -118,17 +118,26 @@
                 <a :href="cropData.link" style="font-weight: bold; border-bottom: solid 1px black;">{{ cropData.link
                     }}</a>
             </div>
-            <div>
-                <div>추천 레시피</div>
-                <div @click="router.push(`/recipe`)">요리 추천 받으러 가기</div>
-
-                <div v-for="(recipe, index) in recipeAboutCrop.slice(0, 3)" :key="recipe.id">
-                    <div class="flex flex-col items-center my-4 cursor-pointer"
-                        @click="router.push(`/recipedetail/${recipe.id}`)">
-                        <v-avatar size="180">
-                            <v-img :src="recipe.imageUrl" alt="recipes" class="object-cover"></v-img>
-                        </v-avatar>
-                        <div class="mt-3 text-lg">{{ recipe.name }}</div>
+            <div class="flex flex-col my-10">
+                <div class="text-center text-[20px] text-rose-600">
+                    <v-icon icon="mdi-chef-hat" style="font-size: 24px;">
+                    </v-icon> {{ cropData.name }}를 활용한 추천 레시피 <v-icon icon="mdi-chef-hat" style="font-size: 24px;">
+                    </v-icon>
+                </div>
+                <div @click="router.push(`/recipe`)" class="self-end my-5 cursor-pointer">
+                    상세한 레시피 추천 받기
+                    <v-icon icon="mdi-arrow-right-thin" style="font-size: 50px;" class="cursor-pointer">
+                    </v-icon>
+                </div>
+                <div class="flex flex-row">
+                    <div v-for="(recipe, index) in recipeAboutCrop.slice(0, 3)" :key="recipe.id">
+                        <div class="flex flex-col items-center mx-6 cursor-pointer"
+                            @click="router.push(`/recipedetail/${recipe.id}`)">
+                            <v-avatar size="180">
+                                <v-img :src="recipe.imageUrl" alt="recipes" class="object-cover"></v-img>
+                            </v-avatar>
+                            <div class="mt-3 text-lg">{{ recipe.name }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
