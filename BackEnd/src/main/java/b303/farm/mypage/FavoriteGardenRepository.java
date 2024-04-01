@@ -11,4 +11,6 @@ public interface FavoriteGardenRepository extends JpaRepository<GardenFavorites,
     GardenFavorites findByGardenAndUser(Garden garden, User user);
 
     List<GardenFavorites> findAllByUserAndStatus(User user, boolean status);
+
+    GardenFavorites findByGardenAndUserAndStatus(Garden garden, User user,boolean status);
 }

@@ -78,7 +78,7 @@ public class GardenServiceImpl implements GardenService {
     public Boolean checkGardenIsLiked(Long id, String email) {
         Garden garden = gardenRepository.findById(id).orElseThrow(GardenNotFoundException::new);
         User currentUser = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        GardenFavorites gardenFavorites = favoriteGardenRepository.findByGardenAndUser(garden, currentUser);
+        GardenFavorites gardenFavorites = favoriteGardenRepository.findByGardenAndUserAndStatus(garden, currentUser, true);
         return gardenFavorites != null;
     }
 }
