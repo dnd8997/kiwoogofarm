@@ -61,11 +61,11 @@ function getImageUrl(item)  {
 function getName(item)  {
   return item.name || item.gardenName || null;
 }
-const items = ref({ 1: cropFavorites, 2: recipeFavorites, 3: recipeFavorites });
+const items = ref({ 1: cropFavorites, 2: recipeFavorites, 3: gardenFavorites });
 // 찜한 농작물 조회 API
 async function fetchCropFavorites() {
   try {
-    const response = await axios.get('https://j10b303.p.ssafy.io/api/crop/myFavorites/jungyoanwoo@naver.com');
+    const response = await axios.get(`https://j10b303.p.ssafy.io/api/crop/myFavorites/${email.value}`);
     cropFavorites.value = response.data;
     console.log(cropFavorites.value);
   } catch (error) {
