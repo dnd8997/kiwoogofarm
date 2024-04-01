@@ -42,7 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
     private Logger log = LoggerFactory.getLogger(RecipeController.class);
     @Override
     public List<Recipe> getAllRecipes() {
-        return recipeRepository.findAll();
+        return recipeRepository.findAllByOrderByLikesDesc();
     }
 
     @Override
@@ -123,6 +123,7 @@ public class RecipeServiceImpl implements RecipeService {
         }
         if(cook!=null) spec = spec.and(RecipeSpecification.containingCook(cook));
         if(difficulty!=null) spec = spec.and(RecipeSpecification.containingDifficulty(difficulty));
+        spec = spec.and(RecipeSpecification.orderByLikesDescending());
         return recipeRepository.findAll(spec);
     }
 

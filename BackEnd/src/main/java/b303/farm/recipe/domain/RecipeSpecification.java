@@ -34,4 +34,11 @@ public class RecipeSpecification {
         };
     }
 
+    public static Specification<Recipe> orderByLikesDescending() {
+        return (root, query, criteriaBuilder) -> {
+            query.orderBy(criteriaBuilder.desc(root.get("likes")));
+            return criteriaBuilder.conjunction(); // or any other Predicate if needed
+        };
+    }
+
 }
