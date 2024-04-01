@@ -26,6 +26,11 @@ public class GardenController {
         return ResponseEntity.ok().body(gardenService.getAllGardens());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getGarden(@PathVariable Long id) {
+        return ResponseEntity.ok().body(gardenService.getGarden(id));
+    }
+
     //내가 찜한 레시피 조회
     @GetMapping("/myGardenFavorites/{email}")
     public ResponseEntity<?> getMyFavoriteGardens(@PathVariable final String email) {

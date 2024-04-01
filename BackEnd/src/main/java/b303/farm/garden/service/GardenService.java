@@ -7,6 +7,8 @@ import java.util.List;
 public interface GardenService {
     List<Garden> getAllGardens();
 
+    Garden getGarden(Long id);
+
     String favoriteGarden(Long id, String email);
 
     List<Garden> getMyFavoriteGardens(String email);
