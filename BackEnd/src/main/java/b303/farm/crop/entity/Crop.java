@@ -83,6 +83,4 @@ public class Crop {
             this.likes--;
         }
     }
-
-
 }

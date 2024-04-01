@@ -1,13 +1,11 @@
 package b303.farm.crop.controller;
 
 import b303.farm.crop.dto.CropDto;
-import b303.farm.crop.dto.LikeDto;
 import b303.farm.crop.entity.Crop;
 import b303.farm.crop.service.CropService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -129,29 +127,5 @@ public class CropController {
     @GetMapping("/checkCropIsLiked/{id}/{email}")
     public Boolean IsCropLiked(@PathVariable("id") final Long id,@PathVariable("email") final String email){
         return cropService.checkCropIsLiked(id,email);
-    }
-
-    // CropController.java 내에 추가
-
-    @PostMapping("/like")
-    public ResponseEntity<String> toggleLike(@RequestBody LikeDto likeDto) {
-        Crop crop = cropService.getCropDetails(likeDto.getId());
-
-        if (crop == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        // LikeDto에서 이메일을 가져옴
-        String email = likeDto.getEmail();
-
-        if (likeDto.isLike()) {
-            cropService.addLike(crop.getId(), email); // 좋아요 추가
-        } else {
-            cropService.removeLike(crop.getId(), email); // 좋아요 제거
-        }
-
-        // Crop 엔티티의 상태가 이미 변경되었으므로 별도의 저장이 필요하지 않음
-
-        return ResponseEntity.ok("좋아요 상태가 업데이트 되었습니다.");
     }
 }

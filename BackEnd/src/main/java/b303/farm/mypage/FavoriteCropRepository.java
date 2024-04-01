@@ -9,8 +9,6 @@ import java.util.List;
 public interface FavoriteCropRepository extends JpaRepository<CropFavorites,Long> {
         CropFavorites findByCropAndUser(Crop crop, User user);
 
-
-        //    CropFavorites findByCrop(Crop crop);
         List<CropFavorites> findAllByUser(User user);
 
         List<CropFavorites> findAllByUserAndStatus(User user, boolean status);
