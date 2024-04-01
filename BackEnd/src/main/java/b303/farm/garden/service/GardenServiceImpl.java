@@ -60,10 +60,10 @@ public class GardenServiceImpl implements GardenService {
     @Override
     public List<Garden> getMyFavoriteGardens(String email) {
         User currentUser = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        List<GardenFavorites> gardenFavoritesList = favoriteGardenRepository.findAllByUserAndStatus(currentUser, true);
+        List<GardenFavorites> myFavoriteGardenList = favoriteGardenRepository.findAllByUserAndStatus(currentUser, true);
         log.info("텃밭 즐겨찾기리스트 확인" + currentUser.getGardenFavoritesList());
         List<Garden> myFavoriteGardens = new ArrayList<>();
-        for (GardenFavorites gardenFavorites : gardenFavoritesList) {
+        for (GardenFavorites gardenFavorites : myFavoriteGardenList) {
             myFavoriteGardens.add(gardenFavorites.getGarden());
         }
         return myFavoriteGardens;
