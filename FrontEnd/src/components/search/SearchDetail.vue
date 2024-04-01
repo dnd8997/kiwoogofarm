@@ -120,7 +120,17 @@
             </div>
             <div>
                 <div>추천 레시피</div>
+                <div @click="router.push(`/recipe`)">요리 추천 받으러 가기</div>
 
+                <div v-for="(recipe, index) in recipeAboutCrop.slice(0, 3)" :key="recipe.id">
+                    <div class="flex flex-col items-center my-4 cursor-pointer"
+                        @click="router.push(`/recipedetail/${recipe.id}`)">
+                        <v-avatar size="180">
+                            <v-img :src="recipe.imageUrl" alt="recipes" class="object-cover"></v-img>
+                        </v-avatar>
+                        <div class="mt-3 text-lg">{{ recipe.name }}</div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -129,15 +139,17 @@
 
 <script setup>
 import * as Crop from '@/js/Crop';
-import { ref, onMounted, watch, computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import * as Recipe from '@/js/Recipe';
 import { useUserStore } from '@/stores/user';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const userStore = useUserStore()
 
 const route = useRoute()
 const router = useRouter()
 const cropData = ref([])
+const recipeAboutCrop = ref([])
 const email = ref(null)
 
 const heartCheck = ref(false)
@@ -152,7 +164,7 @@ const goBack = () => {
     router.back();
 }
 
-function checkcheck () {
+function checkcheck() {
     Crop.cropLike(
         route.params.cropId,
         email.value,
