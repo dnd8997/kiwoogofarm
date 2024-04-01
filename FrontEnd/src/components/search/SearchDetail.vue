@@ -120,18 +120,23 @@
                 <a :href="cropData.link" style="font-weight: bold; border-bottom: solid 1px black;">{{ cropData.link
                     }}</a>
             </div>
-            <div class="flex flex-col my-10">
-                <div class="text-center text-[20px] text-rose-600">
-                    <v-icon icon="mdi-chef-hat" style="font-size: 24px;">
-                    </v-icon> {{ cropData.name }}를 활용한 추천 레시피 <v-icon icon="mdi-chef-hat" style="font-size: 24px;">
-                    </v-icon>
+
+            <div class="flex flex-col items-center my-10">
+              <div class="healthy-section-subtitle">
+                레시피
+              </div>
+              <div class="healthy-section-title">
+                {{ cropData.name }}를 활용한 추천 레시피
+              </div>
+
+                <div @click="router.push(`/recipe`)" class="self-end my-5 cursor-pointer flex flex-ro">
+                    다양한 레시피 추천 받기
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-6 ml-1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                  </svg>
+
                 </div>
-                <div @click="router.push(`/recipe`)" class="self-end my-5 cursor-pointer">
-                    상세한 레시피 추천 받기
-                    <v-icon icon="mdi-arrow-right-thin" style="font-size: 50px;" class="cursor-pointer">
-                    </v-icon>
-                </div>
-                <div class="flex flex-row">
+                <div class="flex flex-row mt-3">
                     <div v-for="(recipe, index) in recipeAboutCrop.slice(0, 3)" :key="recipe.id">
                         <div class="flex flex-col items-center mx-6 cursor-pointer"
                             @click="router.push(`/recipedetail/${recipe.id}`)">
