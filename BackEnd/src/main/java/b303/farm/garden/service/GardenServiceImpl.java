@@ -32,6 +32,11 @@ public class GardenServiceImpl implements GardenService {
     public List<Garden> getAllGardens() {
         return gardenRepository.findAll();
     }
+    @Override
+    public Garden getGarden(Long id) {
+        return gardenRepository.findById(id).orElseThrow(GardenNotFoundException::new);
+    }
+
 
     @Override
     public String favoriteGarden(Long id, String email) {
