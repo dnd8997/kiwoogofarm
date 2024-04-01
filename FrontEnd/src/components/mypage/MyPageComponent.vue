@@ -17,9 +17,9 @@
               <v-col v-for="(item, index) in items[n]" :key="index" cols="3">
                 <div class="flex flex-col items-center my-4 cursor-pointer" @click="handleClick(n, item.id)">
                   <v-avatar size="180">
-                    <v-img :src="item.imageUrl" alt="" class="object-cover"></v-img>
+                    <v-img :src="getImageUrl(item)" alt="" class="object-cover"></v-img>
                   </v-avatar>
-                  <div class="mt-3 text-lg">{{ item.name }}</div>
+                  <div class="mt-3 text-lg">{{getName(item)}}</div>
                 </div>
               </v-col>
             </v-row>
@@ -43,6 +43,7 @@ const route = ref(null)
 
 const recipeFavorites = ref([]);
 const cropFavorites = ref([]);
+const gardenFavorites = ref([]);
 const nickname = ref(null);
 const email = ref(null)
 const image = ref(null);
@@ -53,8 +54,13 @@ const image = ref(null);
 //   { name: '비빔밥', image: 'https://i.namu.wiki/i/b2U9ZGSKF76RyLb-E_jdaH9vlhgWqSohlyJlHD_J7eEllHhoO5C9OtQPwSOnEnyudRBn0XUHpS10SEnyZLUbUg.webp' },
 //   { name: '장어덮밥', image: 'https://d20aeo683mqd6t.cloudfront.net/ko/articles/title_images/000/039/267/medium/pixta_32269376_M.jpg?2019' }
 // ];
+function getImageUrl(item)  {
+  return item.imageUrl || item.image_url || "https://img.freepik.com/premium-vector/plant-and-wooden-basket_188544-2920.jpg";
+}
 
-
+function getName(item)  {
+  return item.name || item.gardenName || null;
+}
 const items = ref({ 1: cropFavorites, 2: recipeFavorites, 3: recipeFavorites });
 // 찜한 농작물 조회 API
 async function fetchCropFavorites() {
@@ -70,14 +76,21 @@ async function fetchCropFavorites() {
 async function fetchRecipeFavorites() {
   try {
     const response = await axios.get(`https://j10b303.p.ssafy.io/api/recipe/myFavorites/${email.value}`);
-    // const response = await axios.get(`http://localhost:8080/recipe/myFavorites/${email.value}`);
     recipeFavorites.value = response.data;
     console.log(recipeFavorites.value)
   } catch (error) {
     console.error('Error fetching recipe favorites:', error);
   }
 }
-
+async function fetchGardenFavorites() {
+  try {
+    const response = await axios.get(`https://j10b303.p.ssafy.io/api/garden/myGardenFavorites/${email.value}`);
+    gardenFavorites.value = response.data;
+    console.log(gardenFavorites.value)
+  } catch (error) {
+    console.error('Error fetching recipe favorites:', error);
+  }
+}
 watch(() => userStore.nickname, (newVal) => {
   nickname.value = newVal
 })
@@ -96,6 +109,7 @@ onMounted(() => {
   image.value = userStore.image_url;
   fetchRecipeFavorites();
   fetchCropFavorites();
+  fetchGardenFavorites();
 });
 
 function handleChangeTab(newTab) {
