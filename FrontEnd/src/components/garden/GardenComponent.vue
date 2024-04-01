@@ -16,9 +16,9 @@
     <div id="map" class="absolute left-0 top-[25%] w-full h-[75%] z-10"></div>
 
     <!--정보창-->
-    <div v-if="isDivVisible" class="absolute top-32 right-0 w-[23%] h-[80%] bg-white z-20 font-Notosans">
+    <div v-if="isDivVisible" class="absolute top-[25%] right-0 w-[23%] h-[80%] bg-white z-20 font-Notosans">
       <img alt="" src="@/assets/close.svg" class="h-8 w-8 absolute right-3 top-3 cursor-pointer" @click="handleCloseClick">
-      <div class="flex  w-full h-[32%] bg-blue-200 ">
+      <div class="flex  w-full h-[30%] bg-blue-200 ">
         <img alt="" src="@/assets/garden.png" class="object-cover w-full h-full">
       </div>
 
@@ -28,7 +28,7 @@
       </div>
 
       <div class="flex flex-col ml-[15%]">
-        <div class="flex flex-row mt-10">
+        <div class="flex flex-row mt-8">
           <span class="font-medium text-base">운영주체</span>
           <span class="font-light text-[#696969] text-base ml-6">{{ gardenOwner }}</span>
         </div>
@@ -46,8 +46,8 @@
         </div>
       </div>
 
-      <div class="flex flex-row mt-[18%] justify-center" >
-        <div class="cursor-pointer border-[1px] border-[#EC6B6B] text-[#EC6B6B]  rounded-lg w-28 h-12 flex flex-row items-center justify-center " @click="handleSaveClick">
+      <div class="flex flex-row mt-[12%] justify-center" >
+        <div class="cursor-pointer border-[1px] border-[#EC6B6B] text-[#EC6B6B]  rounded-lg w-28 h-12 flex flex-row items-center justify-center " @click="handleSaveClick(gardenId)">
           <img v-if="!isSave" alt="" src="@/assets/heart.svg" class="h-6 w-6 mr-1 ">
           <img v-else alt="" src="@/assets/fullheart.svg" class="h-6 w-6 mr-1" >
           찜하기
@@ -71,13 +71,13 @@ export default {
       longitude: 0,
       isSave: false,
       isDivVisible: false,
-      gardenId : 0,
-      gardenName : "",
-      gardenOwner : "",
-      gardenExtra : "",
-      gardenAddress : "",
-      gardenApply : "",
-      gardenSize : 0,
+      gardenId: 0,
+      gardenName: "",
+      gardenOwner: "",
+      gardenExtra: "",
+      gardenAddress: "",
+      gardenApply: "",
+      gardenSize: 0,
       searchQuery: '',
     };
   },
@@ -121,6 +121,7 @@ export default {
           });
     },
 
+
     initMap() {
       const container = document.getElementById("map");
       const options = {
@@ -157,10 +158,10 @@ export default {
     },
 
     displayMarker(markerPositions) {
-      // if (this.markers.length > 0) {
-      //   this.markers.forEach((marker) => marker.setMap(null));
-      //   this.markers = [];
-      // }
+      if (this.markers.length > 0) {
+        this.markers.forEach((marker) => marker.setMap(null));
+        this.markers = [];
+      }
 
       const positions = markerPositions.map(
           (position) => new kakao.maps.LatLng(...position)
@@ -184,15 +185,14 @@ export default {
       const imageSrc =
           "https://i.ibb.co/ch1GjBH/marker.png";
       const likedimageSrc =
-           "https://i.ibb.co/GJqJz3T/marker.png";
+          "https://i.ibb.co/GJqJz3T/marker.png";
 
       for (let i = 0; i < this.newMarkers.length; i++) {
         let imageSize = new kakao.maps.Size(40, 54);
         let markerImage;
-        if(this.newMarkers[i].gardenName==="죽동"){
+        if (this.newMarkers[i].gardenSize === 16) {
           markerImage = new kakao.maps.MarkerImage(likedimageSrc, imageSize);
-        }
-        else{
+        } else {
           markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
         }
         let marker = new kakao.maps.Marker({
@@ -210,31 +210,90 @@ export default {
       // this.map.setBounds(bounds);
     },
 
+
     handleMarkerClick(i) {
-      this.isDivVisible = true;
-      this.gardenId = this.newMarkers[i].id;
-      this.gardenName = this.newMarkers[i].gardenName;
-      this.gardenAddress = this.newMarkers[i].gardenAddress;
-      this.gardenOwner = this.newMarkers[i].gardenOwner;
-      this.gardenExtra = this.newMarkers[i].gardenExtra;
-      this.gardenApply = this.newMarkers[i].gardenApply;
-      this.gardenSize = this.newMarkers[i].gardenSize;
+      const fetchGardenInfo = () => {
+        return axios.get(`https://j10b303.p.ssafy.io/api/garden/${this.newMarkers[i].id}`)
+            .then(response => {
+              const gardenInfo = response.data;
+              this.gardenName = gardenInfo.gardenName;
+              this.gardenAddress = gardenInfo.gardenAddress;
+              this.gardenId = gardenInfo.id;
+              this.gardenOwner = gardenInfo.gardenOwner;
+              this.gardenExtra = gardenInfo.gardenExtra;
+              this.gardenApply = gardenInfo.gardenApply;
+              this.gardenSize = gardenInfo.gardenSize;
+            })
+            .catch(error => {
+              console.error('텃밭 정보를 가져오는 중 에러 발생:', error);
+              throw error;
+            });
+      };
+
+      const checkHeart = (gardenId) => {
+        return axios.get(`https://j10b303.p.ssafy.io/api/garden/${gardenId}/checkGardenIsLiked/jungyoanwoo@naver.com`)
+            .then(response => {
+              console.log(`checkHeart로 조회 결과 : ${response.data}`);
+              this.isSave = response.data;
+            })
+            .catch(error => {
+              console.error('데이터를 가져오는 중 에러 발생:', error);
+              throw error;
+            });
+      };
+
+      fetchGardenInfo()
+          .then(() => {
+            return checkHeart(this.newMarkers[i].id);
+          })
+          .then(() => {
+            this.isDivVisible = true;
+            this.gardenId = this.newMarkers[i].id;
+            this.gardenOwner = this.newMarkers[i].gardenOwner;
+            this.gardenExtra = this.newMarkers[i].gardenExtra;
+            this.gardenApply = this.newMarkers[i].gardenApply;
+            this.gardenSize = this.newMarkers[i].gardenSize;
+          })
+          .catch(error => {
+            console.error('처리 중 에러 발생:', error);
+          });
     },
+
+
     handleCloseClick() {
-      this.isDivVisible = false;
-    },
-    handleSaveClick() {
-      this.isSave = !this.isSave;
-    },
-    openNewWindow() {
-      // 새 창 열기
-      window.open(
-          'http://soil.rda.go.kr/geoweb/soilInfoPopup.do?soilsign=SqC',
-          'dialog',
-          'modal=yes,dialog=yes,width=1000,height=600'
-      );
-    }
+    this.isDivVisible = false;
   },
+  handleSaveClick(gardenId) {
+    const setHeart = (gardenId) => {
+      return new Promise((resolve, reject) => {
+        axios.post(`https://j10b303.p.ssafy.io/api/garden/${gardenId}/gardenfavorite/jungyoanwoo@naver.com`)
+            .then(response => {
+              resolve();
+            })
+            .catch(error => {
+              console.error('데이터를 가져오는 중 에러 발생:', error);
+              reject(error);
+            });
+      });
+    };
+    setHeart(gardenId)
+        .then(() => {
+          this.isSave = !this.isSave;
+        })
+        .catch(error => {
+          console.error('checkHeart 함수 실행 중 에러 발생:', error);
+        });
+  },
+  openNewWindow() {
+    // 새 창 열기
+    window.open(
+        'http://soil.rda.go.kr/geoweb/soilInfoPopup.do?soilsign=SqC',
+        'dialog',
+        'modal=yes,dialog=yes,width=1000,height=600'
+    );
+  }
+}
+
 
 };
 </script>
