@@ -23,17 +23,10 @@ import java.util.List;
 public class CropServiceImpl implements CropService {
 
     private final CropRepository cropRepository;
-    //    private final CropDetailRepository cropDetailRepository;
     private final UserRepository userRepository;
     private final FavoriteCropRepository favoriteCropRepository;
 
     private static final Logger log = LoggerFactory.getLogger(CropServiceImpl.class);
-
-//    public CropServiceImpl(CropDetailRepository cropDetailRepository, UserRepository userRepository, FavoriteCopRepository favoriteCropRepository) {
-//        this.cropDetailRepository = cropDetailRepository;
-//        this.userRepository = userRepository;
-//        this.favoriteCropRepository = favoriteCropRepository;
-//    }
 
     @Override
     public List<Crop> getAllCrops() {
@@ -88,8 +81,6 @@ public class CropServiceImpl implements CropService {
         if(cropFavorites == null){
             cropFavorites = CropFavorites.createCropFavorites(crop, currentUser);
             favoriteCropRepository.save(cropFavorites);
-            cropRepository.save(crop); // 엔티티 저장
-            crop.addLike(); // 좋아요 수 증가
 
             return "즐겨찾기 신규설정";  //다른 값?
         } else {
@@ -97,17 +88,13 @@ public class CropServiceImpl implements CropService {
             //그리고 status값이 true라면, status를 false로 바꾸고,연관관계도 끊고,좋아요수도 증감시킨다.
             if (cropFavorites.isStatus()){
                 cropFavorites.unFavoriteCrop();
-                favoriteCropRepository.save(cropFavorites);
-                crop.removeLike(); // 좋아요 수 감소
-                cropRepository.save(crop); // 엔티티 저장
 
                 log.info("리스트 확인 " + currentUser.getCropFavoritesList());//.get(0).getId()
                 return "즐겨찾기 취소";
             } else {
                 //status값이 false라면,status를 true로 바꾸고, 연관관계도 만들고, 좋아요 수도 증가시킨다.
-                favoriteCropRepository.save(cropFavorites);
-                crop.addLike(); // 좋아요 수 증가
-                cropRepository.save(crop); // 엔티티 저장
+                cropFavorites.reFavoriteCrop();
+
                 log.info("리스트 확인" + currentUser.getCropFavoritesList());//.get(0).getId()
                 return "즐겨찾기 재설정";
             }
@@ -128,44 +115,10 @@ public class CropServiceImpl implements CropService {
     }
 
     @Override
-    public Boolean checkCropIsLiked(Long cropId,String email) {
-        Crop crop = cropRepository.findById(cropId).orElseThrow(CropNotFoundException::new);
+    public Boolean checkCropIsLiked(Long id,String email) {
+        Crop crop = cropRepository.findById(id).orElseThrow(CropNotFoundException::new);
         User currentUser = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
         CropFavorites cropFavorite  = favoriteCropRepository.findByCropAndUserAndStatus(crop,currentUser,true);
         return cropFavorite!=null;
-    }
-
-    @Override
-    public Crop save(Crop crop) {
-        return cropRepository.save(crop);
-    }
-
-    @Transactional
-    public void addLike(Long id, String email) {
-        // Crop 엔티티를 찾습니다.
-        Crop crop = cropRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Crop not found with id: " + id));
-
-        // likes 값을 증가시킵니다.
-        crop.setLikes(crop.getLikes() + 1);
-
-        // 변경 사항을 저장합니다. JPA의 경우, 엔티티의 상태가 변경되면 트랜잭션이 종료될 때 변경 사항을 자동으로 반영합니다.
-        // 명시적으로 save 호출이 필요 없는 경우가 많지만, 명확성을 위해 여기서 호출할 수 있습니다.
-        cropRepository.save(crop);
-    }
-
-
-    @Override
-    public void removeLike(Long id, String email) {
-        Crop crop = cropRepository.findById(id).orElseThrow(CropNotFoundException::new);
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
-
-        CropFavorites cropFavorites = favoriteCropRepository.findByCropAndUser(crop, user);
-        if (cropFavorites != null) {
-            cropFavorites.unFavoriteCrop();
-            favoriteCropRepository.save(cropFavorites);
-            crop.removeLike(); // 좋아요 수 감소
-            cropRepository.save(crop); // Crop 엔티티 저장
-        }
     }
 }

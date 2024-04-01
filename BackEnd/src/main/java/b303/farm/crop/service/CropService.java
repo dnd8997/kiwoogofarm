@@ -25,8 +25,4 @@ public interface CropService {
 
     Boolean checkCropIsLiked(Long id, String email);
 
-    Crop save(Crop crop);
-    void addLike(Long id, String email);
-    void removeLike(Long id, String email);
-
 }

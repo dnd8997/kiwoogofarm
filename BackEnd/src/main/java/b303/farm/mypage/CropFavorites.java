@@ -37,7 +37,7 @@ public class CropFavorites {
         cropFavorites.setCrop(crop);
         cropFavorites.setStatus(true);
         user.addCropFavorite(cropFavorites);
-//        crop.addLike();
+        crop.addLike();
         return cropFavorites;
     }
 
@@ -47,7 +47,7 @@ public class CropFavorites {
         //User와 CropFavorite연관관계끊어버리고(단방향으로)
         getUser().removeCropFavorite(this);  //여기가 문제
         //Recipe에 있는 likes++
-//        getCrop().removeLike();
+        getCrop().removeLike();
     }
 
 
@@ -56,6 +56,6 @@ public class CropFavorites {
         setStatus(true);
         //==============설정해줘야 되나??????===============
         getUser().addCropFavorite(this);
-//        getCrop().addLike();
+        getCrop().addLike();
     }
 }
