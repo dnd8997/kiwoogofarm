@@ -10,7 +10,7 @@
 
     <div class="flex flex-row w-1/3 gap-10 mt-12">
       <div v-for="recipe in topThreeRecipe" :key="recipe.id" class="flex flex-col text-left font-Notosans">
-        <div class="w-56 h-48 cursor-pointer" @click="router.push(`/recipe/${recipe.id}`)">
+        <div class="w-56 h-48 cursor-pointer" @click="router.push(`/recipedetail/${recipe.id}`)">
           <img :src="recipe.imageUrl" alt="recipeImage" class="w-56 h-48">
           <div class="mt-5 text-xl font-bold">{{ recipe.name }}</div>
           <div class="mt-3 text-lg font-light">{{ recipe.info }} </div>

@@ -163,14 +163,16 @@ onMounted(() => {
             console.error(error)
         }
     )
-    Recipe.isRecipeLiked(recipeId, email,
-        (success) => {
-            heartCheck.value = success.data
-            console.log("좋아요 여부", heartCheck.value)
-        },
-        (error) => {
-            console.error(error)
-        })
+    if (email.value) {
+        Recipe.isRecipeLiked(recipeId, email,
+            (success) => {
+                heartCheck.value = success.data
+                console.log("좋아요 여부", heartCheck.value)
+            },
+            (error) => {
+                console.error(error)
+            })
+    }
 })
 </script>
 
