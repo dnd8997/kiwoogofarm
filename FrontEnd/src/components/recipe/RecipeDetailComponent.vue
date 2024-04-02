@@ -120,7 +120,7 @@ const ingredients = ref([]);
 const userStore = useUserStore()
 const email = ref(null)
 const recipeId = route.params.recipeId;
-console.log(email)
+console.log(email.value)
 
 const goBack = () => {
     router.back();
@@ -129,7 +129,7 @@ const goBack = () => {
 const heartCheck = ref(false)
 
 function checkcheck() {
-    Recipe.likeRecipe(recipeId, email,
+    Recipe.likeRecipe(recipeId, email.value,
         (success) => {
             console.log("좋아요 설정/해제 성공")
             heartCheck.value = !heartCheck.value
@@ -164,7 +164,7 @@ onMounted(() => {
         }
     )
     if (email.value) {
-        Recipe.isRecipeLiked(recipeId, email,
+        Recipe.isRecipeLiked(recipeId, email.value,
             (success) => {
                 heartCheck.value = success.data
                 console.log("좋아요 여부", heartCheck.value)
