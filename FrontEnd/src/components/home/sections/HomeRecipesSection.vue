@@ -1,6 +1,6 @@
 <template>
   <div id="recipes" class="flex flex-col section">
-    <RouterLink to="/recipe" class="flex flex-row self-start ml-[420px] mt-16 font-Notosans font-bold text-4xl">
+    <RouterLink to="/recipe" class="flex flex-row self-start ml-[420px] font-Notosans font-bold text-4xl">
       <span class="flex items-center">다양한 레시피를 찾아보세요</span>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1 " stroke="currentColor"
         class="w-12 h-12 ml-2">
@@ -13,7 +13,7 @@
         <div class="w-56 h-48 cursor-pointer" @click="router.push(`/recipedetail/${recipe.id}`)">
           <img :src="recipe.imageUrl" alt="recipeImage" class="w-56 h-48">
           <div class="mt-5 text-xl font-bold">{{ recipe.name }}</div>
-          <div class="mt-3 text-lg font-light">{{ recipe.info }} </div>
+          <div class="mt-3 text-lg font-light">{{ recipe.info.substring(0, 60) + '...' }} </div>
         </div>
       </div>
       <!-- <div class="flex flex-col ml-56 text-left font-Notosans">
@@ -48,7 +48,7 @@ const topThreeRecipe = ref([])
 onMounted(() => {
   Recipe.searchRecipes(
     (success) => {
-      topThreeRecipe.value = success.data.slice(0, 3)
+      topThreeRecipe.value = success.data.slice(5, 8)
       console.log("여기", topThreeRecipe.value)
     },
     (error) => {

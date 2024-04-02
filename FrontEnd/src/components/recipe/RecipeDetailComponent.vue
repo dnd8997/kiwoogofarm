@@ -6,7 +6,6 @@
         </div>
         <!-- 조리순서 제외한 정보 -->
         <div class="flex flex-row w-full" style="padding-left: 10%; margin-top: 2%;">
-            <!-- //TODO 이미지 높이 설정 -->
             <img referrerpolicy="no-referrer" :src="recipeData.imageUrl" style="width: 360px; height: 300px;">
             <!-- 이미지 제외한 정보 -->
             <div class="ml-[8%] w-full flex flex-col">
@@ -120,7 +119,7 @@ const ingredients = ref([]);
 const userStore = useUserStore()
 const email = ref(null)
 const recipeId = route.params.recipeId;
-console.log(email)
+console.log(email.value)
 
 const goBack = () => {
     router.back();
@@ -129,7 +128,7 @@ const goBack = () => {
 const heartCheck = ref(false)
 
 function checkcheck() {
-    Recipe.likeRecipe(recipeId, email,
+    Recipe.likeRecipe(recipeId, email.value,
         (success) => {
             console.log("좋아요 설정/해제 성공")
             heartCheck.value = !heartCheck.value
@@ -156,7 +155,7 @@ onMounted(() => {
         (success) => {
             recipeData.value = success.data
             console.log(recipeData.value.ingredients?.replace(/\[([^\]]+)\]/g, '|'))
-            ingredients.value = recipeData.value.ingredients?.replace(/\[([^\]]+)\]/g, '|').split("|")
+            ingredients.value = recipeData.value.ingredients?.replace(/\[([^\]]+)\]/g, '|').split("|").slice(1)
             console.log("레시피 정보", recipeData.value)
         },
         (error) => {
@@ -164,7 +163,7 @@ onMounted(() => {
         }
     )
     if (email.value) {
-        Recipe.isRecipeLiked(recipeId, email,
+        Recipe.isRecipeLiked(recipeId, email.value,
             (success) => {
                 heartCheck.value = success.data
                 console.log("좋아요 여부", heartCheck.value)
