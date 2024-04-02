@@ -18,7 +18,7 @@
                     <div class="crop-title">
                         {{ cropData.name }}
                     </div>
-                    <div class="flex flex-col items-center">
+                    <div v-if="email" class="flex flex-col items-center">
                         <div>
                             <v-icon v-if="heartCheck" @click="checkcheck()" style="cursor: pointer; color: #FF4081;"
                                 icon="mdi-heart">
@@ -190,7 +190,6 @@ function checkcheck() {
                 route.params.cropId,
                 (success) => {
                     cropData.value = success.data
-                    console.log(cropData.value)
                 },
                 (error) => {
                     console.error(error)
@@ -214,7 +213,6 @@ onMounted(() => {
         route.params.cropId,
         (success) => {
             cropData.value = success.data
-            console.log(cropData.value)
         },
         (error) => {
             console.error(error)
@@ -225,23 +223,23 @@ onMounted(() => {
         route.params.cropId,
         (success) => {
             recipeAboutCrop.value = success.data
-            console.log(recipeAboutCrop.value)
         },
         (error) => {
             console.error(error)
         }
     )
-
-    Crop.cropLikedCheck(
-        route.params.cropId,
-        email.value,
-        (success) => {
-            heartCheck.value = success.data
-        },
-        (error) => {
-            console.error(error)
-        }
-    )
+    if ( email.value !== null ) {
+        Crop.cropLikedCheck(
+            route.params.cropId,
+            email.value,
+            (success) => {
+                heartCheck.value = success.data
+            },
+            (error) => {
+                console.error(error)
+            }
+        )
+    }
 })
 
 </script>
@@ -355,3 +353,4 @@ onMounted(() => {
     margin-bottom: 5px;
 }
 </style>
+

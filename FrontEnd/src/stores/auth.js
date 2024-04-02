@@ -45,6 +45,7 @@ export const useAuthStore = defineStore('auth', () => {
             localStorage.removeItem('nickname')
             localStorage.removeItem('image')
             isAuthenticated.value = !!localStorage.getItem('accessToken')
+            userStore.updateInfo(null, null, null, null)
         }   catch (error) {
             console.error(error)
         }
