@@ -20,7 +20,7 @@
       class="fixed w-40 h-40 font-medium font-bold left-button font-Notosans top-96 left-8">
       <v-icon icon="mdi-arrow-left"></v-icon> 이전
     </button>
-    
+
     <!-- 첫번째 질문 -->
     <div v-if="currentPage === 1" class="flex flex-col items-center justify-center" style="width: 1100px;">
       <span class="font-bold font-Notosans text-xl text-[#00B564]">(1/3)</span>
@@ -53,13 +53,12 @@
       <div class="grid grid-cols-5 my-6 gap-x-20 gap-y-5">
         <div v-for="crop in filteredCropData" :key="crop.id" class="flex flex-col items-center m-1 cursor-pointer"
           @click="
-      toggleIngredient(crop.name)">
+    toggleIngredient(crop.name)">
           <div
             :class="isSelectedIngredient(crop.name) ? 'ring-2 ring-green-500 rounded-full  p-0.5 relative' : 'rounded-full p-0.5 relative'">
             <div style="position: relative;">
               <img referrerpolicy="no-referrer" :src="crop.thumbnailUrl" alt="crop.name"
-                class="object-cover rounded-full w-28 h-28" :class="
-                  isSelectedIngredient(crop.name) ? 'opacity-50 ' : ''" />
+                class="object-cover rounded-full w-28 h-28" :class="isSelectedIngredient(crop.name) ? 'opacity-50 ' : ''" />
               <v-icon v-if="isSelectedIngredient(crop.name)" icon="mdi-check" class="text-green-500"
                 style="font-size: 50px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></v-icon>
             </div>
@@ -83,7 +82,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '굽기' ? ' border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','굽기')">
+            @click="handleClick('cookingmethod', '굽기')">
             <img src="../../assets/fry.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '굽기' ? 'opacity-50 ' : 'opacity-100'">
             <!-- 1. 이모티콘 사용 -->
@@ -101,7 +100,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '끓이기' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','끓이기')">
+            @click="handleClick('cookingmethod', '끓이기')">
             <img src="../../assets/boil.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '끓이기' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -114,7 +113,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '데치기' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','데치기')">
+            @click="handleClick('cookingmethod', '데치기')">
             <img src="../../assets/dachim.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '데치기' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -127,7 +126,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '무침' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','무침')">
+            @click="handleClick('cookingmethod', '무침')">
             <img src="../../assets/muchim.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '무침' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -140,7 +139,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '볶음' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','볶음')">
+            @click="handleClick('cookingmethod', '볶음')">
             <img src="../../assets/boggeum.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '볶음' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -153,7 +152,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '부침' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','부침')">
+            @click="handleClick('cookingmethod', '부침')">
             <img src="../../assets/buchim.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '부침' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -166,7 +165,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '비빔' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','비빔')">
+            @click="handleClick('cookingmethod', '비빔')">
             <img src="../../assets/bibim.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '비빔' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -179,7 +178,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '삶기' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','삶기')">
+            @click="handleClick('cookingmethod', '삶기')">
             <img src="../../assets/samgi.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '삶기' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -192,7 +191,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '절임' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','절임')">
+            @click="handleClick('cookingmethod', '절임')">
             <img src="../../assets/jullim.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '절임' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -205,7 +204,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '조림' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','조림')">
+            @click="handleClick('cookingmethod', '조림')">
             <img src="../../assets/jorim.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '조림' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -218,7 +217,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '찜' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','찜')">
+            @click="handleClick('cookingmethod', '찜')">
             <img src="../../assets/jjim.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '찜' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -231,7 +230,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '튀김' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','튀김')">
+            @click="handleClick('cookingmethod', '튀김')">
             <img src="../../assets/fried.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '튀김' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -244,7 +243,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '회' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','회')">
+            @click="handleClick('cookingmethod', '회')">
             <img src="../../assets/sushi.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '회' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -257,7 +256,7 @@
         <div class="text-base font-medium text-center cursor-pointer cook font-Notosans">
           <div class="relative overflow-hidden rounded-full image-container"
             :class="isSelected['cookingmethod'].value === '기타' ? 'border-[3px] border-[#00B564]' : 'opacity-100'"
-            @click="handleClick('cookingmethod','기타')">
+            @click="handleClick('cookingmethod', '기타')">
             <img src="../../assets/cook.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '기타' ? 'opacity-50 ' : 'opacity-100'">
             <div class="absolute icon-container">
@@ -282,17 +281,16 @@
         <div
           class="container h-72 cursor-pointer text-center font-Notosans font-medium text-base mx-5  rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_4px_15px_0px] outline-2 outline-gray-900"
           :class="isSelected['difficulty'].value === '아무나' ? 'border-solid border-2 border-[#00B564]' : 'opacity-100'"
-          @click="handleClick('difficulty','아무나')">
+          @click="handleClick('difficulty', '아무나')">
           <img src="../../assets/everyone2.png" class="mt-2">
           <p class="my-6">아무나</p>
         </div>
 
 
-        <!-- //TODO 쉬움초급으로 바꿔야(임시) -->
         <div
           class="container h-72 cursor-pointer text-center font-Notosans font-medium text-base mx-5 rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_4px_15px_0px]"
           :class="isSelected['difficulty'].value === '초급' ? 'border-solid border-2 border-[#00B564]' : 'opacity-100'"
-          @click="handleClick('difficulty','초급')">
+          @click="handleClick('difficulty', '초급')">
           <img src="../../assets/beginner.png" class="mt-2">
           <p class="my-6">초급</p>
         </div>
@@ -300,7 +298,7 @@
         <div
           class="container h-72 cursor-pointer text-center font-Notosans font-medium text-base mx-5 rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_4px_15px_0px]"
           :class="isSelected['difficulty'].value === '중급' ? 'border-solid border-2 border-[#00B564]' : 'opacity-100'"
-          @click="handleClick('difficulty','중급')">
+          @click="handleClick('difficulty', '중급')">
           <img src="../../assets/intermediate.png" class="mt-2">
           <p class="my-6">중급</p>
         </div>
@@ -308,7 +306,7 @@
         <div
           class="container h-72 cursor-pointer text-center font-Notosans font-medium text-base mx-5 rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_4px_15px_0px]"
           :class="isSelected['difficulty'].value === '고급' ? 'border-solid border-2 border-[#00B564]' : 'opacity-100'"
-          @click="handleClick('difficulty','고급')">
+          @click="handleClick('difficulty', '고급')">
           <img src="../../assets/expert2.png" class="mt-2">
           <p class="my-6">고급</p>
         </div>
@@ -316,7 +314,7 @@
         <div
           class="container h-72 cursor-pointer text-center font-Notosans font-medium text-base mx-5 rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_4px_15px_0px]"
           :class="isSelected['difficulty'].value === '신의경지' ? 'border-solid border-2 border-[#00B564]' : 'opacity-100'"
-          @click="handleClick('difficulty','신의경지')">
+          @click="handleClick('difficulty', '신의경지')">
           <img src="../../assets/god.png" class="rounded-t-md ">
           <p class="my-8">신의 경지</p>
         </div>
@@ -329,13 +327,13 @@
 
     <!--    오른쪽 이동버튼-->
     <button @click="nextPage" v-if="currentPage < 3"
-      class="fixed  w-40 h-40 font-medium font-bold right-button font-Notosans top-96 right-8"> 다음
+      class="fixed w-40 h-40 font-medium font-bold right-button font-Notosans top-96 right-8"> 다음
       <v-icon icon="mdi-arrow-right"></v-icon>
     </button>
   </div>
   <!--    레시피 추천 받기 버튼-->
   <div>
-    <button v-if="isAllSelected()&&currentPage === 3&&!isLoading" @click="handleRecipeRecommendation"
+    <button v-if="isAllSelected() && currentPage === 3 && !isLoading" @click="handleRecipeRecommendation"
       class="absolute flex items-center justify-center text-lg font-light rounded-md cursor-pointer w-36 h-14 font-Notosans bottom-10 right-48 "
       :class="isSelected['difficulty'].value != '0' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'">
       <span class="mr-2">추천받기</span>
@@ -424,9 +422,10 @@ const isAllSelected = () => {
       }
     }
     else {
-      if (isSelected[key].value.value === '0'){
+      if (isSelected[key].value.value === '0') {
         return false;
-      } } 
+      }
+    }
   }
   return true;
 };
@@ -444,12 +443,12 @@ const toggleIngredient = (cropName) => {
 }
 
 //해당 재료가 선택되었는지 확인하는 함수
-const isSelectedIngredient = (cropName) => { 
+const isSelectedIngredient = (cropName) => {
   return isSelected['ingredients'].value.includes(cropName)
 }
 
 const handleClick = (index, value) => {
-  isSelected[index].value =  value;
+  isSelected[index].value = value;
   // document.getElementsByClassName("right-button").item(0).classList.remove("hidden");
   console.log(isSelected[index].value);
 };
@@ -467,14 +466,14 @@ const handleRecipeRecommendation = async () => {
       recipeRecommendationStore.setRecipeRecommendationData(success.data);
       isLoading.value = true;
       setTimeout(() => {
-          router.push({
-            name: 'reciperecommendresult',
-          });
-        }, 3000);
+        router.push({
+          name: 'reciperecommendresult',
+        });
+      }, 3000);
     }, (error) => {
-      console.error('API 요청 실패',error)
+      console.error('API 요청 실패', error)
     });
-    
+
     // // API 요청 성공 시 페이지 이동
     // if (response) {
     //   recipeRecommendationStore.setRecipeRecommendationData(response.data);  //.붙이기
@@ -536,11 +535,12 @@ const handleRecipeRecommendation = async () => {
   width: 200px;
   overflow: hidden;
 } */
-.cook > img {
+.cook>img {
   height: 200px;
   width: 200px;
   overflow: hidden;
 }
+
 .image-container {
   line-height: 136px;
   height: 136px;
@@ -549,30 +549,35 @@ const handleRecipeRecommendation = async () => {
   justify-content: center;
   align-items: center;
 }
-.image-container > img {
+
+.image-container>img {
   object-fit: cover;
   height: 100%;
   width: auto;
   /* object-fit: contain; */
 }
+
 .checkmark {
-  height: 50px; 
+  height: 50px;
   width: 50px;
   top: 50%;
   left: 50%;
-  transform: translate( -50%, -50% );
+  transform: translate(-50%, -50%);
   color: #00B562;
 }
+
 .check-icon {
   font-size: 50px;
   color: #00B562;
 }
+
 .difficulty-container {
   height: 200px;
   width: 200px;
   overflow: hidden;
 }
-.container > img {
+
+.container>img {
   height: 200px;
   width: 200px;
 }
@@ -594,5 +599,4 @@ const handleRecipeRecommendation = async () => {
   border-radius: 70%;
   overflow: hidden;
 } */
-
 </style>
