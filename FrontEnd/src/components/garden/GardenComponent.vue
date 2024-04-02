@@ -47,7 +47,7 @@
       </div>
 
       <div class="flex flex-row mt-[12%] justify-center" >
-        <div class="cursor-pointer border-[1px] border-[#EC6B6B] text-[#EC6B6B]  rounded-lg w-28 h-12 flex flex-row items-center justify-center " @click="handleSaveClick(gardenId)">
+        <div  class="cursor-pointer border-[1px] border-[#EC6B6B] text-[#EC6B6B]  rounded-lg w-28 h-12 flex flex-row items-center justify-center " @click="handleSaveClick(gardenId)">
           <img v-if="!isSave" alt="" src="@/assets/heart.svg" class="h-6 w-6 mr-1 ">
           <img v-else alt="" src="@/assets/fullheart.svg" class="h-6 w-6 mr-1" >
           찜하기
@@ -60,8 +60,76 @@
 
 <script>
 import axios from 'axios';
+import { useUserStore } from '@/stores/user';
+import { ref, onMounted } from 'vue';
 export default {
   name: "test",
+  setup() {
+    const userStore = useUserStore();
+
+    const nickname = ref('');
+    const email = ref('');
+    const image = ref('');
+    const isSave = ref(false);
+    onMounted(() => {
+      nickname.value = userStore.nickname;
+      email.value = userStore.email;
+      image.value = userStore.image_url;
+    });
+    const checkHeart = (gardenId) => {
+      if(email.value===null){
+        isSave.value = false;
+        return;
+      }
+      return axios.get(`https://j10b303.p.ssafy.io/api/garden/${gardenId}/checkGardenIsLiked/${email.value}`)
+          .then(response => {
+            console.log(`checkHeart로 조회 결과 : ${response.data}`);
+            isSave.value = response.data;
+          })
+          .catch(error => {
+            console.error('데이터를 가져오는 중 에러 발생:', error);
+            throw error;
+          });
+    };
+    const handleSaveClick = (gardenId) =>{
+      const setHeart = (gardenId) => {
+        if(email.value===null){
+          alert("로그인 후 사용가능한 기능입니다")
+          return;
+        }
+        return new Promise((resolve, reject) => {
+          axios.post(`https://j10b303.p.ssafy.io/api/garden/${gardenId}/gardenfavorite/${email.value}`)
+              .then(response => {
+                resolve();
+              })
+              .catch(error => {
+                console.error('데이터를 가져오는 중 에러 발생:', error);
+                reject(error);
+              });
+        });
+      };
+      const promise = setHeart(gardenId);
+      if (!promise) {
+        return; // 아무 작업도 하지 않고 함수 종료
+      }
+      promise
+          .then(() => {
+            isSave.value = !(isSave.value);
+          })
+          .catch(error => {
+            console.error('checkHeart 함수 실행 중 에러 발생:', error);
+          });
+    }
+
+    return {
+      nickname,
+      email,
+      image,
+      isSave,
+      checkHeart,
+      handleSaveClick
+    };
+  },
   data() {
     return {
       map: null,
@@ -69,7 +137,6 @@ export default {
       newMarkers: [],
       latitude: 0,
       longitude: 0,
-      isSave: false,
       isDivVisible: false,
       gardenId: 0,
       gardenName: "",
@@ -230,21 +297,11 @@ export default {
             });
       };
 
-      const checkHeart = (gardenId) => {
-        return axios.get(`https://j10b303.p.ssafy.io/api/garden/${gardenId}/checkGardenIsLiked/jungyoanwoo@naver.com`)
-            .then(response => {
-              console.log(`checkHeart로 조회 결과 : ${response.data}`);
-              this.isSave = response.data;
-            })
-            .catch(error => {
-              console.error('데이터를 가져오는 중 에러 발생:', error);
-              throw error;
-            });
-      };
+
 
       fetchGardenInfo()
           .then(() => {
-            return checkHeart(this.newMarkers[i].id);
+            return this.checkHeart(this.newMarkers[i].id);
           })
           .then(() => {
             this.isDivVisible = true;
@@ -263,27 +320,7 @@ export default {
     handleCloseClick() {
     this.isDivVisible = false;
   },
-  handleSaveClick(gardenId) {
-    const setHeart = (gardenId) => {
-      return new Promise((resolve, reject) => {
-        axios.post(`https://j10b303.p.ssafy.io/api/garden/${gardenId}/gardenfavorite/jungyoanwoo@naver.com`)
-            .then(response => {
-              resolve();
-            })
-            .catch(error => {
-              console.error('데이터를 가져오는 중 에러 발생:', error);
-              reject(error);
-            });
-      });
-    };
-    setHeart(gardenId)
-        .then(() => {
-          this.isSave = !this.isSave;
-        })
-        .catch(error => {
-          console.error('checkHeart 함수 실행 중 에러 발생:', error);
-        });
-  },
+
   openNewWindow() {
     // 새 창 열기
     window.open(
