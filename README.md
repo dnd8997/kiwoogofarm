@@ -38,7 +38,9 @@
 
 <br/>
 
-![농작물추천4.5](C:\Users\SSAFY\Downloads\gif_speedup\농작물추천4.5.gif)
+
+
+https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B303/-/issues/1
 
 
 
