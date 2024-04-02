@@ -14,14 +14,15 @@
                     <div class="font-extrabold text-[28px]">{{ recipeData.name }}</div>
                     <div class="flex flex-col items-center">
                         <div>
-                            <v-icon v-if="heartCheck" @click="checkcheck()" style="cursor: pointer; color: #FF4081;"
-                                icon="mdi-heart">
+                            <v-icon v-if="heartCheck && email !== null" @click="checkcheck()"
+                                style="cursor: pointer; color: #FF4081;" icon="mdi-heart">
                             </v-icon>
-                            <v-icon v-else @click="checkcheck()" style="cursor: pointer; color: #FF4081;"
-                                icon="mdi-heart-outline">
+                            <v-icon v-if="!heartCheck && email !== null" @click="checkcheck()"
+                                style="cursor: pointer; color: #FF4081;" icon="mdi-heart-outline">
                             </v-icon>
                         </div>
-                        <div class="text-center text-[14px]">{{ recipeData.likes }}</div>
+                        <div v-if="email !== null" class="text-center text-[14px]">{{ recipeData.likes }}
+                        </div>
                     </div>
                 </div>
                 <div class="whitespace-pre-wrap mt-6 text-[#4F4F4F] w-full">{{ recipeData.info }}</div>
@@ -109,15 +110,15 @@
 
 <script setup>
 import * as Recipe from '@/js/Recipe';
-import { jwtDecode } from 'jwt-decode';
+import { useUserStore } from '@/stores/user';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute()
 const router = useRouter()
 const recipeData = ref([])
 const ingredients = ref([]);
-const token = jwtDecode(localStorage.getItem('accessToken'))
-const email = token.email
+const userStore = useUserStore()
+const email = ref(null)
 const recipeId = route.params.recipeId;
 console.log(email)
 
@@ -149,6 +150,7 @@ function checkcheck() {
 
 
 onMounted(() => {
+    email.value = userStore.email
     Recipe.getRecipeById(
         route.params.recipeId,
         (success) => {
