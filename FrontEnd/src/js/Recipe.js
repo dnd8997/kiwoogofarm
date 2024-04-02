@@ -2,11 +2,8 @@ import { localaxios } from "./BaseAxios";
 
 const local = localaxios();
 
-async function searchRecipes(value, success, fail) {
-  await local
-    .post("/recipe/all", JSON.stringify(value))
-    .then(success)
-    .catch(fail);
+async function searchRecipes(success, fail) {
+  await local.get("/recipe/all").then(success).catch(fail);
 }
 
 async function getRecipeById(id, success, fail) {
