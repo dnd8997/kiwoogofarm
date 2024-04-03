@@ -40,7 +40,7 @@
 
 
 
-https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B303/-/issues/1
+![농작물검색](/uploads/77e7fb0ab886aedd89f44a6503e619ba/농작물검색.gif)
 
 
 
