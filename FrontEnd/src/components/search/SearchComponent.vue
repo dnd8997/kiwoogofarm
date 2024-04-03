@@ -113,7 +113,7 @@ const filteredCropData = computed(() => {
         case '빛이 적어도 되는':
           tempFilteredData = tempFilteredData.filter(crop => crop.sunshine === '하');
           break;
-        case '흙이 필요없는':
+        case '수경재배가 되는':
           tempFilteredData = tempFilteredData.filter(crop => crop.isHydroponics === 1);
           break;
         case '물주기가 긴':
