@@ -34,7 +34,6 @@ import HeaderEndComponent from '@/components/header/HeaderEndComponent.vue';
     position: fixed;
     width: 100%;
     height: auto !important;
-    /* min-height: 140px; */
     border-block: 1px solid rgba(0,0,0,0.1);
   }
 

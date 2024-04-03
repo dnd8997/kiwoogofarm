@@ -119,7 +119,6 @@ const ingredients = ref([]);
 const userStore = useUserStore()
 const email = ref(null)
 const recipeId = route.params.recipeId;
-console.log(email.value)
 
 const goBack = () => {
     router.back();
@@ -130,7 +129,6 @@ const heartCheck = ref(false)
 function checkcheck() {
     Recipe.likeRecipe(recipeId, email.value,
         (success) => {
-            console.log("좋아요 설정/해제 성공")
             heartCheck.value = !heartCheck.value
             Recipe.getRecipeById(
                 recipeId,
@@ -154,9 +152,7 @@ onMounted(() => {
         route.params.recipeId,
         (success) => {
             recipeData.value = success.data
-            console.log(recipeData.value.ingredients?.replace(/\[([^\]]+)\]/g, '|'))
             ingredients.value = recipeData.value.ingredients?.replace(/\[([^\]]+)\]/g, '|').split("|").slice(1)
-            console.log("레시피 정보", recipeData.value)
         },
         (error) => {
             console.error(error)
@@ -166,7 +162,6 @@ onMounted(() => {
         Recipe.isRecipeLiked(recipeId, email.value,
             (success) => {
                 heartCheck.value = success.data
-                console.log("좋아요 여부", heartCheck.value)
             },
             (error) => {
                 console.error(error)
@@ -179,7 +174,6 @@ onMounted(() => {
 .section {
     display: flex;
     justify-content: left;
-    /* height: 100vh; */
     width: 1168px;
     margin-top: 15%;
     white-space: nowrap;

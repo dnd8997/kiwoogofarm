@@ -83,7 +83,6 @@ export default {
       }
       return axios.get(`https://j10b303.p.ssafy.io/api/garden/${gardenId}/checkGardenIsLiked/${email.value}`)
           .then(response => {
-            console.log(`checkHeart로 조회 결과 : ${response.data}`);
             isSave.value = response.data;
           })
           .catch(error => {
@@ -208,7 +207,6 @@ export default {
     },
 
     searchLocation() {
-      console.log(this.searchQuery);
       if (this.searchQuery.trim() === '') {
         return;
       }
@@ -269,7 +267,6 @@ export default {
           this.handleMarkerClick(i);
         });
       }
-      // this.map.setBounds(bounds);
     },
 
 

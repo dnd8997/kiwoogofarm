@@ -3,7 +3,6 @@ const token = localStorage.getItem("accessToken");
 function localaxios() {
   const instance = axios.create({
     baseURL: "https://j10b303.p.ssafy.io/api",
-    // baseURL: "http://127.0.0.1:8080",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },

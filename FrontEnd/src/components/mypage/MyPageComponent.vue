@@ -48,12 +48,7 @@ const nickname = ref(null);
 const email = ref(null)
 const image = ref(null);
 
-// const itemsMap2 = [
-//   { name: '디저트', image: 'https://lh5.googleusercontent.com/proxy/gOlu3d7Gw7g56kMaOAFhn9SRdP5VfXvc-tbI81byHtvcTFj-QKNHomEJKC76VEBksrCb0SO1d3L-zHskOlHkLb2-eFhee2SdmuWw' },
-//   { name: '떡볶이', image: 'https://img.freepik.com/free-photo/cheesy-tokbokki-korean-traditional-food-on-black-board-background-lunch-dish_1150-42986.jpg' },
-//   { name: '비빔밥', image: 'https://i.namu.wiki/i/b2U9ZGSKF76RyLb-E_jdaH9vlhgWqSohlyJlHD_J7eEllHhoO5C9OtQPwSOnEnyudRBn0XUHpS10SEnyZLUbUg.webp' },
-//   { name: '장어덮밥', image: 'https://d20aeo683mqd6t.cloudfront.net/ko/articles/title_images/000/039/267/medium/pixta_32269376_M.jpg?2019' }
-// ];
+
 function getImageUrl(item)  {
   return item.imageUrl || item.image_url || "https://img.freepik.com/premium-vector/plant-and-wooden-basket_188544-2920.jpg";
 }
@@ -67,7 +62,6 @@ async function fetchCropFavorites() {
   try {
     const response = await axios.get(`https://j10b303.p.ssafy.io/api/crop/myFavorites/${email.value}`);
     cropFavorites.value = response.data;
-    console.log(cropFavorites.value);
   } catch (error) {
     console.error('Error fetching recipe favorites:', error);
   }
@@ -77,7 +71,6 @@ async function fetchRecipeFavorites() {
   try {
     const response = await axios.get(`https://j10b303.p.ssafy.io/api/recipe/myFavorites/${email.value}`);
     recipeFavorites.value = response.data;
-    console.log(recipeFavorites.value)
   } catch (error) {
     console.error('Error fetching recipe favorites:', error);
   }
@@ -86,7 +79,6 @@ async function fetchGardenFavorites() {
   try {
     const response = await axios.get(`https://j10b303.p.ssafy.io/api/garden/myGardenFavorites/${email.value}`);
     gardenFavorites.value = response.data;
-    console.log(gardenFavorites.value)
   } catch (error) {
     console.error('Error fetching recipe favorites:', error);
   }
