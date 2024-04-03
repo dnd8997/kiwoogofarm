@@ -245,7 +245,6 @@ const handleRecommendation = async () => {
       }]
     };
 
-    console.log(requestData);
     // API 요청 보내기
     const response = await axios.post('/recommendapi/outsideCrop', requestData, {
       // 필요한 옵션 설정

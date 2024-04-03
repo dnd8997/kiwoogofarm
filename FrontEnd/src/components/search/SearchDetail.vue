@@ -218,7 +218,7 @@ onMounted(() => {
             console.error(error)
         }
     )
-    // console.log("여기", route.params.cropId)
+
     Recipe.getRecipeAboutCrop(
         route.params.cropId,
         (success) => {

@@ -64,7 +64,6 @@ const result = ref([]);
 
 onMounted(() => {
   result.value = recipeRecommendationStore.recipeRecommendationData;
-  console.log(result.value)
 });
 
 </script>

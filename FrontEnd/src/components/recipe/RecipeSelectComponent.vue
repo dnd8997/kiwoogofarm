@@ -85,11 +85,6 @@
             @click="handleClick('cookingmethod', '굽기')">
             <img src="../../assets/fry.png" class="align-middle contain"
               :class="isSelected['cookingmethod'].value === '굽기' ? 'opacity-50 ' : 'opacity-100'">
-            <!-- 1. 이모티콘 사용 -->
-            <!-- <p class="absolute text-5xl checkmark" :class="isSelected['cookingmethod'].value === '굽기' ? 'opacity-100' : 'opacity-0'">✔</p> -->
-            <!-- 2. 체크마크 사진(.svg) 사용 -->
-            <!-- <img src="../../assets/check-svgrepo-com.svg" class="absolute checkmark" :class="isSelected['cookingmethod'].value === '굽기' ? 'opacity-100' : 'opacity-0'"> -->
-            <!-- 3. v-icon 사용 -->
             <div class="absolute icon-container">
               <v-icon icon="mdi-check" class="check-icon"
                 :class="isSelected['cookingmethod'].value === '굽기' ? 'opacity-100' : 'opacity-0'"></v-icon>
@@ -360,7 +355,6 @@ export default {
     nextPage() {
       if (this.currentPage < 3) {
         this.currentPage++;
-        // document.getElementsByClassName("right-button").item(0).classList.toggle("hidden");
       }
     },
     prevPage() {
@@ -402,7 +396,7 @@ onMounted(() => {
       cropData.value = success.data
     },
     (error) => {
-      console.log(error)
+      console.error(error)
     }
   )
 })
@@ -439,7 +433,6 @@ const toggleIngredient = (cropName) => {
     isSelected['ingredients'].value.push(cropName);
   }
   searchText.value = ''
-  console.log(isSelected['ingredients'].value)
 }
 
 //해당 재료가 선택되었는지 확인하는 함수
@@ -449,8 +442,6 @@ const isSelectedIngredient = (cropName) => {
 
 const handleClick = (index, value) => {
   isSelected[index].value = value;
-  // document.getElementsByClassName("right-button").item(0).classList.remove("hidden");
-  console.log(isSelected[index].value);
 };
 
 // 요리 추천 요청을 보내는 함수
@@ -473,21 +464,6 @@ const handleRecipeRecommendation = async () => {
     }, (error) => {
       console.error('API 요청 실패', error)
     });
-
-    // // API 요청 성공 시 페이지 이동
-    // if (response) {
-    //   recipeRecommendationStore.setRecipeRecommendationData(response.data);  //.붙이기
-    //   isLoading.value = true;
-    //   setTimeout(() => {
-    //     router.push({
-    //       name: 'reciperecommendresult',
-    //     });
-    //   }, 3000);
-
-    // } else {
-    //   console.error('API 요청 실패:', response);
-    //   // 실패한 경우에 대한 처리 추가
-    // }
   } catch (error) {
     console.error('API 요청 중 오류 발생:', error);
     // 오류 발생 시에 대한 처리 추가
@@ -495,46 +471,10 @@ const handleRecipeRecommendation = async () => {
 }
 
 
-
-
-// // 요리 추천 요청을 보내는 함수(기존)
-// const handleRecommendation = async () => {
-//   try {
-//     // isSelected 객체의 값을 추출하여 API 요청에 필요한 데이터로 변환
-//     const requestData = {};
-//     for (let key in isSelected) {
-//       requestData[key] = isSelected[key].value;
-//     }
-//     console.log(requestData);
-//     // API 요청 보내기
-//     const response = await axios.post('/api/recommendation', requestData, {
-//       // 필요한 옵션 설정
-//     });
-
-//     // API 요청 성공 시 페이지 이동
-//     if (response.status === 200) {
-//       this.$router.push({
-//         path: '/recommendresult',
-//         state: { recommendation: response.data }
-//       });
-
-//     } else {
-//       console.error('API 요청 실패:', response.status);
-//       // 실패한 경우에 대한 처리 추가
-//     }
-//   } catch (error) {
-//     console.error('API 요청 중 오류 발생:', error);
-//     // 오류 발생 시에 대한 처리 추가
-//   }
-// }
 </script>
 
 <style scoped>
-/* .cursor-pointer > img {
-  height: 200px;
-  width: 200px;
-  overflow: hidden;
-} */
+
 .cook>img {
   height: 200px;
   width: 200px;
@@ -554,7 +494,6 @@ const handleRecipeRecommendation = async () => {
   object-fit: cover;
   height: 100%;
   width: auto;
-  /* object-fit: contain; */
 }
 
 .checkmark {
@@ -582,21 +521,5 @@ const handleRecipeRecommendation = async () => {
   width: 200px;
 }
 
-/* .difficulty-select{
-  height: 400px;
-  width: 250px;
-} */
-/* .cursor-pointer {
-  align-content: center;
-  height: 300px;
-  width: 300px;
-  border-radius: 70%;
-    overflow: hidden;
-}
-.col > img {
-  height: 300px;
-  width: 300px;
-  border-radius: 70%;
-  overflow: hidden;
-} */
+
 </style>

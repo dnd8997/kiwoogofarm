@@ -33,7 +33,6 @@ onMounted(() => {
   Recipe.searchRecipes(
     (success) => {
       topThreeRecipe.value = success.data.slice(5, 8)
-      console.log("여기", topThreeRecipe.value)
     },
     (error) => {
       console.error(error)
