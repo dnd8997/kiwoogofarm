@@ -45,6 +45,8 @@
 <hr>
 ![메인페이지](/uploads/cbc20f0c453630230a3e5af7e77c6e7d/메인페이지.gif)
 
+![메인페이지](C:\Users\SSAFY\Desktop\class\S10P22B303\gif\메인페이지.gif)
+
 #### 농작물
 
 <hr>
