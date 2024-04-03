@@ -16,23 +16,7 @@
           <div class="mt-3 text-lg font-light">{{ recipe.info.substring(0, 60) + '...' }} </div>
         </div>
       </div>
-      <!-- <div class="flex flex-col ml-56 text-left font-Notosans">
-        <img src="@/assets/food1.png" alt="" class="w-56 h-48">
-        <span class="mt-5 text-xl font-bold">버터 감자구이</span>
-        <span class="mt-3 text-lg font-light">향긋한 버터의 향에 달달한<br> 설탕이 더해진 맛있는 감자구이 </span>
-      </div>
 
-      <div class="flex flex-col ml-24 text-left font-Notosans">
-        <img src="@/assets/food2.jpg" alt="" class="w-56 h-48">
-        <span class="mt-5 text-xl font-bold">쪽파 계란말이</span>
-        <span class="mt-3 text-lg font-light">만들기도 쉽고 재료도 <br>간단하고 어른 아이 할 거 없이<br> 모두 좋아하는 반찬종류 중 하나 </span>
-      </div>
-
-      <div class="flex flex-col ml-24 font-Notosans text-lef">
-        <img src="@/assets/food3.jpg" alt="" class="w-56 h-48">
-        <span class="mt-5 text-xl font-bold text-left">베이컨 마늘<br>청경채볶음</span>
-        <span class="mt-3 text-lg font-light text-left">밥 반찬은 물론 술안주로도<br> 잘 어울리는 요리 </span>
-      </div> -->
     </div>
   </div>
 </template>

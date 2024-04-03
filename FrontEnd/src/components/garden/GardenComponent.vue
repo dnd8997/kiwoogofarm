@@ -251,17 +251,12 @@ export default {
 
       const imageSrc =
           "https://i.ibb.co/ch1GjBH/marker.png";
-      const likedimageSrc =
-          "https://i.ibb.co/GJqJz3T/marker.png";
 
       for (let i = 0; i < this.newMarkers.length; i++) {
         let imageSize = new kakao.maps.Size(40, 54);
         let markerImage;
-        if (this.newMarkers[i].gardenSize === 16) {
-          markerImage = new kakao.maps.MarkerImage(likedimageSrc, imageSize);
-        } else {
-          markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-        }
+        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
         let marker = new kakao.maps.Marker({
           map: this.map,
           position: new kakao.maps.LatLng(this.newMarkers[i].gardenLat, this.newMarkers[i].gardenLong),
