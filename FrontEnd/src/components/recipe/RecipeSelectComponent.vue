@@ -58,7 +58,8 @@
             :class="isSelectedIngredient(crop.name) ? 'ring-2 ring-green-500 rounded-full  p-0.5 relative' : 'rounded-full p-0.5 relative'">
             <div style="position: relative;">
               <img referrerpolicy="no-referrer" :src="crop.thumbnailUrl" alt="crop.name"
-                class="object-cover rounded-full w-28 h-28" :class="isSelectedIngredient(crop.name) ? 'opacity-50 ' : ''" />
+                class="object-cover rounded-full w-28 h-28"
+                :class="isSelectedIngredient(crop.name) ? 'opacity-50 ' : ''" />
               <v-icon v-if="isSelectedIngredient(crop.name)" icon="mdi-check" class="text-green-500"
                 style="font-size: 50px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></v-icon>
             </div>
@@ -306,13 +307,13 @@
           <p class="my-6">고급</p>
         </div>
 
-        <div
+        <!-- <div
           class="container h-72 cursor-pointer text-center font-Notosans font-medium text-base mx-5 rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_4px_15px_0px]"
           :class="isSelected['difficulty'].value === '신의경지' ? 'border-solid border-2 border-[#00B564]' : 'opacity-100'"
           @click="handleClick('difficulty', '신의경지')">
           <img src="../../assets/god.png" class="rounded-t-md ">
           <p class="my-8">신의 경지</p>
-        </div>
+        </div> -->
       </div>
 
 
@@ -329,7 +330,7 @@
   <!--    레시피 추천 받기 버튼-->
   <div>
     <button v-if="isAllSelected() && currentPage === 3 && !isLoading" @click="handleRecipeRecommendation"
-      class="absolute flex items-center justify-center text-lg font-light rounded-md cursor-pointer w-36 h-14 font-Notosans bottom-10 right-48 "
+      class="absolute flex items-center justify-center text-lg font-light rounded-md cursor-pointer w-36 h-14 font-Notosans bottom-10 right-80 "
       :class="isSelected['difficulty'].value != '0' ? 'bg-[#00B562] text-white' : 'bg-[#F6F6F3] text-[#444444]'">
       <span class="mr-2">추천받기</span>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
@@ -474,7 +475,6 @@ const handleRecipeRecommendation = async () => {
 </script>
 
 <style scoped>
-
 .cook>img {
   height: 200px;
   width: 200px;
@@ -520,6 +520,4 @@ const handleRecipeRecommendation = async () => {
   height: 200px;
   width: 200px;
 }
-
-
 </style>
