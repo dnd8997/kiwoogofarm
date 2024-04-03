@@ -104,7 +104,7 @@
             <div style="margin-top: 2%;">
                 <img src="@/assets/healthy.png" alt="">
             </div>
-            <div style="font-size: 17px; margin-top: 5%; width: 50%; white-space: wrap;">
+            <div style="font-size: 17px; margin-top: 5%; width: 50%; white-space: wrap; text-align: center;">
                 {{ cropData.effectInfo }}
             </div>
             <div style="margin-top: 5%;">
