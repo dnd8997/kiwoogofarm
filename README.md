@@ -152,3 +152,34 @@ ex) [FE]feat:메인 페이지 로고수정
 
 
 <br />
+
+## 시스템 아키텍처
+
+<br/>
+
+## 서비스 화면
+
+### 마이페이지
+![마이페이지](https://github.com/Sungju-Cho/ssafypractice01/assets/139518254/ea0823f8-678e-4d28-b769-77988de4f133)
+<br/>
+### 농작물 검색
+![농작물 검색_1](https://github.com/Sungju-Cho/ssafypractice01/assets/139518254/2c140445-23f7-434b-bfa0-a08ac59035c8)
+<br/>
+### 농작물 필터링
+![농작물 필터링](https://github.com/Sungju-Cho/ssafypractice01/assets/139518254/8acdef25-683a-436d-9ab7-ad59a4bea3cd)
+<br/>
+### 농작물 디테일
+
+<br/>
+
+### 농작물 추천
+
+<br/>
+
+### 레시피 추천
+
+<br/>
+
+### 내 주변 텃밭
+
+<br/>
