@@ -40,6 +40,11 @@
 
 ### 기능 엿보기
 
+#### 메인페이지
+
+<hr>
+![메인페이지](/uploads/cbc20f0c453630230a3e5af7e77c6e7d/메인페이지.gif)
+
 #### 농작물
 
 <hr>
@@ -54,7 +59,7 @@
 
 ##### 농작물 추천
 
-![농작물추천_실내](/uploads/89e3e9cb37d7a591623f0a2daee1ad0e/농작물추천_실내.gif)
+![농작물추천2.5](/uploads/0b9e927a9fe930e53c65b768e53287fc/농작물추천2.5.gif)
 
 ##### 농작물 상세
 
@@ -215,29 +220,3 @@ ex) [FE]feat:메인 페이지 로고수정
 
 <br/>
 
-## 서비스 화면
-
-### 마이페이지
-![마이페이지](https://github.com/Sungju-Cho/ssafypractice01/assets/139518254/ea0823f8-678e-4d28-b769-77988de4f133)
-<br/>
-### 농작물 검색
-![농작물 검색_1](https://github.com/Sungju-Cho/ssafypractice01/assets/139518254/2c140445-23f7-434b-bfa0-a08ac59035c8)
-<br/>
-### 농작물 필터링
-![농작물 필터링](https://github.com/Sungju-Cho/ssafypractice01/assets/139518254/8acdef25-683a-436d-9ab7-ad59a4bea3cd)
-<br/>
-### 농작물 디테일
-
-<br/>
-
-### 농작물 추천
-
-<br/>
-
-### 레시피 추천
-
-<br/>
-
-### 내 주변 텃밭
-
-<br/>
