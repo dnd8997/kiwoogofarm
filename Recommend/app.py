@@ -229,7 +229,7 @@ def outside_calculate_euclidean_distance(liked_crops, crops):
             euclidean_distances.append((crop, distance))
 
     sorted_distances = sorted(euclidean_distances, key=lambda x: x[1])
-    recommended_crops = [crop for crop, _ in sorted_distances[:10]]
+    recommended_crops = [crop for crop, _ in sorted_distances[:6]]
 
     return recommended_crops
 
