@@ -1,7 +1,11 @@
+FROM bellsoft/liberica-openjdk-alpine:17 AS builder
+WORKDIR /app
+COPY . .
+RUN ./gradlew clean build
+
 FROM bellsoft/liberica-openjdk-alpine:17
-CMD ["./gradlew", "clean", "build"]
-VOLUME /tmp
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} app.jar
+WORKDIR /app
+# kiwoogofarm-0.0.1-SNAPSHOT.jar 파일을 app.jar로 복사
+COPY --from=builder /app/build/libs/kiwoogofarm-0.0.1-SNAPSHOT.jar ./app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
