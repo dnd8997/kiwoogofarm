@@ -2,7 +2,7 @@ import axios from "axios";
 const token = localStorage.getItem("accessToken");
 function localaxios() {
   const instance = axios.create({
-    baseURL: "https://kiwoogofarm-backend.onrender.com/api",
+    baseURL: "https://kiwoogofarm-backend.onrender.com",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
