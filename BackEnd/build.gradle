@@ -36,7 +36,7 @@ dependencies {
 	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	// SQL Driver
-	runtimeOnly "com.mysql:mysql-connector-j"
+	runtimeOnly 'org.postgresql:postgresql'
 
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
